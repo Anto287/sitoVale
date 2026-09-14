@@ -1,0 +1,55 @@
+SITO — VALENTINA BERNARDI, MAESTRA DI SCI A LES ARCS
+====================================================
+
+COME APRIRLO
+  Doppio clic su index.html. Funziona anche offline (le foto sono in assets/).
+  I font vengono caricati da Google Fonts: serve la connessione per vederli.
+
+COME METTERLO ONLINE
+  Caricare l'INTERA cartella "sito" (index.html + assets/) su qualsiasi hosting
+  statico: Netlify, Vercel, GitHub Pages, Altervista, o lo spazio web del dominio.
+  Non serve nessun database ne' backend.
+
+DA PERSONALIZZARE PRIMA DI PUBBLICARE
+  Aprire index.html con un editor di testo e cercare la parola "PERSONALIZZARE".
+  Sono 5 punti:
+
+  1. CONTATTI (sezione "Contatti", cerca "wa.me")
+     - numero WhatsApp:  href="https://wa.me/33000000000"  -> numero reale, senza + e senza spazi
+     - email:            href="mailto:ciao@valentinabernardi.com"  (in 2 punti: link e form)
+     - Instagram:        href="https://instagram.com/"  -> profilo reale
+     - aggiornare anche i testi visibili accanto: "+33 · · · · ·", "ciao@···", "@···"
+
+  2. TARIFFE (sezione "Tariffe")
+     Ogni riga ha <td class="price" data-i18n="onRequest">su richiesta</td>.
+     Per mettere un prezzo reale, sostituire con:  <td class="price">€ 65</td>
+     (togliendo data-i18n, altrimenti la traduzione lo riscrive).
+     Se le tariffe restano riservate, lasciare tutto com'e'.
+
+  3. DIPLOMI / ESPERIENZA (sezione "Chi sono")
+     Le tre voci "[ da inserire ]" vanno sostituite nel blocco <ul class="creds">
+     E ANCHE nel dizionario in fondo al file (cred1, cred2, cred3 per it/fr/en).
+
+  4. RECENSIONI (sezione "Dicono di lei")
+     I tre riquadri sono segnaposto. Sostituire q1/q2/q3 e qa1/qa2/qa3 nel
+     dizionario in fondo al file, per tutte e tre le lingue.
+     Se non ci sono recensioni reali, cancellare l'intera <section id="recensioni">
+     e la voce corrispondente nel menu.
+
+  5. TESTI TRADOTTI
+     Tutti i testi stanno due volte: nell'HTML (versione italiana, quella che si
+     vede se il JavaScript e' disattivato) e nell'oggetto I18N in fondo al file,
+     diviso in it / fr / en. Se si cambia una frase, cambiarla in entrambi i posti.
+
+COME FUNZIONA LA LINGUA
+  Il sito sceglie da solo la lingua del browser (it/fr/en), con l'italiano come
+  ripiego, e ricorda la scelta fatta con i pulsanti IT/FR/EN.
+
+IL FORM CONTATTI
+  Essendo un sito statico non c'e' un server: il pulsante "Invia la richiesta"
+  apre il programma di posta del visitatore con il messaggio gia' compilato.
+  Se si vuole un invio vero, servono servizi tipo Formspree o Netlify Forms.
+
+FOTO
+  In assets/ ci sono le 12 foto ottimizzate per il web (ridotte e compresse).
+  Gli originali restano dove erano, nella cartella SitoVale.

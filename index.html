@@ -1,0 +1,927 @@
+<!doctype html>
+<html lang="it" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Valentina Bernardi — Maestra di sci a Les Arcs</title>
+<meta name="description" content="Valentina Bernardi, maestra di sci a Les Arcs (Savoia). Lezioni private, bambini, gruppi e fuoripista. Italiano, francese, inglese.">
+<meta name="theme-color" content="#0E1826">
+<!-- PERSONALIZZARE (SEO): sostituire www.valentinabernardi.com con il dominio reale, qui e in robots.txt / sitemap.xml -->
+<link rel="canonical" href="https://www.valentinabernardi.com/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:site_name" content="Valentina Bernardi — Maestra di sci">
+<meta property="og:title" content="Valentina Bernardi — Maestra di sci a Les Arcs">
+<meta property="og:description" content="Lezioni private e collettive sulle piste di Les Arcs. Dalla prima curva al fuoripista. Italiano, francese, inglese.">
+<meta property="og:image" content="https://www.valentinabernardi.com/assets/hero-nuvole.jpg">
+<meta property="og:url" content="https://www.valentinabernardi.com/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="it_IT">
+<meta property="og:locale:alternate" content="fr_FR">
+<meta property="og:locale:alternate" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://www.valentinabernardi.com/#valentina",
+      "name": "Valentina Bernardi",
+      "jobTitle": "Maestra di sci",
+      "url": "https://www.valentinabernardi.com/",
+      "image": "https://www.valentinabernardi.com/assets/ritratto-maschera.jpg",
+      "knowsLanguage": ["it", "fr", "en"],
+      "worksFor": { "@id": "https://www.valentinabernardi.com/#attivita" }
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://www.valentinabernardi.com/#attivita",
+      "name": "Valentina Bernardi — Maestra di sci a Les Arcs",
+      "description": "Lezioni di sci private, per bambini, di gruppo e fuoripista a Les Arcs, Savoia.",
+      "url": "https://www.valentinabernardi.com/",
+      "image": "https://www.valentinabernardi.com/assets/hero-nuvole.jpg",
+      "priceRange": "€€",
+      "availableLanguage": ["it", "fr", "en"],
+      "areaServed": {
+        "@type": "Place",
+        "name": "Les Arcs, Bourg-Saint-Maurice, Savoie, France"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Bourg-Saint-Maurice",
+        "addressRegion": "Savoie",
+        "postalCode": "73700",
+        "addressCountry": "FR"
+      },
+      "telephone": "+33000000000",
+      "email": "ciao@valentinabernardi.com",
+      "sameAs": ["https://instagram.com/"],
+      "makesOffer": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Lezione privata di sci" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Lezione di sci per bambini" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Lezione di sci di gruppo" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Accompagnamento fuoripista" } }
+      ]
+    }
+  ]
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* ============================================================
+   Valentina Bernardi — Maestra di sci, Les Arcs
+   Palette: neve in ombra / notte alpina / cobalto / alpenglow
+   Type:    Bodoni Moda (display) + Jost (testo, etichette)
+   ============================================================ */
+
+:root{
+  --ground:#EDF1F6;
+  --ground-2:#E3E9F1;
+  --surface:#FFFFFF;
+  --ink:#0E1826;
+  --ink-soft:#4C5D73;
+  --line:#D4DDE8;
+  --blue:#1B4F8A;
+  --blue-deep:#0F3563;
+  --glow:#B9772F;
+  --band-bg:#0E1826;
+  --band-fg:#EDF1F6;
+  --shadow:0 1px 2px rgba(14,24,38,.05), 0 12px 32px -12px rgba(14,24,38,.18);
+  --shadow-lift:0 2px 4px rgba(14,24,38,.06), 0 26px 50px -18px rgba(14,24,38,.28);
+  --maxw:1240px;
+  --gut:clamp(20px,5vw,64px);
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --display:"Bodoni Moda", "Didot", "Times New Roman", serif;
+  --sans:"Jost", "Futura", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0A1220;
+    --ground-2:#0E1A2B;
+    --surface:#121F31;
+    --ink:#E8EEF5;
+    --ink-soft:#9DAFC4;
+    --line:#22344B;
+    --blue:#7FB0E2;
+    --blue-deep:#A8CBF0;
+    --glow:#DFA060;
+    --band-bg:#060C16;
+    --band-fg:#E8EEF5;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 32px -12px rgba(0,0,0,.6);
+    --shadow-lift:0 2px 4px rgba(0,0,0,.45), 0 26px 50px -18px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0A1220;
+  --ground-2:#0E1A2B;
+  --surface:#121F31;
+  --ink:#E8EEF5;
+  --ink-soft:#9DAFC4;
+  --line:#22344B;
+  --blue:#7FB0E2;
+  --blue-deep:#A8CBF0;
+  --glow:#DFA060;
+  --band-bg:#060C16;
+  --band-fg:#E8EEF5;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 12px 32px -12px rgba(0,0,0,.6);
+  --shadow-lift:0 2px 4px rgba(0,0,0,.45), 0 26px 50px -18px rgba(0,0,0,.7);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--ground);color:var(--ink);
+  font-family:var(--sans);font-weight:300;font-size:17px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:2px}
+::selection{background:var(--blue);color:#fff}
+
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--gut)}
+.section{padding-block:clamp(72px,11vw,140px)}
+
+/* ---------- tipografia ---------- */
+.eyebrow{
+  font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--ink-soft);margin:0 0 18px;
+  display:flex;align-items:center;gap:14px;
+}
+.eyebrow::before{content:"";width:34px;height:1px;background:var(--glow);flex:none}
+h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;margin:0}
+h2{font-size:clamp(30px,4.6vw,56px);line-height:1.08;letter-spacing:-.01em}
+h3{font-size:clamp(20px,2.2vw,26px);line-height:1.2}
+p{margin:0 0 1.1em;max-width:62ch}
+h2+p,h2+.lede{margin-top:clamp(18px,2vw,26px)}
+.lede{font-size:clamp(18px,1.55vw,21px);line-height:1.6;color:var(--ink-soft)}
+.fig{font-variant-numeric:tabular-nums}
+
+.btn{
+  --bg:var(--ink);--fg:var(--ground);
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--sans);font-size:13px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;
+  padding:15px 30px;background:var(--bg);color:var(--fg);border:1px solid var(--bg);
+  border-radius:999px;cursor:pointer;
+  transition:transform .4s var(--ease), background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease);
+}
+.btn:hover{transform:translateY(-2px)}
+.btn--ghost{--bg:transparent;--fg:var(--ink);border-color:var(--line)}
+.btn--ghost:hover{border-color:var(--ink)}
+.btn--light{--bg:#fff;--fg:#0E1826;border-color:#fff}
+.btn--outline-light{--bg:transparent;--fg:#fff;border-color:rgba(255,255,255,.55)}
+.btn--outline-light:hover{border-color:#fff}
+.btn svg{width:14px;height:14px;flex:none}
+
+/* ---------- navigazione ---------- */
+.nav{
+  position:fixed;inset:0 0 auto;z-index:70;
+  display:flex;align-items:center;gap:24px;
+  padding:18px var(--gut);
+  color:#fff;
+  transition:background .45s var(--ease), color .45s var(--ease), box-shadow .45s var(--ease), padding .45s var(--ease);
+}
+.nav.is-stuck{
+  background:color-mix(in srgb, var(--ground) 88%, transparent);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  color:var(--ink);box-shadow:0 1px 0 var(--line);padding-block:12px;
+}
+.brand{display:flex;align-items:baseline;gap:10px;font-family:var(--display);font-size:19px;letter-spacing:.02em;margin-right:auto;white-space:nowrap}
+.brand small{font-family:var(--sans);font-size:10px;letter-spacing:.22em;text-transform:uppercase;opacity:.7}
+.nav-links{display:flex;gap:28px;font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:400}
+.nav-links a{position:relative;padding-block:4px}
+.nav-links a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:1px;background:currentColor;transition:right .45s var(--ease)}
+.nav-links a:hover::after{right:0}
+.lang{display:flex;align-items:center;gap:2px;border:1px solid currentColor;border-radius:999px;padding:3px;opacity:.85}
+.lang button{
+  font:inherit;font-size:11px;letter-spacing:.1em;font-weight:500;text-transform:uppercase;
+  background:none;border:0;color:inherit;cursor:pointer;padding:4px 9px;border-radius:999px;
+  transition:background .3s var(--ease), color .3s var(--ease);
+}
+.lang button[aria-pressed="true"]{background:currentColor}
+.lang button[aria-pressed="true"] span{mix-blend-mode:difference;color:#fff}
+.nav-cta{display:inline-flex}
+.burger{display:none;background:none;border:0;color:inherit;cursor:pointer;padding:8px;margin-right:-8px}
+.burger span{display:block;width:22px;height:1px;background:currentColor;transition:transform .4s var(--ease),opacity .3s}
+.burger span+span{margin-top:6px}
+.nav.is-open .burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav.is-open .burger span:nth-child(2){opacity:0}
+.nav.is-open .burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+@media (max-width:900px){
+  .nav-links{
+    position:fixed;inset:0;background:var(--ground);color:var(--ink);
+    flex-direction:column;justify-content:center;align-items:center;gap:26px;
+    font-size:15px;
+    opacity:0;visibility:hidden;transition:opacity .4s var(--ease),visibility .4s;
+  }
+  .nav.is-open .nav-links{opacity:1;visibility:visible}
+  .burger{display:block;order:3}
+  .nav-cta{display:none}
+}
+@media (max-width:520px){
+  .brand{font-size:17px;gap:8px}
+  .brand small{display:none}
+}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:min(92vh,880px);display:flex;align-items:flex-end;overflow:hidden;color:#fff;isolation:isolate}
+.hero-media{position:absolute;inset:-8% 0;z-index:-2}
+.hero-media img{width:100%;height:100%;object-fit:cover;object-position:center 45%;transform:scale(1.12);animation:heroZoom 2.6s var(--ease) forwards}
+@keyframes heroZoom{to{transform:scale(1)}}
+.hero::after{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(180deg,rgba(6,14,26,.55) 0%,rgba(6,14,26,.12) 32%,rgba(6,14,26,.28) 62%,rgba(6,14,26,.82) 100%);
+}
+#snow{position:absolute;inset:0;z-index:-1;pointer-events:none}
+.hero-inner{width:100%;max-width:var(--maxw);margin-inline:auto;padding:150px var(--gut) clamp(34px,5vw,60px)}
+.hero .eyebrow{color:rgba(255,255,255,.85)}
+.hero .eyebrow::before{background:var(--glow)}
+.hero h1{
+  font-size:clamp(46px,10.5vw,124px);line-height:.94;letter-spacing:-.025em;
+  margin:0 0 22px;
+}
+.hero h1 .ln{display:block;overflow:hidden}
+.hero h1 .ln i{display:block;font-style:normal;transform:translateY(105%);animation:rise 1.1s var(--ease) forwards}
+.hero h1 .ln:nth-child(2) i{animation-delay:.12s}
+.hero h1 em{font-style:italic;font-weight:400}
+@keyframes rise{to{transform:translateY(0)}}
+.hero-lede{max-width:46ch;font-size:clamp(16px,1.45vw,19px);color:rgba(255,255,255,.88);margin-bottom:30px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px}
+.hero-fade{opacity:0;animation:fadeUp .9s var(--ease) .45s forwards}
+.hero-fade.d2{animation-delay:.6s}
+.hero-fade.d3{animation-delay:.75s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+/* striscia dati */
+.facts{border-top:1px solid var(--line);background:var(--ground)}
+.facts .wrap{display:grid;grid-template-columns:repeat(3,1fr)}
+.fact{padding:clamp(26px,3.2vw,40px) 0;position:relative}
+.fact+.fact{padding-left:clamp(20px,3vw,44px)}
+.fact+.fact::before{content:"";position:absolute;left:0;top:clamp(26px,3.2vw,40px);bottom:clamp(26px,3.2vw,40px);width:1px;background:var(--line)}
+.fact b{display:block;font-family:var(--display);font-weight:400;font-size:clamp(26px,3.6vw,42px);line-height:1;letter-spacing:-.01em}
+.fact span{display:block;margin-top:9px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
+@media (max-width:700px){
+  .facts .wrap{grid-template-columns:1fr}
+  .fact+.fact{padding-left:0;border-top:1px solid var(--line)}
+  .fact+.fact::before{display:none}
+  .fact{padding-block:22px}
+}
+
+/* ---------- split (chi sono / les arcs) ---------- */
+.split{display:grid;gap:clamp(32px,5vw,74px);align-items:center;grid-template-columns:1fr 1fr}
+.split--rev .split-media{order:2}
+@media (max-width:860px){.split{grid-template-columns:1fr}.split--rev .split-media{order:0}}
+
+.stack{display:grid;gap:18px;grid-template-columns:1.35fr 1fr;align-items:end}
+.frame{position:relative;overflow:hidden;border-radius:2px;background:var(--ground-2)}
+.frame img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.frame:hover img{transform:scale(1.04)}
+.frame--tall{aspect-ratio:3/4}
+.frame--sq{aspect-ratio:1/1}
+.frame--wide{aspect-ratio:4/3}
+
+.creds{list-style:none;margin:30px 0 0;padding:26px 0 0;border-top:1px solid var(--line);display:grid;gap:12px}
+.creds li{display:flex;gap:14px;align-items:flex-start;font-size:15px;color:var(--ink-soft)}
+.creds li::before{content:"";width:6px;height:6px;margin-top:9px;flex:none;background:var(--glow);transform:rotate(45deg)}
+
+/* ---------- lezioni ---------- */
+.cards{display:grid;gap:clamp(18px,2.4vw,30px);grid-template-columns:repeat(4,1fr);margin-top:clamp(36px,5vw,60px)}
+@media (max-width:1040px){.cards{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.cards{grid-template-columns:1fr}}
+.card{
+  background:var(--surface);border:1px solid var(--line);border-radius:3px;overflow:hidden;
+  display:flex;flex-direction:column;
+  transition:transform .55s var(--ease), box-shadow .55s var(--ease), border-color .55s var(--ease);
+}
+.card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lift);border-color:transparent}
+.card-img{aspect-ratio:4/3;overflow:hidden;background:var(--ground-2)}
+.card-img img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s var(--ease)}
+.card:hover .card-img img{transform:scale(1.06)}
+.card-body{padding:24px 22px 26px;display:flex;flex-direction:column;gap:10px;flex:1}
+.card h3{font-size:22px}
+.card p{font-size:15px;color:var(--ink-soft);margin:0}
+.card .meta{
+  margin-top:auto;padding-top:16px;border-top:1px solid var(--line);
+  font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);
+  display:flex;justify-content:space-between;gap:12px;
+}
+
+/* ---------- tariffe ---------- */
+.rates{background:var(--ground-2)}
+.rates-head{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end;justify-content:space-between}
+.table-scroll{overflow-x:auto;margin-top:clamp(30px,4vw,48px)}
+table{width:100%;border-collapse:collapse;min-width:540px;font-size:15px}
+th,td{text-align:left;padding:18px 16px;border-bottom:1px solid var(--line);vertical-align:baseline}
+th{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);font-weight:500;padding-bottom:12px}
+td:first-child{font-family:var(--display);font-size:19px;padding-right:24px}
+td:last-child,th:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.price{color:var(--glow);letter-spacing:.06em;font-weight:400}
+.rates-note{margin-top:22px;font-size:14px;color:var(--ink-soft);max-width:60ch}
+
+/* ---------- les arcs ---------- */
+.arcs{position:relative}
+.arcs .stack{grid-template-columns:1fr 1.2fr}
+.alt{list-style:none;margin:28px 0 0;padding:0;display:grid;gap:0}
+.alt li{display:flex;gap:18px;align-items:baseline;padding:13px 0;border-top:1px solid var(--line);font-size:15px}
+.alt li b{font-family:var(--display);font-size:18px;font-variant-numeric:tabular-nums;min-width:96px}
+.alt li span{color:var(--ink-soft)}
+
+/* ---------- gallery ---------- */
+.gallery{columns:3;column-gap:clamp(12px,1.6vw,20px);margin-top:clamp(36px,5vw,58px)}
+@media (max-width:860px){.gallery{columns:2}}
+@media (max-width:480px){.gallery{columns:1}}
+.gallery figure{margin:0 0 clamp(12px,1.6vw,20px);break-inside:avoid;position:relative;overflow:hidden;cursor:zoom-in;background:var(--ground-2);border-radius:2px}
+.gallery img{width:100%;transition:transform 1.1s var(--ease), filter .6s var(--ease)}
+.gallery figure:hover img{transform:scale(1.045)}
+.gallery figure::after{
+  content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(6,14,26,.35));
+  opacity:0;transition:opacity .5s var(--ease);
+}
+.gallery figure:hover::after{opacity:1}
+
+.lightbox{
+  position:fixed;inset:0;z-index:120;display:grid;place-items:center;padding:clamp(16px,4vw,48px);
+  background:rgba(6,12,22,.94);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  opacity:0;visibility:hidden;transition:opacity .4s var(--ease),visibility .4s;
+}
+.lightbox.is-on{opacity:1;visibility:visible}
+.lightbox img{max-width:100%;max-height:86vh;object-fit:contain;transform:scale(.97);transition:transform .5s var(--ease);border-radius:2px}
+.lightbox.is-on img{transform:scale(1)}
+.lightbox button{
+  position:absolute;top:clamp(14px,3vw,28px);right:clamp(14px,3vw,28px);
+  background:none;border:1px solid rgba(255,255,255,.4);color:#fff;border-radius:999px;
+  width:44px;height:44px;font-size:20px;line-height:1;cursor:pointer;transition:background .3s
+}
+.lightbox button:hover{background:rgba(255,255,255,.14)}
+
+/* ---------- testimonianze ---------- */
+.quotes{display:grid;gap:clamp(18px,2.4vw,28px);grid-template-columns:repeat(3,1fr);margin-top:clamp(36px,5vw,56px)}
+@media (max-width:900px){.quotes{grid-template-columns:1fr}}
+.quote{padding:32px 30px;background:var(--surface);border:1px solid var(--line);border-radius:3px;display:flex;flex-direction:column;gap:18px}
+.quote p{font-family:var(--display);font-size:19px;line-height:1.45;margin:0;color:var(--ink)}
+.quote footer{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);margin-top:auto}
+.quote .mark{font-family:var(--display);font-size:42px;line-height:.6;color:var(--glow)}
+
+/* ---------- contatti ---------- */
+.contact{background:var(--band-bg);color:var(--band-fg);position:relative;overflow:hidden}
+.contact h2{color:var(--band-fg)}
+.contact .eyebrow{color:color-mix(in srgb, var(--band-fg) 72%, transparent)}
+.contact .lede{color:color-mix(in srgb, var(--band-fg) 80%, transparent)}
+.contact-grid{display:grid;gap:clamp(36px,5vw,72px);grid-template-columns:.9fr 1.1fr;align-items:start}
+@media (max-width:900px){.contact-grid{grid-template-columns:1fr}}
+.channels{list-style:none;margin:30px 0 0;padding:0;display:grid;gap:0}
+.channels li{border-top:1px solid color-mix(in srgb, var(--band-fg) 22%, transparent)}
+.channels a{display:flex;align-items:center;gap:16px;padding:18px 0;transition:padding-left .4s var(--ease),opacity .3s}
+.channels a:hover{padding-left:10px}
+.channels svg{width:18px;height:18px;flex:none;opacity:.7}
+.channels b{font-weight:400;font-size:17px}
+.channels span{margin-left:auto;font-size:11px;letter-spacing:.18em;text-transform:uppercase;opacity:.6}
+
+form{display:grid;gap:16px}
+.row{display:grid;gap:16px;grid-template-columns:1fr 1fr}
+@media (max-width:560px){.row{grid-template-columns:1fr}}
+label{display:grid;gap:8px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:color-mix(in srgb, var(--band-fg) 66%, transparent)}
+input,select,textarea{
+  font:inherit;font-size:16px;color:var(--band-fg);
+  background:transparent;border:0;border-bottom:1px solid color-mix(in srgb, var(--band-fg) 30%, transparent);
+  padding:11px 0;border-radius:0;transition:border-color .3s var(--ease);
+}
+input::placeholder,textarea::placeholder{color:color-mix(in srgb, var(--band-fg) 38%, transparent)}
+input:focus,select:focus,textarea:focus{outline:none;border-bottom-color:var(--band-fg)}
+select option{color:#0E1826;background:#fff}
+textarea{resize:vertical;min-height:92px}
+form .btn{justify-self:start;margin-top:8px}
+
+/* ---------- footer ---------- */
+.footer{background:var(--band-bg);color:color-mix(in srgb, var(--band-fg) 58%, transparent);border-top:1px solid color-mix(in srgb, var(--band-fg) 14%, transparent)}
+.footer .wrap{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center;padding-block:28px;font-size:12px;letter-spacing:.06em}
+.footer a:hover{color:var(--band-fg)}
+
+/* ---------- reveal ---------- */
+@media (prefers-reduced-motion: no-preference){
+  html.js .reveal{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease), transform .9s var(--ease)}
+  html.js .reveal.in{opacity:1;transform:none}
+  html.js .reveal.d1{transition-delay:.09s}
+  html.js .reveal.d2{transition-delay:.18s}
+  html.js .reveal.d3{transition-delay:.27s}
+}
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <a class="brand" href="#top"><span>Valentina&nbsp;Bernardi</span><small data-i18n="brandRole">Maestra di sci</small></a>
+  <div class="nav-links" id="navlinks">
+    <a href="#chi" data-i18n="navAbout">Chi sono</a>
+    <a href="#lezioni" data-i18n="navLessons">Lezioni</a>
+    <a href="#tariffe" data-i18n="navRates">Tariffe</a>
+    <a href="#lesarcs" data-i18n="navResort">Les Arcs</a>
+    <a href="#galleria" data-i18n="navGallery">Galleria</a>
+    <a href="#contatti" data-i18n="navContact">Contatti</a>
+  </div>
+  <div class="lang" role="group" aria-label="Lingua / Langue / Language">
+    <button type="button" data-lang="it" aria-pressed="true"><span>IT</span></button>
+    <button type="button" data-lang="fr" aria-pressed="false"><span>FR</span></button>
+    <button type="button" data-lang="en" aria-pressed="false"><span>EN</span></button>
+  </div>
+  <a class="btn btn--light nav-cta" href="#contatti" data-i18n="navBook">Prenota</a>
+  <button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="hero-media"><img src="assets/hero-nuvole.jpg" alt="Sciatori davanti al mare di nuvole sulla valle della Tarentaise" fetchpriority="high"></div>
+  <canvas id="snow" aria-hidden="true"></canvas>
+  <div class="hero-inner">
+    <p class="eyebrow hero-fade" data-i18n="heroEyebrow">Maestra di sci — Les Arcs, Savoia</p>
+    <h1><span class="ln"><i>Valentina</i></span><span class="ln"><i><em>Bernardi</em></i></span></h1>
+    <p class="hero-lede hero-fade d2" data-i18n="heroLede">Lezioni private e collettive sulle piste di Les Arcs. Dalla prima curva al fuoripista, con il tempo e l'attenzione che ogni sciatore merita.</p>
+    <div class="hero-actions hero-fade d3">
+      <a class="btn btn--light" href="#contatti"><span data-i18n="heroCta1">Prenota una lezione</span></a>
+      <a class="btn btn--outline-light" href="#lezioni"><span data-i18n="heroCta2">Scopri le lezioni</span></a>
+    </div>
+  </div>
+</header>
+
+<!-- ============ DATI ============ -->
+<section class="facts">
+  <div class="wrap">
+    <div class="fact reveal"><b class="fig">425 km</b><span data-i18n="fact1">di piste — Paradiski</span></div>
+    <div class="fact reveal d1"><b class="fig">1 600 — 3 226 m</b><span data-i18n="fact2">dal bosco all'Aiguille Rouge</span></div>
+    <div class="fact reveal d2"><b>IT · FR · EN</b><span data-i18n="fact3">lingue parlate in lezione</span></div>
+  </div>
+</section>
+
+<!-- ============ CHI SONO ============ -->
+<section class="section" id="chi">
+  <div class="wrap split">
+    <div class="split-media reveal">
+      <div class="stack">
+        <div class="frame frame--tall"><img src="assets/ritratto-maschera.jpg" alt="Valentina sulla pista, maschera sollevata" loading="lazy"></div>
+        <div class="frame frame--sq"><img src="assets/ritratto-bn.jpg" alt="Ritratto in bianco e nero durante una nevicata" loading="lazy"></div>
+      </div>
+    </div>
+    <div class="reveal d1">
+      <p class="eyebrow" data-i18n="aboutEyebrow">Chi sono</p>
+      <h2 data-i18n="aboutTitle">Sciare bene è, prima di tutto, una questione di fiducia.</h2>
+      <p class="lede" data-i18n="aboutP1">Insegno sci a Les Arcs, tra il bosco di Arc 1600 e la cresta dell'Aiguille Rouge. Lavoro con principianti assoluti, bambini alla prima discesa e sciatori esperti che vogliono pulire la tecnica o uscire dalle piste battute.</p>
+      <p data-i18n="aboutP2">Il metodo è semplice: poche correzioni per volta, molto tempo sugli sci e la montagna spiegata mentre la si scia — dove batte il sole al mattino, quando la neve gira, quale pista prendere alle tre del pomeriggio. Ogni lezione parte da dove sei: nessun programma standard, nessuna fretta.</p>
+      <!-- PERSONALIZZARE: sostituire con diplomi, anni di esperienza e lingue reali -->
+      <ul class="creds">
+        <li data-i18n="cred1">Diploma di maestra di sci — [ da inserire ]</li>
+        <li data-i18n="cred2">Stagioni di insegnamento a Les Arcs — [ da inserire ]</li>
+        <li data-i18n="cred3">Lezioni in italiano, francese e inglese</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LEZIONI ============ -->
+<section class="section" id="lezioni" style="background:var(--ground-2)">
+  <div class="wrap">
+    <p class="eyebrow reveal" data-i18n="lessonsEyebrow">Le lezioni</p>
+    <h2 class="reveal" style="max-width:20ch" data-i18n="lessonsTitle">Quattro modi di scendere. Sempre lo stesso principio.</h2>
+    <div class="cards">
+      <article class="card reveal">
+        <div class="card-img"><img src="assets/tecnica-curva.jpg" alt="Curva condotta su pista battuta" loading="lazy"></div>
+        <div class="card-body">
+          <h3 data-i18n="l1t">Lezione privata</h3>
+          <p data-i18n="l1d">Solo tu e la montagna. Il formato più efficace: ogni minuto è tuo, la progressione è costruita sul tuo livello e sulle condizioni del giorno.</p>
+          <div class="meta"><span data-i18n="l1m1">2 h · mezza giornata · giornata</span><span data-i18n="l1m2">1 persona</span></div>
+        </div>
+      </article>
+      <article class="card reveal d1">
+        <div class="card-img"><img src="assets/lezione-bambini.jpg" alt="Lezione a una bambina alle prime curve" loading="lazy"></div>
+        <div class="card-body">
+          <h3 data-i18n="l2t">Bambini</h3>
+          <p data-i18n="l2d">Dai 4 anni. Si comincia con il gioco e la sicurezza, si finisce con le prime curve vere. Pause al momento giusto e genitori sempre aggiornati.</p>
+          <div class="meta"><span data-i18n="l2m1">1 h 30 · 2 h</span><span data-i18n="l2m2">dai 4 anni</span></div>
+        </div>
+      </article>
+      <article class="card reveal d2">
+        <div class="card-img"><img src="assets/lezione-gruppo.jpg" alt="Lezione di gruppo su pista larga" loading="lazy"></div>
+        <div class="card-body">
+          <h3 data-i18n="l3t">Gruppo e famiglia</h3>
+          <p data-i18n="l3d">Fino a sei persone di livello simile. Amici o famiglia: si scia insieme, ma ognuno porta a casa la propria correzione.</p>
+          <div class="meta"><span data-i18n="l3m1">2 h · mezza giornata</span><span data-i18n="l3m2">2 — 6 persone</span></div>
+        </div>
+      </article>
+      <article class="card reveal d3">
+        <div class="card-img"><img src="assets/freeride.jpg" alt="Traversata fuoripista su neve fresca" loading="lazy"></div>
+        <div class="card-body">
+          <h3 data-i18n="l4t">Fuoripista</h3>
+          <p data-i18n="l4d">Neve fresca, lettura del pendio e nozioni di sicurezza: ARVA, pala, sonda. Itinerario scelto la mattina stessa, in base al bollettino e alle condizioni.</p>
+          <div class="meta"><span data-i18n="l4m1">mezza giornata · giornata</span><span data-i18n="l4m2">livello autonomo</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TARIFFE ============ -->
+<section class="section rates" id="tariffe">
+  <div class="wrap">
+    <div class="rates-head">
+      <div class="reveal">
+        <p class="eyebrow" data-i18n="ratesEyebrow">Tariffe</p>
+        <h2 data-i18n="ratesTitle">Chiare, senza sorprese.</h2>
+      </div>
+      <a class="btn btn--ghost reveal d1" href="#contatti"><span data-i18n="ratesCta">Richiedi il preventivo</span></a>
+    </div>
+    <div class="table-scroll reveal d1">
+      <!-- PERSONALIZZARE: sostituire "su richiesta" con le tariffe reali, es. <td class="price fig">€ 65</td> -->
+      <table>
+        <thead>
+          <tr>
+            <th data-i18n="thFormat">Formato</th>
+            <th data-i18n="thDuration">Durata</th>
+            <th data-i18n="thPeople">Persone</th>
+            <th data-i18n="thPrice">Tariffa</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td data-i18n="l1t">Lezione privata</td><td data-i18n="r1d">2 ore</td><td class="fig">1</td><td class="price" data-i18n="onRequest">su richiesta</td></tr>
+          <tr><td data-i18n="r2f">Privata — mezza giornata</td><td data-i18n="r2d">3 ore</td><td class="fig">1</td><td class="price" data-i18n="onRequest">su richiesta</td></tr>
+          <tr><td data-i18n="l2t">Bambini</td><td data-i18n="r3d">1 ora 30</td><td class="fig">1</td><td class="price" data-i18n="onRequest">su richiesta</td></tr>
+          <tr><td data-i18n="l3t">Gruppo e famiglia</td><td data-i18n="r4d">2 ore</td><td class="fig">2 — 6</td><td class="price" data-i18n="onRequest">su richiesta</td></tr>
+          <tr><td data-i18n="l4t">Fuoripista</td><td data-i18n="r5d">mezza giornata</td><td class="fig">1 — 4</td><td class="price" data-i18n="onRequest">su richiesta</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="rates-note reveal" data-i18n="ratesNote">Le tariffe non comprendono skipass e noleggio attrezzatura. Per il fuoripista, il materiale di sicurezza può essere fornito su richiesta.</p>
+  </div>
+</section>
+
+<!-- ============ LES ARCS ============ -->
+<section class="section arcs" id="lesarcs">
+  <div class="wrap split split--rev">
+    <div class="split-media reveal">
+      <div class="stack">
+        <div class="frame frame--sq"><img src="assets/seggiovia.jpg" alt="Salita in seggiovia sopra Les Arcs" loading="lazy"></div>
+        <div class="frame frame--tall"><img src="assets/panorama-cielo.jpg" alt="Sci in spalla sotto il cielo della Tarentaise" loading="lazy"></div>
+      </div>
+    </div>
+    <div class="reveal d1">
+      <p class="eyebrow" data-i18n="resortEyebrow">Il comprensorio</p>
+      <h2 data-i18n="resortTitle">Les Arcs, dalla foresta al ghiacciaio.</h2>
+      <p class="lede" data-i18n="resortP1">Quattro villaggi scalati sul versante sopra Bourg-Saint-Maurice, in Savoia. Dal fondovalle il funicolare porta ad Arc 1600 in sette minuti; dall'altra parte del domaine, il Vanoise Express collega Les Arcs a La Plagne.</p>
+      <p data-i18n="resortP2">È un comprensorio che permette di cambiare montagna nell'arco della stessa giornata: pendii nel bosco al mattino, versanti d'alta quota nel pomeriggio quando la neve si assesta.</p>
+      <ul class="alt">
+        <li><b class="fig">1 600 m</b><span data-i18n="alt1">Arc 1600 — bosco e piste di rientro</span></li>
+        <li><b class="fig">1 950 m</b><span data-i18n="alt2">Arc 1950 e 2000 — cuore del comprensorio</span></li>
+        <li><b class="fig">3 226 m</b><span data-i18n="alt3">Aiguille Rouge — la discesa più lunga</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALLERIA ============ -->
+<section class="section" id="galleria" style="background:var(--ground-2)">
+  <div class="wrap">
+    <p class="eyebrow reveal" data-i18n="galleryEyebrow">Galleria</p>
+    <h2 class="reveal" style="max-width:18ch" data-i18n="galleryTitle">Giornate di lavoro, viste dall'alto.</h2>
+    <div class="gallery" id="gallery">
+      <figure class="reveal"><img src="assets/ritratto-sorriso.jpg" alt="Sorriso in cima, con il comprensorio alle spalle" loading="lazy"></figure>
+      <figure class="reveal d1"><img src="assets/bambina-pista.jpg" alt="Discesa affiancata con una bambina" loading="lazy"></figure>
+      <figure class="reveal d2"><img src="assets/gallery-duo.jpg" alt="Due sciatori in posa davanti alle cime" loading="lazy"></figure>
+      <figure class="reveal"><img src="assets/hero-nuvole.jpg" alt="Mare di nuvole sulla valle" loading="lazy"></figure>
+      <figure class="reveal d1"><img src="assets/tecnica-curva.jpg" alt="Curva condotta, sci sulla lamina" loading="lazy"></figure>
+      <figure class="reveal d2"><img src="assets/lezione-gruppo.jpg" alt="Gruppo con le braccia alzate a fine lezione" loading="lazy"></figure>
+      <figure class="reveal"><img src="assets/freeride.jpg" alt="Traversata su neve vergine" loading="lazy"></figure>
+      <figure class="reveal d1"><img src="assets/seggiovia.jpg" alt="Seggiovia sopra le piste" loading="lazy"></figure>
+      <figure class="reveal d2"><img src="assets/lezione-bambini.jpg" alt="Prima lezione a una bambina" loading="lazy"></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIANZE ============ -->
+<section class="section" id="recensioni">
+  <div class="wrap">
+    <p class="eyebrow reveal" data-i18n="quotesEyebrow">Dicono di lei</p>
+    <h2 class="reveal" style="max-width:16ch" data-i18n="quotesTitle">Le parole di chi ha sciato con lei.</h2>
+    <!-- PERSONALIZZARE: sostituire i segnaposto con recensioni reali. Se non ci sono, eliminare l'intera sezione. -->
+    <div class="quotes">
+      <blockquote class="quote reveal"><span class="mark">“</span><p data-i18n="q1">[ Inserire qui la recensione di un cliente ]</p><footer data-i18n="qa1">[ Nome — Città, Paese ]</footer></blockquote>
+      <blockquote class="quote reveal d1"><span class="mark">“</span><p data-i18n="q2">[ Inserire qui la recensione di un cliente ]</p><footer data-i18n="qa2">[ Nome — Città, Paese ]</footer></blockquote>
+      <blockquote class="quote reveal d2"><span class="mark">“</span><p data-i18n="q3">[ Inserire qui la recensione di un cliente ]</p><footer data-i18n="qa3">[ Nome — Città, Paese ]</footer></blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTATTI ============ -->
+<section class="section contact" id="contatti">
+  <div class="wrap contact-grid">
+    <div class="reveal">
+      <p class="eyebrow" data-i18n="contactEyebrow">Contatti</p>
+      <h2 data-i18n="contactTitle">Scrivimi: organizziamo la tua settimana sulla neve.</h2>
+      <p class="lede" data-i18n="contactLede">Dimmi date, livello e con chi sciate. Rispondo con la disponibilità e una proposta di programma.</p>
+      <!-- PERSONALIZZARE: inserire numero, email e profilo Instagram reali -->
+      <ul class="channels">
+        <li><a href="https://wa.me/33000000000" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 12a8 8 0 0 1-11.9 7L4 20l1.1-4A8 8 0 1 1 20 12z"/></svg>
+          <b>WhatsApp</b><span>+33 · · · · ·</span></a></li>
+        <li><a href="mailto:ciao@valentinabernardi.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          <b>Email</b><span>ciao@···</span></a></li>
+        <li><a href="https://instagram.com/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
+          <b>Instagram</b><span>@···</span></a></li>
+        <li><a href="https://maps.google.com/?q=Les+Arcs+Savoie" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          <b>Les Arcs</b><span data-i18n="chLoc">Savoia, Francia</span></a></li>
+      </ul>
+    </div>
+    <form class="reveal d1" id="contactForm">
+      <div class="row">
+        <label for="f-name"><span data-i18n="fName">Nome</span><input id="f-name" name="name" type="text" autocomplete="name" required></label>
+        <label for="f-mail"><span data-i18n="fMail">Email</span><input id="f-mail" name="email" type="email" autocomplete="email" required></label>
+      </div>
+      <div class="row">
+        <label for="f-dates"><span data-i18n="fDates">Date</span><input id="f-dates" name="dates" type="text" data-ph="phDates" placeholder="12 — 18 / 02"></label>
+        <label for="f-level"><span data-i18n="fLevel">Livello</span>
+          <select id="f-level" name="level">
+            <option data-i18n="lv1">Principiante</option>
+            <option data-i18n="lv2">Intermedio</option>
+            <option data-i18n="lv3">Avanzato</option>
+            <option data-i18n="lv4">Fuoripista</option>
+          </select>
+        </label>
+      </div>
+      <label for="f-msg"><span data-i18n="fMsg">Messaggio</span><textarea id="f-msg" name="message" rows="3" data-ph="phMsg" placeholder="Siamo in due, vorremmo due mattine…"></textarea></label>
+      <button class="btn btn--light" type="submit"><span data-i18n="fSend">Invia la richiesta</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h13m-5-6 6 6-6 6"/></svg>
+      </button>
+    </form>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <span>© <span id="year">2026</span> Valentina Bernardi — <span data-i18n="footRole">Maestra di sci, Les Arcs</span></span>
+    <a href="#top" data-i18n="footTop">Torna su ↑</a>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Foto">
+  <button type="button" id="lbClose" aria-label="Chiudi">×</button>
+  <img src="" alt="">
+</div>
+
+<script>
+document.documentElement.classList.remove('no-js');
+document.documentElement.classList.add('js');
+
+/* ---------------- i18n ---------------- */
+const I18N = {
+ it:{
+  brandRole:"Maestra di sci", navAbout:"Chi sono", navLessons:"Lezioni", navRates:"Tariffe", navResort:"Les Arcs", navGallery:"Galleria", navContact:"Contatti", navBook:"Prenota",
+  heroEyebrow:"Maestra di sci — Les Arcs, Savoia",
+  heroLede:"Lezioni private e collettive sulle piste di Les Arcs. Dalla prima curva al fuoripista, con il tempo e l'attenzione che ogni sciatore merita.",
+  heroCta1:"Prenota una lezione", heroCta2:"Scopri le lezioni",
+  fact1:"di piste — Paradiski", fact2:"dal bosco all'Aiguille Rouge", fact3:"lingue parlate in lezione",
+  aboutEyebrow:"Chi sono",
+  aboutTitle:"Sciare bene è, prima di tutto, una questione di fiducia.",
+  aboutP1:"Insegno sci a Les Arcs, tra il bosco di Arc 1600 e la cresta dell'Aiguille Rouge. Lavoro con principianti assoluti, bambini alla prima discesa e sciatori esperti che vogliono pulire la tecnica o uscire dalle piste battute.",
+  aboutP2:"Il metodo è semplice: poche correzioni per volta, molto tempo sugli sci e la montagna spiegata mentre la si scia — dove batte il sole al mattino, quando la neve gira, quale pista prendere alle tre del pomeriggio. Ogni lezione parte da dove sei: nessun programma standard, nessuna fretta.",
+  cred1:"Diploma di maestra di sci — [ da inserire ]", cred2:"Stagioni di insegnamento a Les Arcs — [ da inserire ]", cred3:"Lezioni in italiano, francese e inglese",
+  lessonsEyebrow:"Le lezioni", lessonsTitle:"Quattro modi di scendere. Sempre lo stesso principio.",
+  l1t:"Lezione privata", l1d:"Solo tu e la montagna. Il formato più efficace: ogni minuto è tuo, la progressione è costruita sul tuo livello e sulle condizioni del giorno.", l1m1:"2 h · mezza giornata · giornata", l1m2:"1 persona",
+  l2t:"Bambini", l2d:"Dai 4 anni. Si comincia con il gioco e la sicurezza, si finisce con le prime curve vere. Pause al momento giusto e genitori sempre aggiornati.", l2m1:"1 h 30 · 2 h", l2m2:"dai 4 anni",
+  l3t:"Gruppo e famiglia", l3d:"Fino a sei persone di livello simile. Amici o famiglia: si scia insieme, ma ognuno porta a casa la propria correzione.", l3m1:"2 h · mezza giornata", l3m2:"2 — 6 persone",
+  l4t:"Fuoripista", l4d:"Neve fresca, lettura del pendio e nozioni di sicurezza: ARVA, pala, sonda. Itinerario scelto la mattina stessa, in base al bollettino e alle condizioni.", l4m1:"mezza giornata · giornata", l4m2:"livello autonomo",
+  ratesEyebrow:"Tariffe", ratesTitle:"Chiare, senza sorprese.", ratesCta:"Richiedi il preventivo",
+  thFormat:"Formato", thDuration:"Durata", thPeople:"Persone", thPrice:"Tariffa", onRequest:"su richiesta",
+  r1d:"2 ore", r2f:"Privata — mezza giornata", r2d:"3 ore", r3d:"1 ora 30", r4d:"2 ore", r5d:"mezza giornata",
+  ratesNote:"Le tariffe non comprendono skipass e noleggio attrezzatura. Per il fuoripista, il materiale di sicurezza può essere fornito su richiesta.",
+  resortEyebrow:"Il comprensorio", resortTitle:"Les Arcs, dalla foresta al ghiacciaio.",
+  resortP1:"Quattro villaggi scalati sul versante sopra Bourg-Saint-Maurice, in Savoia. Dal fondovalle il funicolare porta ad Arc 1600 in sette minuti; dall'altra parte del domaine, il Vanoise Express collega Les Arcs a La Plagne.",
+  resortP2:"È un comprensorio che permette di cambiare montagna nell'arco della stessa giornata: pendii nel bosco al mattino, versanti d'alta quota nel pomeriggio quando la neve si assesta.",
+  alt1:"Arc 1600 — bosco e piste di rientro", alt2:"Arc 1950 e 2000 — cuore del comprensorio", alt3:"Aiguille Rouge — la discesa più lunga",
+  galleryEyebrow:"Galleria", galleryTitle:"Giornate di lavoro, viste dall'alto.",
+  quotesEyebrow:"Dicono di lei", quotesTitle:"Le parole di chi ha sciato con lei.",
+  q1:"[ Inserire qui la recensione di un cliente ]", q2:"[ Inserire qui la recensione di un cliente ]", q3:"[ Inserire qui la recensione di un cliente ]",
+  qa1:"[ Nome — Città, Paese ]", qa2:"[ Nome — Città, Paese ]", qa3:"[ Nome — Città, Paese ]",
+  contactEyebrow:"Contatti", contactTitle:"Scrivimi: organizziamo la tua settimana sulla neve.",
+  contactLede:"Dimmi date, livello e con chi sciate. Rispondo con la disponibilità e una proposta di programma.",
+  chLoc:"Savoia, Francia",
+  fName:"Nome", fMail:"Email", fDates:"Date", fLevel:"Livello", fMsg:"Messaggio", fSend:"Invia la richiesta",
+  lv1:"Principiante", lv2:"Intermedio", lv3:"Avanzato", lv4:"Fuoripista",
+  phDates:"12 — 18 / 02", phMsg:"Siamo in due, vorremmo due mattine…",
+  mailSubject:"Richiesta lezione di sci — Les Arcs",
+  footRole:"Maestra di sci, Les Arcs", footTop:"Torna su ↑"
+ },
+ fr:{
+  brandRole:"Monitrice de ski", navAbout:"À propos", navLessons:"Cours", navRates:"Tarifs", navResort:"Les Arcs", navGallery:"Galerie", navContact:"Contact", navBook:"Réserver",
+  heroEyebrow:"Monitrice de ski — Les Arcs, Savoie",
+  heroLede:"Cours particuliers et collectifs sur les pistes des Arcs. Du premier virage au hors-piste, avec le temps et l'attention que chaque skieur mérite.",
+  heroCta1:"Réserver un cours", heroCta2:"Voir les cours",
+  fact1:"de pistes — Paradiski", fact2:"de la forêt à l'Aiguille Rouge", fact3:"langues parlées en cours",
+  aboutEyebrow:"À propos",
+  aboutTitle:"Bien skier, c'est d'abord une question de confiance.",
+  aboutP1:"J'enseigne le ski aux Arcs, entre la forêt d'Arc 1600 et l'arête de l'Aiguille Rouge. J'accompagne des débutants complets, des enfants à leur première descente et des skieurs confirmés qui veulent affiner leur technique ou sortir des pistes damées.",
+  aboutP2:"La méthode est simple : peu de corrections à la fois, beaucoup de temps sur les skis et la montagne expliquée en la skiant — où le soleil tape le matin, quand la neige tourne, quelle piste prendre à quinze heures. Chaque cours part d'où vous en êtes : aucun programme standard, aucune précipitation.",
+  cred1:"Diplôme de monitrice de ski — [ à compléter ]", cred2:"Saisons d'enseignement aux Arcs — [ à compléter ]", cred3:"Cours en italien, français et anglais",
+  lessonsEyebrow:"Les cours", lessonsTitle:"Quatre façons de descendre. Toujours le même principe.",
+  l1t:"Cours particulier", l1d:"Vous et la montagne. Le format le plus efficace : chaque minute est pour vous, la progression est construite sur votre niveau et les conditions du jour.", l1m1:"2 h · demi-journée · journée", l1m2:"1 personne",
+  l2t:"Enfants", l2d:"Dès 4 ans. On commence par le jeu et la sécurité, on termine par les premiers vrais virages. Des pauses au bon moment et des parents tenus au courant.", l2m1:"1 h 30 · 2 h", l2m2:"dès 4 ans",
+  l3t:"Groupe et famille", l3d:"Jusqu'à six personnes de niveau proche. Entre amis ou en famille : on skie ensemble, mais chacun repart avec sa correction.", l3m1:"2 h · demi-journée", l3m2:"2 — 6 personnes",
+  l4t:"Hors-piste", l4d:"Neige fraîche, lecture de pente et notions de sécurité : DVA, pelle, sonde. Itinéraire choisi le matin même, selon le bulletin et les conditions.", l4m1:"demi-journée · journée", l4m2:"niveau autonome",
+  ratesEyebrow:"Tarifs", ratesTitle:"Clairs, sans surprise.", ratesCta:"Demander un devis",
+  thFormat:"Formule", thDuration:"Durée", thPeople:"Personnes", thPrice:"Tarif", onRequest:"sur demande",
+  r1d:"2 heures", r2f:"Particulier — demi-journée", r2d:"3 heures", r3d:"1 h 30", r4d:"2 heures", r5d:"demi-journée",
+  ratesNote:"Les tarifs ne comprennent ni le forfait ni la location du matériel. Pour le hors-piste, le matériel de sécurité peut être fourni sur demande.",
+  resortEyebrow:"Le domaine", resortTitle:"Les Arcs, de la forêt au glacier.",
+  resortP1:"Quatre villages étagés sur le versant au-dessus de Bourg-Saint-Maurice, en Savoie. Depuis la vallée, le funiculaire monte à Arc 1600 en sept minutes ; à l'autre bout du domaine, le Vanoise Express relie Les Arcs à La Plagne.",
+  resortP2:"C'est un domaine qui permet de changer de montagne dans la même journée : pentes en forêt le matin, versants d'altitude l'après-midi quand la neige se stabilise.",
+  alt1:"Arc 1600 — forêt et pistes de retour", alt2:"Arc 1950 et 2000 — cœur du domaine", alt3:"Aiguille Rouge — la plus longue descente",
+  galleryEyebrow:"Galerie", galleryTitle:"Des journées de travail, vues d'en haut.",
+  quotesEyebrow:"Ils en parlent", quotesTitle:"Les mots de ceux qui ont skié avec elle.",
+  q1:"[ Insérer ici l'avis d'un client ]", q2:"[ Insérer ici l'avis d'un client ]", q3:"[ Insérer ici l'avis d'un client ]",
+  qa1:"[ Prénom — Ville, Pays ]", qa2:"[ Prénom — Ville, Pays ]", qa3:"[ Prénom — Ville, Pays ]",
+  contactEyebrow:"Contact", contactTitle:"Écrivez-moi : on organise votre semaine sur la neige.",
+  contactLede:"Dites-moi vos dates, votre niveau et avec qui vous skiez. Je réponds avec mes disponibilités et une proposition de programme.",
+  chLoc:"Savoie, France",
+  fName:"Nom", fMail:"Email", fDates:"Dates", fLevel:"Niveau", fMsg:"Message", fSend:"Envoyer la demande",
+  lv1:"Débutant", lv2:"Intermédiaire", lv3:"Confirmé", lv4:"Hors-piste",
+  phDates:"12 — 18 / 02", phMsg:"Nous sommes deux, plutôt deux matinées…",
+  mailSubject:"Demande de cours de ski — Les Arcs",
+  footRole:"Monitrice de ski, Les Arcs", footTop:"Haut de page ↑"
+ },
+ en:{
+  brandRole:"Ski instructor", navAbout:"About", navLessons:"Lessons", navRates:"Rates", navResort:"Les Arcs", navGallery:"Gallery", navContact:"Contact", navBook:"Book",
+  heroEyebrow:"Ski instructor — Les Arcs, Savoie",
+  heroLede:"Private and group lessons on the slopes of Les Arcs. From the first turn to off-piste, with the time and attention every skier deserves.",
+  heroCta1:"Book a lesson", heroCta2:"See the lessons",
+  fact1:"of pistes — Paradiski", fact2:"from the treeline to Aiguille Rouge", fact3:"languages taught in",
+  aboutEyebrow:"About",
+  aboutTitle:"Skiing well is, above all, a matter of trust.",
+  aboutP1:"I teach skiing at Les Arcs, between the woods of Arc 1600 and the ridge of the Aiguille Rouge. I work with complete beginners, children on their first descent, and experienced skiers who want to clean up their technique or leave the groomed runs behind.",
+  aboutP2:"The method is simple: a few corrections at a time, plenty of time on skis, and the mountain explained while skiing it — where the sun hits in the morning, when the snow turns, which run to take at three in the afternoon. Every lesson starts where you are: no standard programme, no rush.",
+  cred1:"Ski instructor qualification — [ to be added ]", cred2:"Seasons teaching at Les Arcs — [ to be added ]", cred3:"Lessons in Italian, French and English",
+  lessonsEyebrow:"The lessons", lessonsTitle:"Four ways down. Always the same principle.",
+  l1t:"Private lesson", l1d:"Just you and the mountain. The most effective format: every minute is yours, and the progression is built around your level and the day's conditions.", l1m1:"2 h · half day · full day", l1m2:"1 person",
+  l2t:"Children", l2d:"From age 4. We start with play and safety and finish with real first turns. Breaks at the right moment, and parents kept in the loop.", l2m1:"1 h 30 · 2 h", l2m2:"from age 4",
+  l3t:"Group & family", l3d:"Up to six people of similar ability. Friends or family: you ski together, but everyone takes home their own correction.", l3m1:"2 h · half day", l3m2:"2 — 6 people",
+  l4t:"Off-piste", l4d:"Fresh snow, reading the slope, and safety basics: transceiver, shovel, probe. The route is chosen that morning, based on the avalanche bulletin and conditions.", l4m1:"half day · full day", l4m2:"confident skiers",
+  ratesEyebrow:"Rates", ratesTitle:"Clear, with no surprises.", ratesCta:"Request a quote",
+  thFormat:"Format", thDuration:"Duration", thPeople:"People", thPrice:"Rate", onRequest:"on request",
+  r1d:"2 hours", r2f:"Private — half day", r2d:"3 hours", r3d:"1 h 30", r4d:"2 hours", r5d:"half day",
+  ratesNote:"Rates do not include the lift pass or equipment rental. For off-piste, safety equipment can be provided on request.",
+  resortEyebrow:"The resort", resortTitle:"Les Arcs, from the forest to the glacier.",
+  resortP1:"Four villages stacked up the mountainside above Bourg-Saint-Maurice, in Savoie. From the valley the funicular reaches Arc 1600 in seven minutes; at the far end of the domain, the Vanoise Express links Les Arcs to La Plagne.",
+  resortP2:"It is a ski area where you can change mountain within the same day: tree-lined slopes in the morning, high-altitude faces in the afternoon once the snow settles.",
+  alt1:"Arc 1600 — forest and return runs", alt2:"Arc 1950 and 2000 — heart of the resort", alt3:"Aiguille Rouge — the longest descent",
+  galleryEyebrow:"Gallery", galleryTitle:"Working days, seen from above.",
+  quotesEyebrow:"Testimonials", quotesTitle:"Words from those who skied with her.",
+  q1:"[ Add a client review here ]", q2:"[ Add a client review here ]", q3:"[ Add a client review here ]",
+  qa1:"[ Name — City, Country ]", qa2:"[ Name — City, Country ]", qa3:"[ Name — City, Country ]",
+  contactEyebrow:"Contact", contactTitle:"Write to me — let's plan your week on the snow.",
+  contactLede:"Tell me your dates, your level and who you are skiing with. I'll reply with availability and a suggested programme.",
+  chLoc:"Savoie, France",
+  fName:"Name", fMail:"Email", fDates:"Dates", fLevel:"Level", fMsg:"Message", fSend:"Send request",
+  lv1:"Beginner", lv2:"Intermediate", lv3:"Advanced", lv4:"Off-piste",
+  phDates:"12 — 18 / 02", phMsg:"There are two of us, ideally two mornings…",
+  mailSubject:"Ski lesson enquiry — Les Arcs",
+  footRole:"Ski instructor, Les Arcs", footTop:"Back to top ↑"
+ }
+};
+
+let LANG = 'it';
+function setLang(code){
+  const d = I18N[code]; if(!d) return;
+  LANG = code;
+  document.documentElement.lang = code;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const v = d[el.getAttribute('data-i18n')];
+    if(v !== undefined) el.textContent = v;
+  });
+  document.querySelectorAll('[data-ph]').forEach(el=>{
+    const v = d[el.getAttribute('data-ph')];
+    if(v !== undefined) el.placeholder = v;
+  });
+  document.querySelectorAll('.lang button').forEach(b=>{
+    b.setAttribute('aria-pressed', String(b.dataset.lang === code));
+  });
+  try{ localStorage.setItem('vb-lang', code); }catch(e){}
+}
+document.querySelectorAll('.lang button').forEach(b=>{
+  b.addEventListener('click', ()=> setLang(b.dataset.lang));
+});
+(function initLang(){
+  let saved = null;
+  try{ saved = localStorage.getItem('vb-lang'); }catch(e){}
+  const nav = (navigator.language||'it').slice(0,2).toLowerCase();
+  setLang(saved || (I18N[nav] ? nav : 'it'));
+})();
+
+/* ---------------- nav ---------------- */
+const nav = document.getElementById('nav');
+const burger = document.getElementById('burger');
+burger.addEventListener('click', ()=>{
+  const open = nav.classList.toggle('is-open');
+  burger.setAttribute('aria-expanded', String(open));
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+document.querySelectorAll('#navlinks a').forEach(a=>a.addEventListener('click',()=>{
+  nav.classList.remove('is-open'); burger.setAttribute('aria-expanded','false'); document.body.style.overflow='';
+}));
+
+/* ---------------- scroll: nav stuck + parallax ---------------- */
+const heroMedia = document.querySelector('.hero-media');
+const hero = document.querySelector('.hero');
+let ticking = false;
+function onScroll(){
+  if(ticking) return; ticking = true;
+  requestAnimationFrame(()=>{
+    const y = window.scrollY;
+    nav.classList.toggle('is-stuck', y > 40);
+    if(y < hero.offsetHeight) heroMedia.style.transform = 'translate3d(0,'+(y*0.22)+'px,0)';
+    ticking = false;
+  });
+}
+window.addEventListener('scroll', onScroll, {passive:true});
+onScroll();
+
+/* ---------------- reveal ---------------- */
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+},{rootMargin:'0px 0px -8% 0px', threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ---------------- lightbox ---------------- */
+const lb = document.getElementById('lightbox'), lbImg = lb.querySelector('img');
+document.getElementById('gallery').addEventListener('click', e=>{
+  const img = e.target.closest('figure')?.querySelector('img');
+  if(!img) return;
+  lbImg.src = img.src; lbImg.alt = img.alt; lb.classList.add('is-on');
+  document.body.style.overflow = 'hidden';
+});
+function closeLb(){ lb.classList.remove('is-on'); document.body.style.overflow=''; }
+lb.addEventListener('click', closeLb);
+document.getElementById('lbClose').addEventListener('click', closeLb);
+document.addEventListener('keydown', e=>{ if(e.key === 'Escape') closeLb(); });
+
+/* ---------------- form → mailto ---------------- */
+document.getElementById('contactForm').addEventListener('submit', e=>{
+  e.preventDefault();
+  const f = e.target;
+  const d = I18N[LANG];
+  const body = [
+    d.fName + ': ' + f.name.value,
+    d.fMail + ': ' + f.email.value,
+    d.fDates + ': ' + f.dates.value,
+    d.fLevel + ': ' + f.level.value,
+    '',
+    f.message.value
+  ].join('\n');
+  /* PERSONALIZZARE: inserire l'indirizzo email reale */
+  window.location.href = 'mailto:ciao@valentinabernardi.com'
+    + '?subject=' + encodeURIComponent(d.mailSubject)
+    + '&body=' + encodeURIComponent(body);
+});
+
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ---------------- neve (hero) ---------------- */
+(function snow(){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const c = document.getElementById('snow'), ctx = c.getContext('2d');
+  let w, h, flakes = [], raf;
+  function size(){
+    w = c.width = hero.offsetWidth; h = c.height = hero.offsetHeight;
+    const n = Math.round(w/26);
+    flakes = Array.from({length:n},()=>({
+      x:Math.random()*w, y:Math.random()*h,
+      r:Math.random()*1.9+0.5, s:Math.random()*0.35+0.12,
+      d:Math.random()*Math.PI*2, o:Math.random()*0.4+0.18
+    }));
+  }
+  function tick(){
+    ctx.clearRect(0,0,w,h);
+    ctx.fillStyle = '#fff';
+    for(const f of flakes){
+      f.y += f.s; f.d += 0.006; f.x += Math.sin(f.d)*0.28;
+      if(f.y > h){ f.y = -6; f.x = Math.random()*w; }
+      ctx.globalAlpha = f.o;
+      ctx.beginPath(); ctx.arc(f.x, f.y, f.r, 0, 6.283); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    raf = requestAnimationFrame(tick);
+  }
+  size(); tick();
+  window.addEventListener('resize', size);
+  document.addEventListener('visibilitychange', ()=>{
+    if(document.hidden){ cancelAnimationFrame(raf); } else { raf = requestAnimationFrame(tick); }
+  });
+})();
+</script>
+</body>
+</html>
