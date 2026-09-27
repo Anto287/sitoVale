@@ -10,7 +10,8 @@ export const SITE_URL = 'https://www.vallyski.com'
 
 // PERSONALIZZARE: contatti reali.
 export const CONTACT = {
-  whatsapp: '3889397424',
+  /** Numero WhatsApp con prefisso internazionale, senza "+" e senza spazi (39 = Italia). */
+  whatsapp: '393889397424',
   whatsappLabel: '+39 388 939 7424',
   email: 'bernardivale46@gmail.com',
   emailLabel: 'bernardivale46@gmail.com',
