@@ -10,14 +10,12 @@ export const SITE_URL = 'https://www.vallyski.com'
 
 // PERSONALIZZARE: contatti reali.
 export const CONTACT = {
-  /** Numero WhatsApp senza "+" e senza spazi. */
-  whatsapp: '33000000000',
-  /** Testo mostrato accanto a WhatsApp. */
-  whatsappLabel: '+33 · · · · ·',
-  email: 'ciao@vallyski.com',
-  emailLabel: 'ciao@vallyski.com',
-  instagram: 'https://instagram.com/',
-  instagramLabel: '@···',
+  whatsapp: '3889397424',
+  whatsappLabel: '+39 388 939 7424',
+  email: 'bernardivale46@gmail.com',
+  emailLabel: 'bernardivale46@gmail.com',
+  instagram: 'https://instagram.com/vally.it',
+  instagramLabel: 'vally.it',
   maps: 'https://maps.google.com/?q=Tarentaise+Savoie',
 } as const
 
