@@ -48,6 +48,14 @@ for (const lng of LANGUAGES) {
   console.log(`✓ ${path.relative(ROOT, out).padEnd(20)} ${Math.round(page.length / 1024)} KB — ${title}`)
 }
 
+// GitHub Pages mostra 404.html per gli indirizzi che non esistono: la home in inglese,
+// con un titolo che lo dice e senza indicizzazione.
+const notFound = fs
+  .readFileSync(path.join(DIST, 'index.html'), 'utf8')
+  .replace('<meta name="description"', '<meta name="robots" content="noindex">\n<meta name="description"')
+fs.writeFileSync(path.join(DIST, '404.html'), notFound)
+console.log('✓ 404.html')
+
 // lastmod = data della build: dice a Google quando il sito è stato aggiornato l'ultima volta.
 const today = new Date().toISOString().slice(0, 10)
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>

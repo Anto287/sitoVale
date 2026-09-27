@@ -135,11 +135,24 @@ Ripresa dalla divisa: antracite (`--ink`, fasce scure), rosa cipria (`--ground-2
 rosa chiaro (`--accent-soft`, fascia Tariffe) e fucsia (`--accent`, linee e bottoni principali).
 Tutti i token sono in cima a `src/styles.css`, con la variante dark.
 
-## Pubblicazione
+## Pubblicazione (GitHub Pages)
 
-`npm run build` e caricare il contenuto di `dist/` su qualunque hosting statico
-(Netlify, Vercel, Cloudflare Pages, GitHub Pages…). Su Netlify/Vercel/Cloudflare basta
-collegare il repository: comando di build `npm run build`, cartella `dist`.
+Automatica: a ogni push su `main` la GitHub Action `.github/workflows/deploy.yml` esegue `npm ci`
+e `npm run build` e pubblica `dist/` su GitHub Pages. Avanzamento ed errori: scheda **Actions** del repository.
+
+Impostazioni da fare una volta sola su GitHub:
+1. **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+2. **Settings → Pages → Custom domain: `www.vallyski.com`**, poi spuntare **Enforce HTTPS**
+   (con il deploy tramite Actions il file CNAME non serve: il dominio si imposta solo qui).
+3. Dal gestore del dominio (DNS):
+   - `www` → record **CNAME** verso `anto287.github.io`
+   - `vallyski.com` (senza www) → quattro record **A**: `185.199.108.153`, `185.199.109.153`,
+     `185.199.110.153`, `185.199.111.153` (GitHub lo reindirizza a www)
+
+GitHub Pages non legge `public/_headers`: tiene in cache ogni file per 10 minuti. Dopo un aggiornamento
+la versione nuova arriva a tutti entro 10 minuti; JS, CSS e foto hanno comunque l'impronta nel nome, quindi
+non si mescolano mai file vecchi e nuovi. (`_headers`, `netlify.toml` e `vercel.json` servono solo se un
+giorno si passa a Netlify, Cloudflare Pages o Vercel.)
 
 ## Licenza
 
