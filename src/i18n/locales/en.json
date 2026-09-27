@@ -1,0 +1,185 @@
+{
+  "meta": {
+    "title": "Valentina Bernardi — Ski instructor in Les Arcs, Val d'Isère & Tignes",
+    "description": "Private, children's and family ski lessons in Les Arcs, Val d'Isère and Tignes with Valentina Bernardi. All levels, taught in English, French or Italian."
+  },
+  "a11y": {
+    "languageGroup": "Language",
+    "menu": "Menu",
+    "close": "Close",
+    "photo": "Photo",
+    "prevReview": "Previous review",
+    "nextReview": "Next review",
+    "skip": "Skip to content",
+    "prevPhoto": "Previous photo",
+    "nextPhoto": "Next photo"
+  },
+  "nav": {
+    "role": "Ski instructor",
+    "about": "About",
+    "lessons": "Lessons",
+    "rates": "Rates",
+    "where": "Where",
+    "gallery": "Gallery",
+    "contact": "Contact",
+    "book": "Book",
+    "reviews": "Reviews"
+  },
+  "hero": {
+    "eyebrow": "Ski instructor · Les Arcs · Val d'Isère · Tignes",
+    "lede": "Private, children's and family lessons in the Tarentaise. From your very first turn to skiing with confidence and flow, at your own pace — in English, French or Italian.",
+    "ctaBook": "Book a lesson",
+    "ctaLessons": "See the lessons",
+    "imgAlt": "Skiers above a sea of clouds over the Tarentaise valley",
+    "scroll": "Scroll"
+  },
+  "facts": {
+    "years": "years of experience in the Tarentaise",
+    "languages": "lessons in three languages",
+    "reviews": "client reviews"
+  },
+  "about": {
+    "eyebrow": "About",
+    "title": "Skiing well is, above all, a matter of trust.",
+    "p1": "I've been skiing since I was four, in the Apennines in Italy. I raced until I was eighteen, then qualified as a ski instructor, and for the past five years I've been working in the Tarentaise, between Les Arcs, Val d'Isère and Tignes.",
+    "p2": "I'm patient and enthusiastic. I teach every level and every age, with one goal that comes before all others: having fun on the slopes.",
+    "cred1": "Qualified ski instructor",
+    "cred2": "5 years of experience in the Tarentaise",
+    "cred3": "Competitive racer until 18",
+    "cred4": "Lessons in Italian, French and English",
+    "imgPortrait": "Valentina at the top, helmet and goggles on, mountains behind",
+    "imgPiste": "Valentina on the piste with her pink poles"
+  },
+  "lessons": {
+    "eyebrow": "The lessons",
+    "title": "Three formats, one goal: skiing better — and loving it.",
+    "cta": "Check availability",
+    "private": {
+      "title": "Private lesson",
+      "text": "Just you, me and the mountain. The fastest way to progress: every minute is yours, and the lesson follows your level, your goals and the day's conditions.",
+      "imgAlt": "Carved turn on a groomed slope"
+    },
+    "children": {
+      "title": "Children",
+      "text": "We start with games and safety and work up to real first turns. Breaks at the right moment, lots of patience, and parents always kept in the loop.",
+      "imgAlt": "Lesson with a little girl making her first turns"
+    },
+    "group": {
+      "title": "Group & family",
+      "text": "For friends and families of a similar level: you ski together, but everyone gets advice that's right for them.",
+      "imgAlt": "Group lesson on a wide slope"
+    }
+  },
+  "booking": {
+    "eyebrow": "Rates",
+    "title": "Get in touch to book your lesson.",
+    "lede": "Send me your dates, the type of lesson and your level: I'll reply with availability and the rate.",
+    "cta": "Book a lesson",
+    "note": "Rates do not include the lift pass or equipment rental."
+  },
+  "where": {
+    "eyebrow": "Where I teach",
+    "title": "Three resorts, one valley: the Tarentaise.",
+    "p1": "I teach in the Tarentaise, in Savoie — the upper Isère valley, at the foot of the Vanoise massif. It is home to two of the largest ski areas in the Alps, Paradiski and Tignes–Val d'Isère, and I work in three of their resorts.",
+    "lesArcs": "Together with La Plagne it forms Paradiski: 425 km of pistes. From the Aiguille Rouge (3,226 m) a 7 km run drops more than 2,000 m, and on clear days you can see Mont Blanc. From Bourg-Saint-Maurice station the funicular takes you up in 7 minutes.",
+    "valDisere": "A mountain village at 1,850 m that shares around 300 km of pistes with Tignes. It is home to the Face de Bellevarde, the 1992 Olympic downhill run, and every December it hosts the Critérium de la Première Neige World Cup races.",
+    "tignes": "The Grande Motte glacier reaches 3,456 m: reliable snow at the start and end of the season, and high-altitude runs looking out over the Vanoise National Park.",
+    "imgForest": "Snow-laden fir trees beside a piste",
+    "imgChairlift": "Chairlift above the forest, peaks behind",
+    "imgMontBlanc": "Mont Blanc under a clear sky",
+    "imgGondola": "Gondola in front of Mont Blanc",
+    "imgDawn": "First light on the peaks",
+    "imgClouds": "Lift in the sun above a sea of clouds",
+    "imgLarches": "Snowy larches and groomed runs",
+    "imgSunset": "Last run at sunset"
+  },
+  "gallery": {
+    "eyebrow": "Gallery",
+    "title": "Working days, seen from above.",
+    "smile": "A smile at the top, with the ski area behind",
+    "ridge": "Valentina on the ridge, skis on her shoulder, above the clouds",
+    "girl": "Skiing side by side with a little girl",
+    "powder": "Turning in fresh powder",
+    "duo": "Two skiers posing in front of the peaks",
+    "trees": "Tracks through the snowy trees",
+    "goggles": "Valentina on the slope, goggles raised",
+    "pines": "Skiing fresh snow among the pines",
+    "bw": "Black and white portrait during a snowfall"
+  },
+  "reviews": {
+    "eyebrow": "Reviews",
+    "title": "In the words of those who skied with me.",
+    "summary": "{{count}} reviews on Google and Maison Sport",
+    "translated": "Translated",
+    "items": {
+      "lynne": "A fantastic lesson. I really enjoyed our lesson — Valentina is very clear in her explanations and her feedback is useful and constructive. She is very friendly and easy to chat to on the lifts. I'll book again.",
+      "katrine": "Valentina was really excellent. She taught our son a much better technique in 2×2 hours.",
+      "rebecca": "My daughter (12) and my nephew (17) had two two-hour lessons with Valentina. She was brilliant at helping them build their confidence on the slopes and gave them tips on skiing on ice and in fresh snow. She was very relaxed and easy-going — exactly what they needed. My very experienced 14-year-old son joined them for the second lesson so that Valentina could show them some off-piste routes through the trees, which they all loved. Yesterday we all skied together and couldn't believe how much more they were enjoying themselves on the slopes: self-confidence is everything! Thank you Valentina :)",
+      "fiona": "Valentina took my 5-year-old daughter skiing for the first time. On the first day she was skiing the lower slopes on her own, and on the second day she was skiing the blue runs at the top of the mountain. Very patient and encouraging. Highly recommended.",
+      "richard": "Our 3 children, of different ages and abilities, had the lovely Valentina for their ski lessons for a week. They all improved considerably over the week. Thank you! She was always smiling, always ready to help with any question and to meet each child's needs. We highly recommend her.",
+      "claire": "Valentina gave me an excellent lesson. She gave clear instructions and was very patient, with a kind and friendly approach.",
+      "jamesP": "My partner is 67 and relatively new to skiing. Valentina was calm and clear in her instructions. As a result, my partner enjoyed her lessons and really gained confidence. We highly recommend her.",
+      "kate": "Valentina was a wonderful instructor. She was very patient, kind and always smiling. My daughters really liked her and she made sure the lessons were fun. 😊",
+      "nicola": "I had a couple of lessons with Valentina. She's a fantastic teacher, very kind, and explained everything really well. I felt I learned a lot in those few hours with her. Thank you!",
+      "janine": "We had so much fun with Valentina, who took us off-piste! We felt safe and had 4 fun hours. See you next time, Valentina!",
+      "jamesPowell": "Valentina was an excellent ski instructor, making sure my wife made good progress while having fun at the same time. We would book her again without hesitation.",
+      "lone": "She was a good teacher for showing me how to start skiing."
+    },
+    "readMore": "Read more",
+    "readLess": "Show less"
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Write to me — let's plan your days on the snow.",
+    "lede": "Your dates, your level and how many of you there are: that's all I need to reply with availability and a suggestion.",
+    "location": "Savoie, France"
+  },
+  "form": {
+    "name": "Name",
+    "email": "Email",
+    "dates": "Dates",
+    "level": "Level",
+    "message": "Message",
+    "send": "Send request",
+    "levelBeginner": "Beginner",
+    "levelIntermediate": "Intermediate",
+    "levelAdvanced": "Advanced",
+    "phDates": "12 — 18 / 02",
+    "phMessage": "Anything I should know? Goals, worries, past experience…",
+    "mailSubject": "Ski lesson enquiry — Tarentaise",
+    "lesson": "Lesson",
+    "lessonUnsure": "Not sure yet",
+    "people": "People",
+    "phPeople": "2 adults, 1 child aged 7",
+    "note": "Your email app will open with the message ready to go — just press send.",
+    "orWhatsapp": "Prefer WhatsApp? Send the same request",
+    "sent": "Great! If your email app didn't open, write to me at"
+  },
+  "footer": {
+    "role": "Ski instructor in the Tarentaise",
+    "top": "Back to top ↑",
+    "places": "Les Arcs · Val d'Isère · Tignes",
+    "explore": "Explore",
+    "reach": "Get in touch"
+  },
+  "mobileCta": {
+    "book": "Book a lesson"
+  },
+  "legal": {
+    "legal": "Legal notice",
+    "legalTitle": "Legal notice",
+    "publisher": "Site publisher",
+    "status": "Legal status",
+    "address": "Address",
+    "siret": "SIRET",
+    "vat": "VAT number",
+    "contact": "Contact",
+    "host": "Hosting",
+    "todo": "[to be completed]",
+    "ipTitle": "Photos and content",
+    "ip": "Photos and text belong to Valentina Bernardi, except the reviews, which belong to their authors. They may not be reused without permission.",
+    "privacyTitle": "Personal data and cookies",
+    "privacy": "This site uses no cookies and no analytics or advertising tools. Only your language choice is stored in your browser (localStorage), and it identifies no one. The contact form neither sends nor stores data: it opens your email app or WhatsApp with the message ready, and I only receive your details if you choose to send it. I use them solely to reply and arrange lessons. To access, correct or delete them, write to the address above; you can also contact the CNIL (www.cnil.fr).",
+    "close": "Close"
+  }
+}

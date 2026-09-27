@@ -1,0 +1,185 @@
+{
+  "meta": {
+    "title": "Valentina Bernardi — Monitrice de ski aux Arcs, à Val d'Isère et à Tignes",
+    "description": "Cours de ski particuliers, enfants et familles aux Arcs, à Val d'Isère et à Tignes avec Valentina Bernardi. Tous niveaux, en français, anglais ou italien."
+  },
+  "a11y": {
+    "languageGroup": "Langue",
+    "menu": "Menu",
+    "close": "Fermer",
+    "photo": "Photo",
+    "prevReview": "Avis précédent",
+    "nextReview": "Avis suivant",
+    "skip": "Aller au contenu",
+    "prevPhoto": "Photo précédente",
+    "nextPhoto": "Photo suivante"
+  },
+  "nav": {
+    "role": "Monitrice de ski",
+    "about": "À propos",
+    "lessons": "Cours",
+    "rates": "Tarifs",
+    "where": "Où",
+    "gallery": "Galerie",
+    "contact": "Contact",
+    "book": "Réserver",
+    "reviews": "Avis"
+  },
+  "hero": {
+    "eyebrow": "Monitrice de ski · Les Arcs · Val d'Isère · Tignes",
+    "lede": "Cours particuliers, enfants et familles en Tarentaise. Du premier virage à un ski sûr et fluide, à votre rythme — en français, anglais ou italien.",
+    "ctaBook": "Réserver un cours",
+    "ctaLessons": "Voir les cours",
+    "imgAlt": "Skieurs devant la mer de nuages sur la vallée de la Tarentaise",
+    "scroll": "Défiler"
+  },
+  "facts": {
+    "years": "ans d'expérience en Tarentaise",
+    "languages": "cours en trois langues",
+    "reviews": "avis clients"
+  },
+  "about": {
+    "eyebrow": "À propos",
+    "title": "Bien skier, c'est d'abord une question de confiance.",
+    "p1": "Je skie depuis l'âge de quatre ans, dans les Apennins, en Italie. J'ai fait de la compétition jusqu'à dix-huit ans, puis j'ai obtenu mon diplôme de monitrice de ski ; depuis cinq ans, je travaille en Tarentaise, entre Les Arcs, Val d'Isère et Tignes.",
+    "p2": "Je suis patiente et enthousiaste. J'enseigne à tous les niveaux et à tous les âges, avec un objectif qui passe avant tout : prendre du plaisir sur les pistes.",
+    "cred1": "Diplôme de monitrice de ski",
+    "cred2": "5 ans d'expérience en Tarentaise",
+    "cred3": "Compétition jusqu'à 18 ans",
+    "cred4": "Cours en italien, français et anglais",
+    "imgPortrait": "Valentina au sommet, casque et masque, les montagnes derrière",
+    "imgPiste": "Valentina sur la piste avec ses bâtons roses"
+  },
+  "lessons": {
+    "eyebrow": "Les cours",
+    "title": "Trois formules, un seul objectif : mieux skier, en prenant du plaisir.",
+    "cta": "Demander les disponibilités",
+    "private": {
+      "title": "Cours particulier",
+      "text": "Vous, moi et la montagne. La façon la plus rapide de progresser : chaque minute est pour vous, et le cours suit votre niveau, vos objectifs et les conditions du jour.",
+      "imgAlt": "Virage coupé sur piste damée"
+    },
+    "children": {
+      "title": "Enfants",
+      "text": "On commence par le jeu et la sécurité, pour arriver aux premiers vrais virages. Des pauses au bon moment, beaucoup de patience et des parents toujours informés.",
+      "imgAlt": "Cours avec une fillette à ses premiers virages"
+    },
+    "group": {
+      "title": "Groupe et famille",
+      "text": "Pour les amis et les familles de niveau proche : on skie ensemble, mais chacun reçoit les conseils qui lui conviennent.",
+      "imgAlt": "Cours collectif sur une piste large"
+    }
+  },
+  "booking": {
+    "eyebrow": "Tarifs",
+    "title": "Contactez-moi pour réserver votre cours.",
+    "lede": "Envoyez-moi vos dates, le type de cours et votre niveau : je vous réponds avec mes disponibilités et le tarif.",
+    "cta": "Réserver un cours",
+    "note": "Les tarifs ne comprennent ni le forfait ni la location du matériel."
+  },
+  "where": {
+    "eyebrow": "Où j'enseigne",
+    "title": "Trois stations, une vallée : la Tarentaise.",
+    "p1": "J'enseigne en Tarentaise, en Savoie : la haute vallée de l'Isère, au pied du massif de la Vanoise. On y trouve deux des plus grands domaines skiables des Alpes, Paradiski et Tignes–Val d'Isère, et je travaille dans trois de leurs stations.",
+    "lesArcs": "Avec La Plagne, elle forme Paradiski : 425 km de pistes. Depuis l'Aiguille Rouge (3 226 m), une piste de 7 km descend de plus de 2 000 m, et par temps clair on voit le Mont Blanc. Depuis la gare de Bourg-Saint-Maurice, le funiculaire monte en 7 minutes.",
+    "valDisere": "Village de montagne à 1 850 m qui partage environ 300 km de pistes avec Tignes. C'est là que se trouve la Face de Bellevarde, piste de la descente olympique de 1992, et chaque décembre la station accueille la Coupe du monde du Critérium de la Première Neige.",
+    "tignes": "Le glacier de la Grande Motte culmine à 3 456 m : une neige fiable en début et en fin de saison, et des pistes d'altitude face au Parc national de la Vanoise.",
+    "imgForest": "Sapins chargés de neige au bord d'une piste",
+    "imgChairlift": "Télésiège au-dessus de la forêt, sommets en arrière-plan",
+    "imgMontBlanc": "Le Mont Blanc sous un ciel limpide",
+    "imgGondola": "Télécabine devant le Mont Blanc",
+    "imgDawn": "Premières lueurs sur les sommets",
+    "imgClouds": "Remontée au soleil au-dessus d'une mer de nuages",
+    "imgLarches": "Mélèzes enneigés et pistes damées",
+    "imgSunset": "Dernière descente au coucher du soleil"
+  },
+  "gallery": {
+    "eyebrow": "Galerie",
+    "title": "Des journées de travail, vues d'en haut.",
+    "smile": "Sourire au sommet, le domaine en arrière-plan",
+    "ridge": "Valentina sur l'arête, skis sur l'épaule, au-dessus des nuages",
+    "girl": "Descente côte à côte avec une fillette",
+    "powder": "Virage en neige fraîche",
+    "duo": "Deux skieurs posant devant les sommets",
+    "trees": "Traces dans la neige entre les arbres",
+    "goggles": "Valentina sur la piste, masque relevé",
+    "pines": "Descente en neige fraîche entre les pins",
+    "bw": "Portrait en noir et blanc sous la neige"
+  },
+  "reviews": {
+    "eyebrow": "Avis",
+    "title": "Les mots de ceux qui ont skié avec moi.",
+    "summary": "{{count}} avis sur Google et Maison Sport",
+    "translated": "Traduit",
+    "items": {
+      "lynne": "Un cours fantastique. J'ai vraiment apprécié notre cours : Valentina est très claire dans ses explications et ses retours sont utiles et constructifs. Elle est très sympathique et on discute facilement avec elle sur les remontées. Je réserverai à nouveau.",
+      "katrine": "Valentina a été vraiment excellente. Elle a appris à notre fils une bien meilleure technique en 2×2 heures.",
+      "rebecca": "Ma fille (12 ans) et mon neveu (17 ans) ont pris deux cours de deux heures chacun avec Valentina. Elle a été formidable pour les aider à prendre confiance sur les pistes et leur a donné des conseils pour skier sur la glace et en neige fraîche. Elle était très détendue et accessible, exactement ce dont ils avaient besoin. Mon fils de 14 ans, très bon skieur, les a rejoints pour le deuxième cours afin que Valentina leur montre quelques itinéraires hors-piste entre les arbres, qu'ils ont tous adorés. Hier, nous avons tous skié ensemble et nous n'en revenions pas de voir à quel point ils s'amusaient davantage sur les pistes : la confiance en soi, c'est essentiel ! Merci Valentina :)",
+      "fiona": "Valentina a emmené ma fille de 5 ans skier pour la première fois. Le premier jour, elle descendait seule les pentes du bas, et le deuxième jour, elle descendait les pistes bleues en haut de la montagne. Très patiente et encourageante. Vivement recommandée.",
+      "richard": "Nos 3 enfants, d'âges et de niveaux différents, ont eu la charmante Valentina comme monitrice pendant une semaine. Ils ont tous fait des progrès considérables au cours de la semaine. Merci ! Elle était toujours souriante, toujours prête à répondre à la moindre question et à s'adapter aux besoins de chaque enfant. Nous la recommandons vivement.",
+      "claire": "Valentina m'a donné un excellent cours. Ses consignes étaient claires et elle a été très patiente, avec une approche douce et chaleureuse.",
+      "jamesP": "Ma compagne a 67 ans et débute presque au ski. Valentina a été calme et claire dans ses consignes. Résultat : ma compagne a apprécié ses cours et a vraiment gagné en confiance. Nous la recommandons vivement.",
+      "kate": "Valentina a été une monitrice merveilleuse. Très patiente, gentille et toujours souriante. Mes filles l'ont beaucoup appréciée et elle a veillé à ce que les cours soient amusants. 😊",
+      "nicola": "J'ai pris quelques cours avec Valentina. C'est une enseignante fantastique, très gentille, qui a tout parfaitement expliqué. J'ai eu l'impression d'apprendre énormément en ces quelques heures passées avec elle. Merci !",
+      "janine": "Nous nous sommes énormément amusés avec Valentina, qui nous a emmenés en hors-piste ! Nous nous sommes sentis en sécurité et avons passé 4 heures géniales. À la prochaine, Valentina !",
+      "jamesPowell": "Valentina a été une excellente monitrice, attentive à ce que ma femme progresse bien tout en s'amusant. Nous la réserverions à nouveau sans hésiter.",
+      "lone": "Une bonne monitrice pour m'apprendre à débuter en ski."
+    },
+    "readMore": "Lire la suite",
+    "readLess": "Réduire"
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Écrivez-moi : organisons vos journées sur la neige.",
+    "lede": "Vos dates, votre niveau et combien vous êtes : il ne m'en faut pas plus pour vous répondre avec mes disponibilités et une proposition.",
+    "location": "Savoie, France"
+  },
+  "form": {
+    "name": "Nom",
+    "email": "Email",
+    "dates": "Dates",
+    "level": "Niveau",
+    "message": "Message",
+    "send": "Envoyer la demande",
+    "levelBeginner": "Débutant",
+    "levelIntermediate": "Intermédiaire",
+    "levelAdvanced": "Confirmé",
+    "phDates": "12 — 18 / 02",
+    "phMessage": "Quelque chose à savoir ? Objectifs, appréhensions, expérience…",
+    "mailSubject": "Demande de cours de ski — Tarentaise",
+    "lesson": "Cours",
+    "lessonUnsure": "Je ne sais pas encore",
+    "people": "Personnes",
+    "phPeople": "2 adultes, 1 enfant de 7 ans",
+    "note": "Votre messagerie s'ouvrira avec le message prêt à partir : il suffit d'appuyer sur envoyer.",
+    "orWhatsapp": "Vous préférez WhatsApp ? Envoyez la même demande",
+    "sent": "Parfait ! Si votre messagerie ne s'est pas ouverte, écrivez-moi à"
+  },
+  "footer": {
+    "role": "Monitrice de ski en Tarentaise",
+    "top": "Haut de page ↑",
+    "places": "Les Arcs · Val d'Isère · Tignes",
+    "explore": "Le site",
+    "reach": "Contact"
+  },
+  "mobileCta": {
+    "book": "Réserver un cours"
+  },
+  "legal": {
+    "legal": "Mentions légales",
+    "legalTitle": "Mentions légales",
+    "publisher": "Éditrice du site",
+    "status": "Statut",
+    "address": "Adresse",
+    "siret": "SIRET",
+    "vat": "N° de TVA intracommunautaire",
+    "contact": "Contact",
+    "host": "Hébergeur",
+    "todo": "[à compléter]",
+    "ipTitle": "Photos et contenus",
+    "ip": "Les photos et les textes appartiennent à Valentina Bernardi, à l'exception des avis, qui appartiennent à leurs auteurs. Toute réutilisation sans autorisation est interdite.",
+    "privacyTitle": "Données personnelles et cookies",
+    "privacy": "Ce site n'utilise ni cookies ni outils de mesure d'audience ou de publicité. Seule la langue choisie est enregistrée dans votre navigateur (localStorage) ; elle ne permet d'identifier personne. Le formulaire de contact n'envoie ni ne conserve aucune donnée : il ouvre votre messagerie ou WhatsApp avec le message prêt, et je ne reçois vos informations que si vous décidez de l'envoyer. Je les utilise uniquement pour vous répondre et organiser les cours. Pour y accéder, les rectifier ou les supprimer, écrivez-moi à l'adresse ci-dessus ; vous pouvez aussi saisir la CNIL (www.cnil.fr).",
+    "close": "Fermer"
+  }
+}

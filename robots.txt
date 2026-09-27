@@ -1,5 +1,0 @@
-# PERSONALIZZARE: sostituire il dominio con quello reale
-User-agent: *
-Allow: /
-
-Sitemap: https://www.valentinabernardi.com/sitemap.xml

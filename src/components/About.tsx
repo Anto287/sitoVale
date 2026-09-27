@@ -1,0 +1,54 @@
+import { useRef } from 'react'
+import { useTranslation } from 'react-i18next'
+import { gsap, revealImages, revealOnScroll, useGSAP, withMotion } from '../lib/gsap'
+import { Photo } from './Photo'
+import { SplitHeading } from './SplitHeading'
+
+export function About() {
+  const { t } = useTranslation()
+  const ref = useRef<HTMLElement>(null)
+
+  useGSAP(
+    () =>
+      withMotion(() => {
+        revealImages('.frame', { stagger: 0.18 })
+        revealOnScroll('.eyebrow, .lede, p:not(.eyebrow), .creds li', { stagger: 0.08 })
+        // Le due foto scorrono a velocità diverse: profondità senza esagerare.
+        gsap.to('.frame--sq', {
+          yPercent: -14,
+          ease: 'none',
+          scrollTrigger: { trigger: '.stack', start: 'top bottom', end: 'bottom top', scrub: true },
+        })
+      }),
+    { scope: ref },
+  )
+
+  return (
+    <section ref={ref} className="section" id="chi">
+      <div className="wrap split">
+        <div className="split-media">
+          <div className="stack">
+            <div className="frame frame--tall">
+              <Photo photo="valentina/pista-bastoncini-rosa" alt={t('about.imgPiste')} sizes="(max-width: 860px) 52vw, 330px" />
+            </div>
+            <div className="frame frame--sq">
+              <Photo photo="valentina/ritratto-casco" alt={t('about.imgPortrait')} sizes="(max-width: 860px) 38vw, 245px" />
+            </div>
+          </div>
+        </div>
+        <div>
+          <p className="eyebrow">{t('about.eyebrow')}</p>
+          <SplitHeading text={t('about.title')} />
+          <p className="lede">{t('about.p1')}</p>
+          <p>{t('about.p2')}</p>
+          <ul className="creds">
+            <li>{t('about.cred1')}</li>
+            <li>{t('about.cred2')}</li>
+            <li>{t('about.cred3')}</li>
+            <li>{t('about.cred4')}</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  )
+}

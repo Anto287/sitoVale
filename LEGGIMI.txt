@@ -1,55 +1,68 @@
-SITO — VALENTINA BERNARDI, MAESTRA DI SCI A LES ARCS
+SITO — VALENTINA BERNARDI, MAESTRA DI SCI IN TARENTAISE
 ====================================================
 
 COME APRIRLO
-  Doppio clic su index.html. Funziona anche offline (le foto sono in assets/).
-  I font vengono caricati da Google Fonts: serve la connessione per vederli.
+  Il sito ora è un progetto React: serve Node.js (versione 20 o superiore).
+  Nella cartella "sito", da terminale:
+      npm install        (solo la prima volta)
+      npm run dev        poi aprire http://localhost:5173
+  Il doppio clic su index.html NON funziona più.
 
 COME METTERLO ONLINE
-  Caricare l'INTERA cartella "sito" (index.html + assets/) su qualsiasi hosting
-  statico: Netlify, Vercel, GitHub Pages, Altervista, o lo spazio web del dominio.
-  Non serve nessun database ne' backend.
+  npm run build  →  crea la cartella "dist".
+  Caricare il CONTENUTO di "dist" su qualsiasi hosting statico (Netlify, Vercel,
+  Cloudflare Pages, GitHub Pages, spazio web del dominio). Nessun database né backend.
 
 DA PERSONALIZZARE PRIMA DI PUBBLICARE
-  Aprire index.html con un editor di testo e cercare la parola "PERSONALIZZARE".
-  Sono 5 punti:
+  Tutto in UN file: src/config.ts
+  - SITE_URL: il dominio (gia' https://www.vallyski.com)
+  - CONTACT:  numero WhatsApp (senza + e spazi), email, Instagram e i testi accanto
+  - LEGAL:    dati per le note legali (statuto, indirizzo, SIRET, hosting)
+  Da li' il sito ricava anche i dati per Google, le anteprime social, sitemap e robots.
 
-  1. CONTATTI (sezione "Contatti", cerca "wa.me")
-     - numero WhatsApp:  href="https://wa.me/33000000000"  -> numero reale, senza + e senza spazi
-     - email:            href="mailto:ciao@valentinabernardi.com"  (in 2 punti: link e form)
-     - Instagram:        href="https://instagram.com/"  -> profilo reale
-     - aggiornare anche i testi visibili accanto: "+33 · · · · ·", "ciao@···", "@···"
+TARIFFE
+  Come richiesto non c'e' un listino: la sezione invita a scrivere per prenotare
+  e ricorda che skipass e noleggio non sono compresi.
 
-  2. TARIFFE (sezione "Tariffe")
-     Ogni riga ha <td class="price" data-i18n="onRequest">su richiesta</td>.
-     Per mettere un prezzo reale, sostituire con:  <td class="price">€ 65</td>
-     (togliendo data-i18n, altrimenti la traduzione lo riscrive).
-     Se le tariffe restano riservate, lasciare tutto com'e'.
+RECENSIONI
+  Sono 13, da Google e Maison Sport, in src/data/reviews.ts.
+  Per mostrarle nella lingua originale: su Google toccare "Visualizza
+  originale" (su Maison Sport "Mostra originale"), copiare il testo e
+  incollarlo nel campo "original" della recensione. Finche' manca, il sito
+  mostra la traduzione con l'etichetta "Tradotta".
 
-  3. DIPLOMI / ESPERIENZA (sezione "Chi sono")
-     Le tre voci "[ da inserire ]" vanno sostituite nel blocco <ul class="creds">
-     E ANCHE nel dizionario in fondo al file (cred1, cred2, cred3 per it/fr/en).
+NOTE LEGALI
+  Link "Note legali" nel footer. In Francia sono obbligatorie per un sito
+  professionale: compilare LEGAL in src/config.ts.
 
-  4. RECENSIONI (sezione "Dicono di lei")
-     I tre riquadri sono segnaposto. Sostituire q1/q2/q3 e qa1/qa2/qa3 nel
-     dizionario in fondo al file, per tutte e tre le lingue.
-     Se non ci sono recensioni reali, cancellare l'intera <section id="recensioni">
-     e la voce corrispondente nel menu.
+LINGUE
+  www.vallyski.com      inglese
+  www.vallyski.com/it/  italiano
+  www.vallyski.com/fr/  francese
+  Chi apre la home con il browser in italiano o francese viene portato
+  alla sua lingua; negli altri casi resta in inglese.
 
-  5. TESTI TRADOTTI
-     Tutti i testi stanno due volte: nell'HTML (versione italiana, quella che si
-     vede se il JavaScript e' disattivato) e nell'oggetto I18N in fondo al file,
-     diviso in it / fr / en. Se si cambia una frase, cambiarla in entrambi i posti.
+TESTI E TRADUZIONI
+  Un file per lingua: src/i18n/locales/it.json, en.json, fr.json.
+  Si cambia una frase lì e basta. Se in una lingua manca una frase che
+  c'e' in inglese, "npm run build" si ferma e dice quale.
 
 COME FUNZIONA LA LINGUA
-  Il sito sceglie da solo la lingua del browser (it/fr/en), con l'italiano come
-  ripiego, e ricorda la scelta fatta con i pulsanti IT/FR/EN.
+  Il sito usa la lingua del browser (inglese, italiano o francese). Se il browser
+  è in un'altra lingua (tedesco, spagnolo...) il sito si apre in INGLESE.
+  Se il visitatore sceglie una lingua con i pulsanti EN/IT/FR, la scelta viene
+  ricordata per le visite successive.
 
 IL FORM CONTATTI
-  Essendo un sito statico non c'e' un server: il pulsante "Invia la richiesta"
-  apre il programma di posta del visitatore con il messaggio gia' compilato.
-  Se si vuole un invio vero, servono servizi tipo Formspree o Netlify Forms.
+  Non c'è un server: "Invia la richiesta" apre il programma di posta del visitatore
+  con il messaggio già compilato. Per un invio vero servono servizi tipo Formspree
+  o Netlify Forms.
 
 FOTO
-  In assets/ ci sono le 12 foto ottimizzate per il web (ridotte e compresse).
-  Gli originali restano dove erano, nella cartella SitoVale.
+  Gli originali stanno in photos/, divisi in tre cartelle:
+    photos/valentina/   foto in cui c'e' Valentina
+    photos/lezioni/     lezioni e momenti con i clienti
+    photos/panorami/    paesaggi
+  Per aggiungere o cambiare una foto: metterla nella cartella giusta e lanciare
+      npm run images
+  che crea le versioni WebP leggere in public/images/ (non toccarle a mano).

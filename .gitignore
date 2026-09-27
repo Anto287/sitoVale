@@ -1,4 +1,11 @@
 .DS_Store
 Thumbs.db
 *.swp
+*.log
 node_modules/
+dist/
+*.local
+.vscode/*
+!.vscode/extensions.json
+.idea
+dist-ssr/

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Segno del logo Vally (tre cime con le tracce degli sci), ridisegnato per le dimensioni di un'icona -->
+  <rect width="64" height="64" rx="14" fill="#26262A"/>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.9" transform="translate(32 33) scale(1.16) translate(-32 -32.75)">
+    <path d="M8 44 L20.5 28.5 L24.5 33 L32.5 21.5 L41 32 L44 28.5 L56 44" stroke="#F7F4F4"/>
+    <path d="M24 35.5 L19 41.5" stroke="#F7F4F4"/>
+    <path d="M32.5 29.5 L26 37.5" stroke="#EC4F83"/>
+    <path d="M40.5 34.5 L32 44" stroke="#F7F4F4"/>
+    <path d="M45.5 37 L42.5 40.5" stroke="#F7F4F4"/>
+  </g>
+</svg>

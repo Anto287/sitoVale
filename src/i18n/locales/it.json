@@ -1,0 +1,185 @@
+{
+  "meta": {
+    "title": "Valentina Bernardi — Maestra di sci a Les Arcs, Val d'Isère e Tignes",
+    "description": "Lezioni di sci private, per bambini e per famiglie a Les Arcs, Val d'Isère e Tignes, con Valentina Bernardi. Tutti i livelli, in italiano, francese e inglese."
+  },
+  "a11y": {
+    "languageGroup": "Lingua",
+    "menu": "Menu",
+    "close": "Chiudi",
+    "photo": "Foto",
+    "prevReview": "Recensione precedente",
+    "nextReview": "Recensione successiva",
+    "skip": "Vai al contenuto",
+    "prevPhoto": "Foto precedente",
+    "nextPhoto": "Foto successiva"
+  },
+  "nav": {
+    "role": "Maestra di sci",
+    "about": "Chi sono",
+    "lessons": "Lezioni",
+    "rates": "Tariffe",
+    "where": "Dove",
+    "gallery": "Galleria",
+    "contact": "Contatti",
+    "book": "Prenota",
+    "reviews": "Recensioni"
+  },
+  "hero": {
+    "eyebrow": "Maestra di sci · Les Arcs · Val d'Isère · Tignes",
+    "lede": "Lezioni private, per bambini e per famiglie in Tarentaise. Dalla prima curva a una sciata sicura e fluida, al tuo ritmo — in italiano, francese o inglese.",
+    "ctaBook": "Prenota una lezione",
+    "ctaLessons": "Scopri le lezioni",
+    "imgAlt": "Sciatori davanti al mare di nuvole sulla valle della Tarentaise",
+    "scroll": "Scorri"
+  },
+  "facts": {
+    "years": "anni di esperienza in Tarentaise",
+    "languages": "lezioni in tre lingue",
+    "reviews": "recensioni di clienti"
+  },
+  "about": {
+    "eyebrow": "Chi sono",
+    "title": "Sciare bene è, prima di tutto, una questione di fiducia.",
+    "p1": "Scio da quando avevo quattro anni, sull'Appennino, in Italia. Ho fatto gare fino ai diciotto anni, poi ho conseguito il diploma di maestra di sci; da cinque anni lavoro in Tarentaise, tra Les Arcs, Val d'Isère e Tignes.",
+    "p2": "Sono paziente ed entusiasta. Insegno a tutti i livelli e a tutte le età, con un obiettivo che viene prima di ogni altro: divertirsi sulle piste.",
+    "cred1": "Diploma di maestra di sci",
+    "cred2": "5 anni di esperienza in Tarentaise",
+    "cred3": "Agonista fino ai 18 anni",
+    "cred4": "Lezioni in italiano, francese e inglese",
+    "imgPortrait": "Valentina in cima, con casco e maschera, le montagne alle spalle",
+    "imgPiste": "Valentina sulla pista con i bastoncini rosa"
+  },
+  "lessons": {
+    "eyebrow": "Le lezioni",
+    "title": "Tre formule, un solo obiettivo: sciare meglio, divertendoti.",
+    "cta": "Chiedi disponibilità",
+    "private": {
+      "title": "Lezione privata",
+      "text": "Solo tu, io e la montagna. È il modo più rapido per progredire: ogni minuto è tuo e la lezione segue il tuo livello, i tuoi obiettivi e le condizioni del giorno.",
+      "imgAlt": "Curva condotta su pista battuta"
+    },
+    "children": {
+      "title": "Bambini",
+      "text": "Si comincia giocando e in sicurezza, si arriva alle prime curve vere. Pause al momento giusto, tanta pazienza e genitori sempre aggiornati.",
+      "imgAlt": "Lezione a una bambina alle prime curve"
+    },
+    "group": {
+      "title": "Gruppo e famiglia",
+      "text": "Per amici e famiglie di livello simile: si scia insieme, ma ognuno riceve i consigli giusti per sé.",
+      "imgAlt": "Lezione di gruppo su pista larga"
+    }
+  },
+  "booking": {
+    "eyebrow": "Tariffe",
+    "title": "Contattami per prenotare la tua lezione.",
+    "lede": "Scrivimi le date, il tipo di lezione e il tuo livello: ti rispondo con disponibilità e tariffa.",
+    "cta": "Prenota una lezione",
+    "note": "Le tariffe non comprendono skipass e noleggio attrezzatura."
+  },
+  "where": {
+    "eyebrow": "Dove insegno",
+    "title": "Tre stazioni, una valle: la Tarentaise.",
+    "p1": "Insegno in Tarentaise, in Savoia: l'alta valle dell'Isère, ai piedi del massiccio della Vanoise. Qui si trovano due dei comprensori sciistici più grandi delle Alpi, Paradiski e Tignes–Val d'Isère, e io lavoro in tre delle loro stazioni.",
+    "lesArcs": "Con La Plagne forma Paradiski: 425 km di piste. Dall'Aiguille Rouge (3.226 m) scende una pista di 7 km con oltre 2.000 m di dislivello, e nelle giornate limpide si vede il Monte Bianco. Dalla stazione di Bourg-Saint-Maurice si sale in 7 minuti di funicolare.",
+    "valDisere": "Villaggio di montagna a 1.850 m che con Tignes condivide circa 300 km di piste. È la casa della Face de Bellevarde, la pista della discesa olimpica del 1992, e ogni dicembre ospita la Coppa del Mondo del Critérium de la Première Neige.",
+    "tignes": "Il ghiacciaio della Grande Motte sale fino a 3.456 m: neve affidabile a inizio e a fine stagione e piste d'alta quota affacciate sul Parco Nazionale della Vanoise.",
+    "imgForest": "Abeti carichi di neve lungo una pista",
+    "imgChairlift": "Seggiovia sopra il bosco, con le cime sullo sfondo",
+    "imgMontBlanc": "Il Monte Bianco nel cielo limpido",
+    "imgGondola": "Cabinovia davanti al Monte Bianco",
+    "imgDawn": "Prima luce sulle cime",
+    "imgClouds": "Impianto al sole sopra il mare di nuvole",
+    "imgLarches": "Larici innevati e piste battute",
+    "imgSunset": "Ultima discesa al tramonto"
+  },
+  "gallery": {
+    "eyebrow": "Galleria",
+    "title": "Giornate di lavoro, viste dall'alto.",
+    "smile": "Sorriso in cima, con il comprensorio alle spalle",
+    "ridge": "Valentina sulla cresta con gli sci in spalla, sopra il mare di nuvole",
+    "girl": "Discesa affiancata con una bambina",
+    "powder": "Curva in neve fresca",
+    "duo": "Due sciatori in posa davanti alle cime",
+    "trees": "Traccia nella neve tra gli alberi",
+    "goggles": "Valentina sulla pista, maschera sollevata",
+    "pines": "Discesa in neve fresca tra i pini",
+    "bw": "Ritratto in bianco e nero durante una nevicata"
+  },
+  "reviews": {
+    "eyebrow": "Recensioni",
+    "title": "Le parole di chi ha sciato con me.",
+    "summary": "{{count}} recensioni su Google e Maison Sport",
+    "translated": "Tradotta",
+    "items": {
+      "lynne": "Lezione fantastica. Ho davvero apprezzato la nostra lezione: Valentina è molto chiara nelle spiegazioni e il suo feedback è utile e costruttivo. È molto amichevole ed è facile chiacchierare con lei sugli impianti di risalita. Prenoterò di nuovo.",
+      "katrine": "Valentina è stata davvero bravissima. In 2×2 ore ha insegnato a nostro figlio una tecnica molto migliore.",
+      "rebecca": "Mia figlia (12 anni) e mio nipote (17 anni) hanno fatto due lezioni di due ore ciascuna con Valentina. È stata bravissima ad aiutarli ad aumentare la loro sicurezza sulle piste e ha dato loro consigli su come sciare sul ghiaccio e sulla neve fresca. Era molto rilassata e alla mano, proprio quello di cui avevano bisogno. Mio figlio di 14 anni, molto esperto, si è unito a loro per la seconda lezione, così che Valentina potesse mostrargli alcuni percorsi fuori pista tra gli alberi, che hanno adorato tutti. Ieri abbiamo sciato tutti insieme e non potevamo credere a quanto si stessero divertendo di più sulle piste: la fiducia in se stessi è fondamentale! Grazie Valentina :)",
+      "fiona": "Valentina ha portato mia figlia di 5 anni a sciare per la prima volta. Il primo giorno scendeva già da sola i pendii più bassi e il secondo le piste blu in cima alla montagna. Molto paziente e incoraggiante. Consigliatissima.",
+      "richard": "I nostri 3 bambini, di età e capacità diverse, hanno avuto la deliziosa Valentina per le lezioni di sci per una settimana. Sono tutti migliorati notevolmente nel corso della settimana. Grazie! È sempre stata sorridente, sempre pronta ad aiutare con qualsiasi domanda e a soddisfare le esigenze di ogni bambino. La consigliamo vivamente.",
+      "claire": "Valentina mi ha dato un'ottima lezione. Ha dato istruzioni chiare ed è stata molto paziente con un approccio gentile e amichevole.",
+      "jamesP": "La mia partner ha 67 anni ed è relativamente nuova allo sci. Valentina è stata calma e chiara nelle sue istruzioni. Di conseguenza, la mia partner ha apprezzato le sue lezioni e ha davvero guadagnato fiducia. La consigliamo vivamente.",
+      "kate": "Valentina è stata un'istruttrice meravigliosa. Era molto paziente, gentile e sempre sorridente. Le mie figlie l'hanno apprezzata molto e si è assicurata che le lezioni fossero divertenti. 😊",
+      "nicola": "Ho fatto un paio di lezioni con Valentina. È un'insegnante fantastica, molto gentile e ha spiegato tutto benissimo. Ho avuto la sensazione di aver imparato molto in quelle poche ore trascorse con lei. Grazie!",
+      "janine": "Ci siamo divertiti tantissimo con Valentina che ci ha portato fuori pista! Ci siamo sentiti al sicuro e abbiamo trascorso 4 ore divertenti. Ci vediamo alla prossima, Valentina!",
+      "jamesPowell": "Valentina è stata un'eccellente istruttrice di sci, attenta a far sì che mia moglie facesse buoni progressi e allo stesso tempo si divertisse. La prenoteremmo di nuovo senza esitazione.",
+      "lone": "È stata una brava maestra per insegnarmi a muovere i primi passi sugli sci."
+    },
+    "readMore": "Leggi tutto",
+    "readLess": "Mostra meno"
+  },
+  "contact": {
+    "eyebrow": "Contatti",
+    "title": "Scrivimi: organizziamo le tue giornate sulla neve.",
+    "lede": "Date, livello e quante persone siete: mi bastano queste tre cose per risponderti con disponibilità e una proposta.",
+    "location": "Savoia, Francia"
+  },
+  "form": {
+    "name": "Nome",
+    "email": "Email",
+    "dates": "Date",
+    "level": "Livello",
+    "message": "Messaggio",
+    "send": "Invia la richiesta",
+    "levelBeginner": "Principiante",
+    "levelIntermediate": "Intermedio",
+    "levelAdvanced": "Avanzato",
+    "phDates": "12 — 18 / 02",
+    "phMessage": "Qualcosa da sapere? Obiettivi, paure, esperienze passate…",
+    "mailSubject": "Richiesta lezione di sci — Tarentaise",
+    "lesson": "Lezione",
+    "lessonUnsure": "Non so ancora",
+    "people": "Persone",
+    "phPeople": "2 adulti, 1 bambino di 7 anni",
+    "note": "Si aprirà la tua app di posta con il messaggio già pronto: devi solo premere invia.",
+    "orWhatsapp": "Preferisci WhatsApp? Invia la stessa richiesta",
+    "sent": "Perfetto! Se l'app di posta non si è aperta, scrivimi a"
+  },
+  "footer": {
+    "role": "Maestra di sci in Tarentaise",
+    "top": "Torna su ↑",
+    "places": "Les Arcs · Val d'Isère · Tignes",
+    "explore": "Il sito",
+    "reach": "Contatti"
+  },
+  "mobileCta": {
+    "book": "Prenota una lezione"
+  },
+  "legal": {
+    "legal": "Note legali",
+    "legalTitle": "Note legali",
+    "publisher": "Editore del sito",
+    "status": "Forma giuridica",
+    "address": "Indirizzo",
+    "siret": "SIRET",
+    "vat": "Partita IVA / n° TVA",
+    "contact": "Contatti",
+    "host": "Hosting",
+    "todo": "[da completare]",
+    "ipTitle": "Fotografie e contenuti",
+    "ip": "Fotografie e testi sono di Valentina Bernardi, salvo le recensioni, che appartengono ai rispettivi autori. Non è consentito riutilizzarli senza autorizzazione.",
+    "privacyTitle": "Dati personali e cookie",
+    "privacy": "Il sito non usa cookie né strumenti di statistica o pubblicità. Nel browser viene salvata solo la lingua scelta (localStorage), che non identifica nessuno. Il modulo di contatto non invia né conserva dati: apre la tua app di posta o WhatsApp con il messaggio già scritto, e i dati li ricevo solo se decidi di inviarlo. Li uso solo per risponderti e organizzare le lezioni. Per accesso, correzione o cancellazione scrivimi all'indirizzo qui sopra; puoi anche rivolgerti alla CNIL (www.cnil.fr).",
+    "close": "Chiudi"
+  }
+}
