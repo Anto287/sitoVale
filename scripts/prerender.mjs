@@ -38,7 +38,7 @@ for (const lng of LANGUAGES) {
   ].join('\n')
 
   const page = template
-    .replace(/<html lang="[^"]*">/, `<html lang="${lng}">`)
+    .replace(/<html lang="[^"]*"/, `<html lang="${lng}"`)
     .replace(/<!--lang-head-->[\s\S]*?<!--\/lang-head-->/, head)
     .replace('<!--app-->', html)
 
