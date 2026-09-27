@@ -8,8 +8,8 @@ import { renderToString } from 'react-dom/server'
 import App from './App'
 import i18n, { type Language } from './i18n'
 
-export { SITE_URL } from './config'
-export { LANGUAGES, pathFor } from './i18n'
+export { IS_FINAL_URL, SITE_URL } from './site'
+export { LANGUAGES, langSegment, urlFor } from './i18n'
 
 export async function render(lng: Language) {
   await i18n.changeLanguage(lng)

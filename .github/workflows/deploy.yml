@@ -27,7 +27,14 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      # chiede a GitHub a che indirizzo sta pubblicando: oggi anto287.github.io/sitoVale,
+      # col dominio personalizzato www.vallyski.com. La build si adatta da sola (src/site.ts).
+      - id: pages
+        uses: actions/configure-pages@v5
       - run: npm run build
+        env:
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          VITE_SITE_URL: ${{ steps.pages.outputs.base_url }}
       - uses: actions/upload-pages-artifact@v4
         with:
           path: dist

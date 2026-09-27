@@ -1,6 +1,6 @@
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
-import { SITE_URL } from '../config'
+import { BASE, SITE_URL } from '../site'
 import en from './locales/en.json'
 import fr from './locales/fr.json'
 import it from './locales/it.json'
@@ -11,9 +11,14 @@ export type Language = (typeof LANGUAGES)[number]
 /** Scelta manuale fatta con i pulsanti EN/IT/FR (letta anche dallo script in index.html). */
 export const STORAGE_KEY = 'vb-lang'
 
-/** Ogni lingua ha il suo indirizzo: l'inglese è la home, le altre una cartella. */
-export const pathFor = (lng: Language) => (lng === 'en' ? '/' : `/${lng}/`)
-export const langFromPath = (pathname: string): Language => (pathname.match(/^\/(it|fr)(\/|$)/)?.[1] as Language) ?? 'en'
+/** Ogni lingua ha il suo indirizzo: l'inglese è la home, le altre una cartella ("it/", "fr/"). */
+export const langSegment = (lng: Language) => (lng === 'en' ? '' : `${lng}/`)
+/** Percorso della lingua nel sito, cartella base compresa: "/", "/it/" (o "/sitoVale/it/"). */
+export const pathFor = (lng: Language) => BASE + langSegment(lng)
+/** Indirizzo completo della lingua, per canonical, hreflang e sitemap. */
+export const urlFor = (lng: Language) => `${SITE_URL}/${langSegment(lng)}`
+export const langFromPath = (pathname: string): Language =>
+  (pathname.slice(BASE.length - 1).match(/^\/(it|fr)(\/|$)/)?.[1] as Language) ?? 'en'
 
 // Un file per lingua in ./locales. L'inglese è il riferimento: le sue chiavi
 // definiscono i tipi (i18next.d.ts), quindi una chiave mancante in it/fr è un errore.
@@ -42,7 +47,7 @@ function syncDocument() {
   document.documentElement.lang = lng
   document.title = i18n.t('meta.title')
   document.querySelector('meta[name="description"]')?.setAttribute('content', i18n.t('meta.description'))
-  document.querySelector('link[rel="canonical"]')?.setAttribute('href', SITE_URL + pathFor(lng))
+  document.querySelector('link[rel="canonical"]')?.setAttribute('href', urlFor(lng))
 }
 if (isBrowser) i18n.on('languageChanged', syncDocument)
 

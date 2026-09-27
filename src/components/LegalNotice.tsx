@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { CONTACT, LEGAL, SITE_URL } from '../config'
+import { CONTACT, LEGAL } from '../config'
+import { SITE_URL } from '../site'
 import { gsap, prefersReducedMotion } from '../lib/gsap'
 
 /**

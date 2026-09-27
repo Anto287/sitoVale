@@ -140,6 +140,11 @@ Tutti i token sono in cima a `src/styles.css`, con la variante dark.
 Automatica: a ogni push su `main` la GitHub Action `.github/workflows/deploy.yml` esegue `npm ci`
 e `npm run build` e pubblica `dist/` su GitHub Pages. Avanzamento ed errori: scheda **Actions** del repository.
 
+Indirizzo: finché non c'è un dominio il sito è su `https://anto287.github.io/sitoVale/`, con le pagine marcate
+`noindex` (Google non registra l'indirizzo provvisorio). Quando su GitHub si imposta il dominio, la build
+successiva passa da sola a `https://www.vallyski.com`, percorsi alla radice e indicizzazione attiva
+(`actions/configure-pages` passa indirizzo e cartella alla build, vedi `src/site.ts`).
+
 Impostazioni da fare una volta sola su GitHub:
 1. **Settings → Pages → Build and deployment → Source: GitHub Actions**.
 2. **Settings → Pages → Custom domain: `www.vallyski.com`**, poi spuntare **Enforce HTTPS**

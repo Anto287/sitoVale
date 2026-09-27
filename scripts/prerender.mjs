@@ -11,12 +11,17 @@ const ROOT = path.resolve(import.meta.dirname, '..')
 const DIST = path.join(ROOT, 'dist')
 const SSR = path.join(ROOT, 'dist-ssr')
 
-const { render, LANGUAGES, pathFor, SITE_URL } = await import(path.join(SSR, 'entry-server.js'))
+const { render, LANGUAGES, langSegment, urlFor, SITE_URL, IS_FINAL_URL } = await import(path.join(SSR, 'entry-server.js'))
 const template = fs.readFileSync(path.join(DIST, 'index.html'), 'utf8')
 
 const OG_LOCALE = { en: 'en_GB', it: 'it_IT', fr: 'fr_FR' }
 const escape = (s) => s.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
-const url = (lng) => SITE_URL + pathFor(lng)
+const url = urlFor
+
+// Indirizzo provvisorio (es. anto287.github.io/sitoVale): non va indicizzato, altrimenti Google
+// registra un doppione del sito che resterebbe in giro anche dopo il passaggio al dominio vero.
+const noindex = IS_FINAL_URL ? [] : ['<meta name="robots" content="noindex">']
+if (!IS_FINAL_URL) console.log(`ℹ indirizzo provvisorio ${SITE_URL}: pagine con noindex`)
 
 const alternates = [
   ...LANGUAGES.map((l) => `<link rel="alternate" hreflang="${l}" href="${url(l)}">`),
@@ -29,6 +34,7 @@ for (const lng of LANGUAGES) {
     `<title>${escape(title)}</title>`,
     `<meta name="description" content="${escape(description)}">`,
     `<link rel="canonical" href="${url(lng)}">`,
+    ...noindex,
     alternates,
     `<meta property="og:title" content="${escape(title)}">`,
     `<meta property="og:description" content="${escape(description)}">`,
@@ -42,7 +48,7 @@ for (const lng of LANGUAGES) {
     .replace(/<!--lang-head-->[\s\S]*?<!--\/lang-head-->/, head)
     .replace('<!--app-->', html)
 
-  const out = path.join(DIST, pathFor(lng), 'index.html')
+  const out = path.join(DIST, langSegment(lng), 'index.html')
   fs.mkdirSync(path.dirname(out), { recursive: true })
   fs.writeFileSync(out, page)
   console.log(`✓ ${path.relative(ROOT, out).padEnd(20)} ${Math.round(page.length / 1024)} KB — ${title}`)
@@ -52,6 +58,7 @@ for (const lng of LANGUAGES) {
 // con un titolo che lo dice e senza indicizzazione.
 const notFound = fs
   .readFileSync(path.join(DIST, 'index.html'), 'utf8')
+  .replace(/<meta name="robots" content="noindex">\n?/, '')
   .replace('<meta name="description"', '<meta name="robots" content="noindex">\n<meta name="description"')
 fs.writeFileSync(path.join(DIST, '404.html'), notFound)
 console.log('✓ 404.html')
@@ -70,7 +77,10 @@ ${[...LANGUAGES.map((l) => `    <xhtml:link rel="alternate" hreflang="${l}" href
 </urlset>
 `
 fs.writeFileSync(path.join(DIST, 'sitemap.xml'), sitemap)
-fs.writeFileSync(path.join(DIST, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`)
+fs.writeFileSync(
+  path.join(DIST, 'robots.txt'),
+  IS_FINAL_URL ? `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n` : 'User-agent: *\nDisallow: /\n',
+)
 console.log(`✓ sitemap.xml (lastmod ${today}), robots.txt`)
 
 fs.rmSync(SSR, { recursive: true, force: true })

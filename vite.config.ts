@@ -1,6 +1,6 @@
 import react from '@vitejs/plugin-react'
 import { defineConfig, type Plugin } from 'vite'
-import { CONTACT, SITE_URL } from './src/config'
+import { CONTACT, SITE_URL as FINAL_SITE_URL } from './src/config'
 import images from './src/data/images.json'
 
 /**
@@ -8,9 +8,14 @@ import images from './src/data/images.json'
  * così dominio, contatti e nomi dei file stanno in un posto solo.
  * (Titolo, descrizione e hreflang di ogni lingua li aggiunge scripts/prerender.mjs.)
  */
+// Indirizzo e cartella di pubblicazione: li passa la GitHub Action (vedi src/site.ts).
+// In locale: dominio definitivo e radice.
+const SITE_URL = (process.env.VITE_SITE_URL || FINAL_SITE_URL).replace(/\/$/, '')
+const BASE = process.env.BASE_PATH ? `${process.env.BASE_PATH.replace(/\/$/, '')}/` : '/'
+
 function siteHtml(): Plugin {
   const hero = images['lezioni/mare-di-nuvole'].files as [number, string][]
-  const preload = `<link rel="preload" as="image" type="image/webp" fetchpriority="high" imagesizes="100vw" imagesrcset="${hero.map(([w, url]) => `${url} ${w}w`).join(', ')}">`
+  const preload = `<link rel="preload" as="image" type="image/webp" fetchpriority="high" imagesizes="100vw" imagesrcset="${hero.map(([w, url]) => `${BASE}${url.slice(1)} ${w}w`).join(', ')}">`
   const jsonLd = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -53,6 +58,7 @@ function siteHtml(): Plugin {
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: BASE,
   plugins: [react(), siteHtml()],
   // nel build SSR (pre-generazione delle pagine) GSAP va incluso nel bundle: i suoi plugin non sono moduli ESM per Node
   ssr: { noExternal: ['gsap', '@gsap/react'] },
