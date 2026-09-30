@@ -97,7 +97,7 @@ export function Reviews() {
         tabIndex={0}
         role="region"
         aria-label={t('reviews.eyebrow')}
-        // gesto orizzontale sul trackpad: scorre le card, non la pagina
+        // gesto orizzontale (trackpad o dito): scorre le card; quello verticale scorre la pagina
         data-lenis-prevent-horizontal
       >
         {REVIEWS.map((r) => (

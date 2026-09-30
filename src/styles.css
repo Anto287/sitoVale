@@ -343,14 +343,17 @@ a.fact:hover b{color:var(--accent-text)}
 .reviews-nav button:disabled{opacity:.35;cursor:default}
 .reviews-nav svg{width:18px;height:18px}
 /* overflow-y hidden: con overflow-x auto il browser renderebbe scorrevole anche la verticale
-   (card che salgono o si aprono) e le card si muoverebbero su e giù sotto il dito */
+   (card che salgono o si aprono) e le card si muoverebbero su e giù sotto il dito.
+   overscroll-behavior-y auto: il CSS di Lenis mette "contain" su entrambi gli assi e il gesto
+   verticale partito sopra le card non arriverebbe più alla pagina (scroll bloccato). */
 .reviews-track{
   display:flex;align-items:flex-start;gap:clamp(14px,2vw,24px);overflow-x:auto;overflow-y:hidden;
-  overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scrollbar-width:none;
+  overscroll-behavior-x:contain;overscroll-behavior-y:auto;scroll-snap-type:x mandatory;scrollbar-width:none;
   margin-top:clamp(36px,5vw,56px);padding:4px max(var(--gut), calc((100vw - var(--maxw)) / 2 + var(--gut))) 8px;
   scroll-padding-inline:max(var(--gut), calc((100vw - var(--maxw)) / 2 + var(--gut)));
 }
 .reviews-track::-webkit-scrollbar{display:none}
+.lenis .reviews-track{overscroll-behavior-x:contain;overscroll-behavior-y:auto}
 .reviews-track:focus-visible{outline-offset:-2px}
 .review{
   margin:0;flex:none;width:min(400px,82vw);scroll-snap-align:start;

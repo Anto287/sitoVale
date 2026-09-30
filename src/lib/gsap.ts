@@ -14,7 +14,10 @@ gsap.defaults({ ease: 'power3.out', duration: 1 })
 if (typeof window !== 'undefined') ScrollTrigger.config({ ignoreMobileResize: true })
 
 /**
- * Scroll morbido (Lenis) per rotellina e trackpad; su touch resta lo scroll nativo del telefono.
+ * Scroll morbido (Lenis) per rotellina, trackpad e dito.
+ * Sul telefono (syncTouch) il dito muove la pagina 1:1, ma lo slancio dopo il rilascio lo calcola
+ * Lenis invece del telefono: più corto e più dolce, così un colpo secco non "vola" oltre intere
+ * sezioni lasciando a metà le loro entrate.
  * Lenis muove lo scroll reale della pagina, quindi ScrollTrigger e le ancore funzionano come prima:
  * gira sullo stesso ticker di GSAP, così scroll e animazioni si aggiornano nello stesso frame.
  */
@@ -24,6 +27,10 @@ export function startSmoothScroll() {
   const instance = new Lenis({
     lerp: 0.1,
     wheelMultiplier: 0.9,
+    syncTouch: true,
+    // slancio dopo il rilascio: distanza ≈ velocità^1.45 (il telefono da solo è molto più lungo)
+    touchInertiaExponent: 1.45,
+    syncTouchLerp: 0.07,
     // pannelli che scorrono da soli (note legali, foto aperte): lo scroll resta il loro
     prevent: (node) => node.nodeName === 'DIALOG' || node.getAttribute('role') === 'dialog',
     virtualScroll: (data) => {
