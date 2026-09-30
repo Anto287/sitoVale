@@ -99,7 +99,9 @@ export function revealOnScroll(targets: gsap.DOMTarget, vars: { y?: number; stag
   const els = gsap.utils.toArray<HTMLElement>(targets)
   if (!els.length) return
   const { y = 44, stagger = 0.1, start = 'top 90%' } = vars
-  gsap.set(els, { autoAlpha: 0, y })
+  // transition spenta finché GSAP anima: se l'elemento ha una transizione CSS su transform
+  // (hover delle card) il browser la rilancerebbe a ogni fotogramma e l'entrata andrebbe a scatti
+  gsap.set(els, { autoAlpha: 0, y, transition: 'none' })
   ScrollTrigger.batch(els, {
     start,
     once: true,
@@ -113,7 +115,7 @@ export function revealOnScroll(targets: gsap.DOMTarget, vars: { y?: number; stag
         stagger: stagger * k,
         overwrite: true,
         // restituisce il controllo al CSS (hover sulle card ecc.)
-        clearProps: 'transform',
+        clearProps: 'transform,transition',
       })
     },
   })
@@ -129,7 +131,8 @@ export function revealImages(frames: gsap.DOMTarget, vars: { stagger?: number; s
   els.forEach((frame) => {
     gsap.set(frame, { clipPath: 'inset(100% 0% 0% 0%)' })
     const img = frame.querySelector('img')
-    if (img) gsap.set(img, { scale: 1.3 })
+    // transition spenta durante lo zoom: vedi revealOnScroll (le foto hanno l'hover in CSS)
+    if (img) gsap.set(img, { scale: 1.3, transition: 'none' })
   })
   ScrollTrigger.batch(els, {
     start,
@@ -139,7 +142,7 @@ export function revealImages(frames: gsap.DOMTarget, vars: { stagger?: number; s
       gsap.to(batch, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.4 * k, ease: 'power4.inOut', stagger: stagger * k, clearProps: 'clipPath' })
       gsap.to(
         batch.map((f) => f.querySelector('img')),
-        { scale: 1, duration: 1.8 * k, ease: EASE_OUT, stagger: stagger * k, clearProps: 'transform' },
+        { scale: 1, duration: 1.8 * k, ease: EASE_OUT, stagger: stagger * k, clearProps: 'transform,transition' },
       )
     },
   })

@@ -79,6 +79,11 @@ html.intro-pending [data-intro],html.intro-pending .hero h1{visibility:hidden}
 html.intro-pending .hero-media img{transform:scale(1.12)}
 html.intro-pending .hero-shade{opacity:.35}
 
+/* Elementi che si muovono a ogni fotogramma di scroll (parallasse, striscia di panorami):
+   su un livello proprio della GPU fin dall'inizio. Senza, il browser lo crea e lo distrugge
+   ogni volta che lo scroll parte e si ferma, e quel ridisegno si vede come uno scatto. */
+.hero-media,.hero-inner,.strip-track,#chi .frame--sq,.where .frame--tall{will-change:transform}
+
 /* barra di scorrimento: sottile, antracite/cipria, fucsia al passaggio */
 @supports not selector(::-webkit-scrollbar){
   html{scrollbar-width:thin;scrollbar-color:color-mix(in srgb, var(--ink) 35%, transparent) var(--ground)}
@@ -517,4 +522,12 @@ textarea{resize:vertical;min-height:92px}
 /* ---------- movimento ridotto ---------- */
 @media (prefers-reduced-motion: reduce){
   *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
+}
+
+/* Telefoni: la sfocatura dietro la barra in alto e il bottone in basso va ricalcolata a ogni
+   fotogramma sopra la pagina che scorre, ed è il lavoro più pesante per la GPU di un telefono.
+   Lì si usa uno sfondo pieno: a colpo d'occhio è uguale. */
+@media (hover:none){
+  .nav.is-stuck{-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--ground)}
+  .mobile-cta{-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--surface)}
 }
