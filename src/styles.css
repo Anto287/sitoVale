@@ -104,6 +104,12 @@ html.intro-pending .hero-shade{opacity:.35}
 }
 .skip-link:focus-visible{transform:none}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+/* niente riquadro grigio/blu del tocco su telefono, né testo selezionato con un doppio tap sui bottoni:
+   il feedback lo danno già colori e animazioni. Da tastiera resta l'anello :focus-visible. */
+html{-webkit-tap-highlight-color:transparent}
+a,button,.btn,[role="button"]{touch-action:manipulation}
+button,.btn,.burger,.lang a,.reviews-nav button{-webkit-user-select:none;user-select:none}
+:focus:not(:focus-visible){outline:none}
 ::selection{background:var(--accent);color:var(--accent-fg)}
 
 .wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--gut)}
@@ -176,7 +182,6 @@ h2+p,h2+.lede{margin-top:clamp(18px,2vw,26px)}
 .lang a[aria-current="true"]{background:currentColor}
 .lang a[aria-current="true"] span{mix-blend-mode:difference;color:#fff}
 .nav-cta{display:inline-flex}
-.lang--menu{display:none}
 .burger{display:none;background:none;border:0;color:inherit;cursor:pointer;width:44px;height:44px;padding:0 11px;margin-right:-11px}
 .burger span{display:block;width:22px;height:1px;background:currentColor;transition:transform .4s var(--ease),opacity .3s}
 .burger span+span{margin-top:6px}
@@ -195,17 +200,13 @@ h2+p,h2+.lede{margin-top:clamp(18px,2vw,26px)}
 }
 /* sotto i 960px le voci (in italiano le più lunghe) non stanno più su una riga: burger */
 @media (max-width:960px){
-  .nav-links{
-    position:fixed;inset:0;background:var(--ground);color:var(--ink);
-    flex-direction:column;justify-content:center;align-items:center;gap:26px;
-    font-size:15px;
-    opacity:0;visibility:hidden;transition:opacity .4s var(--ease),visibility .4s;
-  }
-  .nav.is-open .nav-links{opacity:1;visibility:visible}
+  .nav-links{display:none}
   .burger{display:block;order:3}
   .lang a{min-height:36px;padding-inline:11px}
-  .brand,.lang,.burger{position:relative;z-index:1}
   .nav-cta{display:none}
+  /* menu aperto: la barra diventa trasparente sopra il pannello scuro, restano marchio e X */
+  .nav.is-open,.nav.is-open.is-stuck{background:transparent;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;color:var(--band-fg)}
+  .nav.is-open > .lang{visibility:hidden}
 }
 @media (max-width:520px){
   .brand{font-size:17px;gap:8px}
@@ -214,8 +215,49 @@ h2+p,h2+.lede{margin-top:clamp(18px,2vw,26px)}
 @media (max-width:480px){
   .nav{gap:12px}
   .nav > .lang{display:none}
-  .lang--menu{display:flex;margin-top:18px;font-size:13px;opacity:1}
+}
+
+/* ---------- menu a tutto schermo (telefono e tablet) ---------- */
+.menu{display:none}
+@media (max-width:960px){
+  .menu{
+    position:fixed;inset:0;z-index:65;
+    display:flex;flex-direction:column;justify-content:center;gap:clamp(36px,7vh,64px);
+    padding:calc(96px + env(safe-area-inset-top)) var(--gut) calc(28px + env(safe-area-inset-bottom));
+    overflow-y:auto;overscroll-behavior:contain;
+    color:var(--band-fg);
+    /* antracite della divisa con un bagliore fucsia in alto e un filo di neve in basso */
+    background:
+      radial-gradient(120% 60% at 85% -10%, color-mix(in srgb, var(--accent) 34%, transparent), transparent 60%),
+      radial-gradient(90% 50% at 0% 110%, rgba(255,255,255,.07), transparent 70%),
+      #1B1A1D;
+    visibility:hidden;opacity:0;transition:opacity .35s var(--ease),visibility .35s;
+  }
+  .menu.is-open{visibility:visible;opacity:1}
+  .menu-links{list-style:none;margin:0;padding:0;display:grid;justify-items:center;text-align:center;gap:clamp(4px,1.4vh,12px)}
+  .menu-links a{
+    position:relative;display:flex;align-items:flex-start;gap:10px;overflow:hidden;
+    padding:.08em .1em .12em;
+    font-family:var(--display);font-size:clamp(34px,9vw,54px);line-height:1.05;letter-spacing:-.01em;
+  }
+  .menu-links a > *{display:block}
+  .menu-num{font-family:var(--sans);font-size:11px;letter-spacing:.14em;line-height:1;color:var(--accent);padding-top:.6em}
+  .menu-links a::after{
+    content:"";position:absolute;left:50%;right:50%;bottom:.06em;height:1px;background:var(--accent);
+    transition:left .45s var(--ease),right .45s var(--ease);
+  }
+  .menu-links a:hover::after,.menu-links a:active::after{left:0;right:0}
+  .menu-foot{display:grid;justify-items:center;gap:18px}
+  .menu-foot .btn{min-width:min(280px,100%);justify-content:center}
+  .lang--menu{font-size:13px;opacity:1;border-color:rgba(255,255,255,.35)}
   .lang--menu a{min-width:52px;min-height:44px;font-size:13px}
+  .menu-contact{margin:0;display:grid;justify-items:center;gap:4px;font-size:13px;letter-spacing:.04em;color:rgba(255,255,255,.62)}
+  .menu-contact a{padding:6px 0}
+}
+@media (max-width:960px) and (max-height:560px){
+  /* telefono in orizzontale: voci più piccole, tutto resta su uno schermo */
+  .menu{justify-content:flex-start;gap:28px}
+  .menu-links a{font-size:30px}
 }
 
 /* ---------- hero ---------- */

@@ -159,12 +159,11 @@ export function Contact() {
             </button>
           </div>
           <p className="form-note" role="status" aria-live="polite">
-            {sent ? (
+            {/* vuoto finché non si invia: resta nella pagina perché gli screen reader leggano la conferma */}
+            {sent && (
               <>
                 {t('form.sent')} <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
               </>
-            ) : (
-              t('form.note')
             )}
           </p>
         </form>
