@@ -15,10 +15,15 @@ export function Hero() {
 
         // Ingresso: la foto rientra dallo zoom, il nome sale lettera per lettera,
         // poi testo, bottoni e barra di navigazione (fuori scope: querySelectorAll).
+        // La foto è già a schermo prima del JavaScript (pagina pre-generata), leggermente
+        // ingrandita e velata dal CSS (html.intro-pending): si parte da lì com'è adesso,
+        // senza farla sparire nel nero e ricomparire.
+        const img = ref.current!.querySelector<HTMLImageElement>('.hero-media img')!
+        const shade = ref.current!.querySelector<HTMLElement>('.hero-shade')!
         const intro = gsap.timeline({ paused: true, defaults: { ease: EASE_OUT } })
         intro
-          .from('.hero-media img', { scale: 1.28, duration: 2.8, ease: 'power2.out' }, 0)
-          .from('.hero-shade', { opacity: 1, duration: 1.6, ease: 'power1.out' }, 0)
+          .fromTo(img, { scale: gsap.getProperty(img, 'scale') }, { scale: 1, duration: 2.8, ease: 'power2.out' }, 0)
+          .fromTo(shade, { opacity: gsap.getProperty(shade, 'opacity') }, { opacity: 0, duration: 1.6, ease: 'power1.out' }, 0)
           .from(chars, { yPercent: 118, duration: 1.3, stagger: 0.035 }, 0.25)
           .from('[data-intro="hero"]', { y: 26, autoAlpha: 0, duration: 1.1, stagger: 0.12 }, 0.75)
           .from(document.querySelectorAll('[data-intro="nav"]'), { y: -18, autoAlpha: 0, duration: 0.9, stagger: 0.05, clearProps: 'transform' }, 0.9)
@@ -29,7 +34,6 @@ export function Hero() {
 
         // L'ingresso parte quando la foto è pronta: altrimenti zoom e dissolvenza girano
         // sul vuoto e la foto compare di colpo a metà. Dopo 1,5 s si parte comunque.
-        const img = ref.current!.querySelector<HTMLImageElement>('.hero-media img')!
         const start = () => intro.play()
         const fallback = window.setTimeout(start, 1500)
         img.decode().then(start, start).finally(() => window.clearTimeout(fallback))

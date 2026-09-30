@@ -5,6 +5,7 @@ import './fonts.css'
 import '@fontsource-variable/jost/index.css'
 import './i18n'
 import './lib/gsap'
+import 'lenis/dist/lenis.css'
 import './styles.css'
 import App from './App'
 

@@ -12,10 +12,13 @@ import { MobileCta } from './components/MobileCta'
 import { Nav } from './components/Nav'
 import { Reviews } from './components/Reviews'
 import { Where } from './components/Where'
-import { gsap, ScrollTrigger, scrollToHash, useGSAP, withMotion } from './lib/gsap'
+import { gsap, pace, ScrollTrigger, scrollToHash, startSmoothScroll, useGSAP, withMotion } from './lib/gsap'
 
 export default function App() {
   const { t, i18n } = useTranslation()
+
+  // Scroll morbido con rotellina/trackpad (spento con "riduci movimento": resta quello nativo).
+  useGSAP(() => withMotion(startSmoothScroll))
 
   // Tutti i link #ancora scorrono con GSAP invece del salto secco.
   useEffect(() => {
@@ -46,7 +49,10 @@ export default function App() {
       ScrollTrigger.batch(eyebrows, {
         start: 'top 92%',
         once: true,
-        onEnter: (batch) => gsap.to(batch, { '--line': 1, duration: 1.2, ease: 'expo.out', stagger: 0.1, delay: 0.15 }),
+        onEnter: (batch, triggers) => {
+          const k = pace(triggers)
+          gsap.to(batch, { '--line': 1, duration: 1.2 * k, ease: 'expo.out', stagger: 0.1 * k, delay: 0.15 * k })
+        },
       })
     }),
   )

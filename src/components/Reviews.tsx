@@ -91,7 +91,15 @@ export function Reviews() {
         </div>
       </div>
 
-      <div className="reviews-track" ref={trackRef} tabIndex={0} role="region" aria-label={t('reviews.eyebrow')}>
+      <div
+        className="reviews-track"
+        ref={trackRef}
+        tabIndex={0}
+        role="region"
+        aria-label={t('reviews.eyebrow')}
+        // gesto orizzontale sul trackpad: scorre le card, non la pagina
+        data-lenis-prevent-horizontal
+      >
         {REVIEWS.map((r) => (
           <ReviewCard
             key={r.id}

@@ -75,6 +75,23 @@ img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
 /* ingresso della hero: nascosto finché GSAP non lo prende in carico (vedi index.html) */
 html.intro-pending [data-intro],html.intro-pending .hero h1{visibility:hidden}
+/* la foto della hero si vede subito, già nello stato da cui parte l'ingresso (vedi Hero.tsx) */
+html.intro-pending .hero-media img{transform:scale(1.12)}
+html.intro-pending .hero-shade{opacity:.35}
+
+/* barra di scorrimento: sottile, antracite/cipria, fucsia al passaggio */
+@supports not selector(::-webkit-scrollbar){
+  html{scrollbar-width:thin;scrollbar-color:color-mix(in srgb, var(--ink) 35%, transparent) var(--ground)}
+}
+::-webkit-scrollbar{width:12px;height:12px}
+::-webkit-scrollbar-track{background:var(--ground)}
+::-webkit-scrollbar-thumb{
+  background:color-mix(in srgb, var(--ink) 28%, transparent);border-radius:999px;
+  border:3px solid var(--ground);background-clip:padding-box;
+}
+::-webkit-scrollbar-thumb:hover{background-color:var(--accent)}
+::-webkit-scrollbar-thumb:active{background-color:var(--accent-text)}
+::-webkit-scrollbar-corner{background:var(--ground)}
 .skip-link{
   position:fixed;top:12px;left:12px;z-index:200;padding:12px 18px;border-radius:999px;
   background:var(--ink);color:var(--ground);font-size:13px;letter-spacing:.08em;
@@ -325,8 +342,11 @@ a.fact:hover b{color:var(--accent-text)}
 .reviews-nav button:hover:not(:disabled){border-color:var(--accent);background:var(--accent);color:var(--accent-fg)}
 .reviews-nav button:disabled{opacity:.35;cursor:default}
 .reviews-nav svg{width:18px;height:18px}
+/* overflow-y hidden: con overflow-x auto il browser renderebbe scorrevole anche la verticale
+   (card che salgono o si aprono) e le card si muoverebbero su e giù sotto il dito */
 .reviews-track{
-  display:flex;align-items:flex-start;gap:clamp(14px,2vw,24px);overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;
+  display:flex;align-items:flex-start;gap:clamp(14px,2vw,24px);overflow-x:auto;overflow-y:hidden;
+  overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scrollbar-width:none;
   margin-top:clamp(36px,5vw,56px);padding:4px max(var(--gut), calc((100vw - var(--maxw)) / 2 + var(--gut))) 8px;
   scroll-padding-inline:max(var(--gut), calc((100vw - var(--maxw)) / 2 + var(--gut)));
 }
