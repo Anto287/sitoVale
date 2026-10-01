@@ -11,7 +11,9 @@ import { Lessons } from './components/Lessons'
 import { MobileCta } from './components/MobileCta'
 import { Nav } from './components/Nav'
 import { Reviews } from './components/Reviews'
+import { SkiTrail } from './components/SkiTrail'
 import { Where } from './components/Where'
+import { track } from './lib/analytics'
 import { gsap, pace, ScrollTrigger, scrollToHash, startSmoothScroll, useGSAP, withMotion } from './lib/gsap'
 
 export default function App() {
@@ -21,8 +23,13 @@ export default function App() {
   useGSAP(() => withMotion(startSmoothScroll))
 
   // Tutti i link #ancora scorrono con GSAP invece del salto secco.
+  // Statistiche: si contano i tocchi su WhatsApp ed email (solo se GoatCounter è attivo).
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
+      const link = (e.target as Element).closest<HTMLAnchorElement>('a[href]')
+      if (link?.href.includes('wa.me/')) track('whatsapp')
+      else if (link?.href.startsWith('mailto:')) track('email')
+      else if (link?.href.endsWith('.pdf')) track('condizioni-pdf')
       if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
       const a = (e.target as Element).closest<HTMLAnchorElement>('a[href^="#"]')
       if (a && scrollToHash(a.getAttribute('href')!)) e.preventDefault()
@@ -62,8 +69,8 @@ export default function App() {
     withMotion(() => {
       if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return
       const cleanups = gsap.utils.toArray<HTMLElement>('[data-magnetic]').map((el) => {
-        const x = gsap.quickTo(el, 'x', { duration: 0.6, ease: 'elastic.out(1, 0.4)' })
-        const y = gsap.quickTo(el, 'y', { duration: 0.6, ease: 'elastic.out(1, 0.4)' })
+        const x = gsap.quickTo(el, 'x', { duration: 0.6, ease: 'power3.out' })
+        const y = gsap.quickTo(el, 'y', { duration: 0.6, ease: 'power3.out' })
         const move = (e: PointerEvent) => {
           const r = el.getBoundingClientRect()
           x((e.clientX - (r.left + r.width / 2)) * 0.25)
@@ -91,14 +98,16 @@ export default function App() {
       </a>
       <Nav />
       <Hero />
+      {/* ordine pensato per alternare fasce colorate e sezioni di foto */}
       <main>
+        <SkiTrail />
         <Facts />
         <About />
         <Lessons />
-        <Booking />
-        <Reviews />
         <Where />
+        <Reviews />
         <Gallery />
+        <Booking />
         <Contact />
       </main>
       <Footer />

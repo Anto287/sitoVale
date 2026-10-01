@@ -41,10 +41,10 @@
   "about": {
     "eyebrow": "About",
     "title": "Skiing well is, above all, a matter of trust.",
-    "p1": "I've been skiing since I was four, in the Apennines in Italy. I raced until I was eighteen, then qualified as a ski instructor, and for the past five years I've been working in the Tarentaise, between Les Arcs, Val d'Isère and Tignes.",
+    "p1": "I've been skiing since I was four, in the Apennines in Italy. I raced until I was eighteen, then qualified as a ski instructor, and for the past {{years}} years I've been working in the Tarentaise, between Les Arcs, Val d'Isère and Tignes.",
     "p2": "I'm patient and enthusiastic. I teach every level and every age, with one goal that comes before all others: having fun on the slopes.",
     "cred1": "Qualified ski instructor",
-    "cred2": "5 years of experience in the Tarentaise",
+    "cred2": "{{years}} years of experience in the Tarentaise",
     "cred3": "Competitive racer until 18",
     "cred4": "Lessons in Italian, French and English",
     "imgPortrait": "Valentina at the top, helmet and goggles on, mountains behind",
@@ -91,7 +91,12 @@
     "imgDawn": "First light on the peaks",
     "imgClouds": "Lift in the sun above a sea of clouds",
     "imgLarches": "Snowy larches and groomed runs",
-    "imgSunset": "Last run at sunset"
+    "imgSunset": "Last run at sunset",
+    "mapLabel": "Map of the Tarentaise: the Isère valley from Albertville to Val d'Isère, with Les Arcs above Bourg-Saint-Maurice and Tignes just before Val d'Isère",
+    "mapMontBlanc": "Mont Blanc",
+    "mapFunicular": "Funicular · 7 min",
+    "mapItaly": "Italy",
+    "mapBorder": "Border (approximate)"
   },
   "gallery": {
     "eyebrow": "Gallery",
@@ -126,7 +131,8 @@
       "lone": "She was a good teacher for showing me how to start skiing."
     },
     "readMore": "Read more",
-    "readLess": "Show less"
+    "readLess": "Show less",
+    "rating": "{{rating}} out of 5 stars"
   },
   "contact": {
     "eyebrow": "Contact",
@@ -152,7 +158,13 @@
     "people": "People",
     "phPeople": "2 adults, 1 child aged 7",
     "orWhatsapp": "Prefer WhatsApp? Send the same request",
-    "sent": "Great! If your email app didn't open, write to me at"
+    "phone": "Phone (optional)",
+    "phPhone": "WhatsApp or mobile",
+    "sending": "Sending…",
+    "sentTitle": "Request sent",
+    "sentText": "Thank you, {{name}}! I've sent you a confirmation email and I'll get back to you soon with availability and rates.",
+    "sendAnother": "Send another request",
+    "mailtoNote": "Automatic sending didn't work: your email app has opened with the message ready. If you can't see it, write to me at"
   },
   "footer": {
     "role": "Ski instructor in the Tarentaise",
@@ -178,7 +190,14 @@
     "ipTitle": "Photos and content",
     "ip": "Photos and text belong to Valentina Bernardi, except the reviews, which belong to their authors. They may not be reused without permission.",
     "privacyTitle": "Personal data and cookies",
-    "privacy": "This site uses no cookies and no analytics or advertising tools. Only your language choice is stored in your browser (localStorage), and it identifies no one. The contact form neither sends nor stores data: it opens your email app or WhatsApp with the message ready, and I only receive your details if you choose to send it. I use them solely to reply and arrange lessons. To access, correct or delete them, write to the address above; you can also contact the CNIL (www.cnil.fr).",
-    "close": "Close"
+    "close": "Close",
+    "privacyBase": "This site uses no cookies and no advertising tools. Only your language choice is stored in your browser, for the length of your visit (sessionStorage), and it identifies no one.",
+    "privacyNoStats": "It uses no analytics tools either.",
+    "privacyStats": "To know how many people visit the site I use GoatCounter, a cookie-free analytics service that collects no personal data and does not track visitors across sites.",
+    "privacyRights": "I use your details solely to reply and arrange lessons. To access, correct or delete them, write to the address above; you can also contact the CNIL (www.cnil.fr).",
+    "privacyForm": "The contact form emails your request to me through Resend, an email delivery service (United States), and sends you a confirmation at the address you gave; if sending fails, your email app opens with the message ready. You can also send your request via WhatsApp. The site does not store any data."
+  },
+  "terms": {
+    "link": "Terms & cancellation policy"
   }
 }

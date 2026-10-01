@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { REVIEWS } from '../data/reviews'
+import { REVIEWS, type Review } from '../data/reviews'
 import type { Language } from '../i18n'
 import { EASE_IN_OUT, gsap, prefersReducedMotion, revealOnScroll, useGSAP, withMotion } from '../lib/gsap'
 import { SplitHeading } from './SplitHeading'
@@ -12,6 +12,8 @@ export function Reviews() {
   const trackRef = useRef<HTMLDivElement>(null)
   const barRef = useRef<HTMLSpanElement>(null)
   const [edge, setEdge] = useState({ start: true, end: false })
+  // voto medio, mostrato una volta sola in testa alla sezione (nelle card sarebbe sempre uguale)
+  const average = REVIEWS.reduce((sum, r) => sum + r.rating, 0) / REVIEWS.length
 
   const month = new Intl.DateTimeFormat(lang, { month: 'long', year: 'numeric' })
   const formatDate = (ym: string) => {
@@ -74,7 +76,13 @@ export function Reviews() {
           <div>
             <p className="eyebrow">{t('reviews.eyebrow')}</p>
             <SplitHeading text={t('reviews.title')} style={{ maxWidth: '16ch' }} />
-            <p className="reviews-summary">{t('reviews.summary', { count: REVIEWS.length })}</p>
+            <div className="reviews-summary">
+              <Stars rating={average} />
+              {/* il voto lo legge già l'etichetta delle stelle: qui solo per l'occhio */}
+              <b aria-hidden="true">{new Intl.NumberFormat(lang, { minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(average)}</b>
+              <span className="sr-only"> · </span>
+              <span>{t('reviews.summary', { count: REVIEWS.length })}</span>
+            </div>
           </div>
           <div className="reviews-nav">
             <button type="button" onClick={() => step(-1)} disabled={edge.start} aria-label={t('a11y.prevReview')}>
@@ -107,7 +115,8 @@ export function Reviews() {
             text={r.original?.text ?? t(`reviews.items.${r.id as 'lynne'}`)}
             textLang={r.original ? (r.original.lang === 'other' ? undefined : r.original.lang) : lang}
             author={r.author}
-            meta={[r.source, r.date && formatDate(r.date)].filter(Boolean).join(' · ')}
+            source={r.source}
+            meta={r.date ? formatDate(r.date) : ''}
             translated={!r.original}
           />
         ))}
@@ -122,10 +131,51 @@ export function Reviews() {
   )
 }
 
-type CardProps = { text: string; textLang?: string; author: string; meta: string; translated: boolean }
+type CardProps = { text: string; textLang?: string; author: string; source: Review['source']; meta: string; translated: boolean }
+
+const STAR = 'M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z'
+
+/** Voto in stelle: le stelle piene coprono la parte giusta, anche con i decimali. */
+function Stars({ rating }: { rating: number }) {
+  const { t, i18n } = useTranslation()
+  const value = new Intl.NumberFormat(i18n.resolvedLanguage, { minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(rating)
+  const row = (
+    <svg viewBox="0 0 120 24" aria-hidden="true">
+      {[0, 1, 2, 3, 4].map((i) => (
+        <path key={i} d={STAR} transform={`translate(${i * 24} 0)`} />
+      ))}
+    </svg>
+  )
+  return (
+    <span className="stars" role="img" aria-label={t('reviews.rating', { rating: value })}>
+      <span className="stars-base">{row}</span>
+      <span className="stars-fill" style={{ width: `${(rating / 5) * 100}%` }}>
+        {row}
+      </span>
+    </span>
+  )
+}
+
+/** Fonte della recensione: la "G" di Google, una sigla per Maison Sport. */
+function SourceMark({ source }: { source: Review['source'] }) {
+  if (source === 'Google')
+    return (
+      <svg className="source-mark" viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="#4285F4" d="M22.6 12.2c0-.8-.1-1.5-.2-2.2H12v4.3h5.9a5 5 0 0 1-2.2 3.3v2.7h3.6c2.1-1.9 3.3-4.8 3.3-8.1z" />
+        <path fill="#34A853" d="M12 23c3 0 5.5-1 7.3-2.7l-3.6-2.7c-1 .7-2.2 1-3.7 1-2.9 0-5.3-1.9-6.2-4.5H2.1v2.8A11 11 0 0 0 12 23z" />
+        <path fill="#FBBC05" d="M5.8 14.1a6.6 6.6 0 0 1 0-4.2V7.1H2.1a11 11 0 0 0 0 9.8z" />
+        <path fill="#EA4335" d="M12 5.4c1.6 0 3.1.6 4.2 1.7l3.2-3.2A11 11 0 0 0 2.1 7.1l3.7 2.8C6.7 7.3 9.1 5.4 12 5.4z" />
+      </svg>
+    )
+  return (
+    <span className="source-mark source-mark--ms" aria-hidden="true">
+      MS
+    </span>
+  )
+}
 
 /** Card con il testo tagliato a 9 righe; "Leggi tutto" compare solo se serve davvero. */
-function ReviewCard({ text, textLang, author, meta, translated }: CardProps) {
+function ReviewCard({ text, textLang, author, source, meta, translated }: CardProps) {
   const { t } = useTranslation()
   const pRef = useRef<HTMLParagraphElement>(null)
   const [open, setOpen] = useState(false)
@@ -174,9 +224,12 @@ function ReviewCard({ text, textLang, author, meta, translated }: CardProps) {
       )}
       <footer>
         <cite>{author}</cite>
-        <span>
-          {meta}
-          {translated && <em> · {t('reviews.translated')}</em>}
+        <span className="review-meta">
+          <SourceMark source={source} />
+          <span>
+            {[source, meta].filter(Boolean).join(' · ')}
+            {translated && <em> · {t('reviews.translated')}</em>}
+          </span>
         </span>
       </footer>
     </blockquote>

@@ -1,19 +1,20 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { EASE_OUT, gsap, revealImages, revealOnScroll, useGSAP, withMotion } from '../lib/gsap'
+import { RESORTS, type PlaceId } from '../data/places'
 import type { PhotoKey } from '../lib/photos'
 import { Photo } from './Photo'
 import { SplitHeading } from './SplitHeading'
+import { TarentaiseMap } from './TarentaiseMap'
 
-const PLACES = [
-  ['Les Arcs', 'where.lesArcs'],
-  ["Val d'Isère", 'where.valDisere'],
-  ['Tignes', 'where.tignes'],
-] as const
+type StripAlt = 'where.imgClouds' | 'where.imgMontBlanc' | 'where.imgForest' | 'where.imgGondola' | 'where.imgChairlift' | 'where.imgDawn' | 'where.imgLarches' | 'where.imgSunset'
 
-const STRIP: { photo: PhotoKey; alt: string }[] = [
+const STRIP: { photo: PhotoKey; alt: StripAlt; focus?: string }[] = [
+  { photo: 'panorami/mare-di-nuvole', alt: 'where.imgClouds' },
   { photo: 'panorami/bosco-innevato', alt: 'where.imgForest' },
   { photo: 'panorami/cabinovia-monte-bianco', alt: 'where.imgGondola' },
+  // la montagna sta in basso nella foto: il ritaglio parte da lì
+  { photo: 'panorami/monte-bianco', alt: 'where.imgMontBlanc', focus: 'center 85%' },
   { photo: 'panorami/seggiovia', alt: 'where.imgChairlift' },
   { photo: 'panorami/alba', alt: 'where.imgDawn' },
   { photo: 'panorami/larici', alt: 'where.imgLarches' },
@@ -23,17 +24,13 @@ const STRIP: { photo: PhotoKey; alt: string }[] = [
 export function Where() {
   const { t } = useTranslation()
   const ref = useRef<HTMLElement>(null)
+  // stazione evidenziata: passando sulla lista o sulla mappa si accendono entrambe
+  const [active, setActive] = useState<PlaceId | null>(null)
 
   useGSAP(
     () =>
       withMotion(() => {
-        revealImages('.stack .frame', { stagger: 0.18 })
-        revealOnScroll('.eyebrow, .lede')
-        gsap.to('.frame--tall', {
-          yPercent: -10,
-          ease: 'none',
-          scrollTrigger: { trigger: '.stack', start: 'top bottom', end: 'bottom top', scrub: true },
-        })
+        revealOnScroll('.eyebrow')
 
         // Le tre stazioni: riga che si disegna, poi nome e descrizione.
         gsap
@@ -64,26 +61,18 @@ export function Where() {
     <section ref={ref} className="section where" id="dove">
       <div className="wrap split split--rev">
         <div className="split-media">
-          <div className="stack">
-            <div className="frame frame--sq">
-              <Photo photo="panorami/mare-di-nuvole" alt={t('where.imgClouds')} sizes="(max-width: 860px) 42vw, 245px" />
-            </div>
-            <div className="frame frame--tall">
-              {/* la montagna sta in basso nella foto: il ritaglio parte da lì */}
-              <Photo photo="panorami/monte-bianco" alt={t('where.imgMontBlanc')} focus="center 85%" sizes="(max-width: 860px) 50vw, 300px" />
-            </div>
-          </div>
+          <TarentaiseMap active={active} onHover={setActive} />
         </div>
         <div>
           <p className="eyebrow">{t('where.eyebrow')}</p>
           <SplitHeading text={t('where.title')} />
           <p className="lede">{t('where.p1')}</p>
           <ul className="places">
-            {PLACES.map(([name, key]) => (
-              <li key={name}>
+            {RESORTS.map(({ id, name }) => (
+              <li key={id} className={active === id ? 'is-active' : undefined} onPointerEnter={() => setActive(id)} onPointerLeave={() => setActive(null)}>
                 <i className="rule" aria-hidden="true" />
                 <b>{name}</b>
-                <span>{t(key)}</span>
+                <span>{t(`where.${id}`)}</span>
               </li>
             ))}
           </ul>
@@ -94,7 +83,7 @@ export function Where() {
         <div className="strip-track">
           {STRIP.map((p) => (
             <figure key={p.photo}>
-              <Photo photo={p.photo} alt={t(p.alt as 'where.imgForest')} sizes="(max-width: 780px) 210px, 36vw" />
+              <Photo photo={p.photo} alt={t(p.alt)} focus={p.focus} sizes="(max-width: 780px) 210px, 36vw" />
             </figure>
           ))}
         </div>

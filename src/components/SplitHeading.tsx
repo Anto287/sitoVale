@@ -32,9 +32,7 @@ function SplitHeadingInner({ text, as: Tag = 'h2', className, style }: Props) {
           onSplit: (self) =>
             gsap.from(self.lines, {
               yPercent: 115,
-              rotate: 2,
-              transformOrigin: '0% 0%',
-              duration: 1.25,
+              duration: 0.9,
               ease: EASE_OUT,
               stagger: 0.1,
               scrollTrigger: { trigger: el, start: 'top 88%', once: true },

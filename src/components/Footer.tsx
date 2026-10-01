@@ -1,14 +1,15 @@
 import { useTranslation } from 'react-i18next'
 import { CONTACT } from '../config'
 import { LegalNotice } from './LegalNotice'
+import { TermsLink } from './TermsLink'
 
 const LINKS = [
   ['#chi', 'nav.about'],
   ['#lezioni', 'nav.lessons'],
-  ['#tariffe', 'nav.rates'],
-  ['#recensioni', 'nav.reviews'],
   ['#dove', 'nav.where'],
+  ['#recensioni', 'nav.reviews'],
   ['#galleria', 'nav.gallery'],
+  ['#tariffe', 'nav.rates'],
 ] as const
 
 export function Footer() {
@@ -57,6 +58,7 @@ export function Footer() {
         <span suppressHydrationWarning>© {new Date().getFullYear()} Valentina Bernardi</span>
         <span className="footer-bottom-links">
           <LegalNotice />
+          <TermsLink className="footer-terms" />
           <a href="#top">{t('footer.top')}</a>
         </span>
       </div>

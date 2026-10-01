@@ -1,11 +1,12 @@
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
+import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin'
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { SplitText } from 'gsap/SplitText'
 import Lenis from 'lenis'
 
-gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollToPlugin, SplitText)
+gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollToPlugin, SplitText, DrawSVGPlugin)
 
 gsap.defaults({ ease: 'power3.out', duration: 1 })
 
@@ -33,21 +34,8 @@ export function startSmoothScroll() {
     syncTouchLerp: 0.07,
     // pannelli che scorrono da soli (note legali, foto aperte): lo scroll resta il loro
     prevent: (node) => node.nodeName === 'DIALOG' || node.getAttribute('role') === 'dialog',
-    virtualScroll: (data) => {
-      // menu o foto aperti bloccano la pagina (body overflow hidden): Lenis non deve muoverla
-      if (document.body.style.overflow === 'hidden') return false
-      // Velocità massima: la rotellina non può portare la destinazione più di ~70% di schermo
-      // avanti rispetto a dove la pagina è davvero. Anche girandola forte si scorre deciso
-      // ma leggibile, e le entrate delle sezioni si vedono invece di saltare.
-      const lead = instance.targetScroll - instance.animatedScroll
-      const max = window.innerHeight * 0.7
-      if (data.deltaY !== 0 && Math.sign(data.deltaY) === Math.sign(lead)) {
-        const room = max - Math.abs(lead)
-        // mai 0: con delta nullo Lenis lascerebbe passare lo scroll nativo
-        data.deltaY = Math.sign(data.deltaY) * Math.max(0.01, Math.min(Math.abs(data.deltaY), room))
-      }
-      return true
-    },
+    // menu o foto aperti bloccano la pagina (body overflow hidden): Lenis non deve muoverla
+    virtualScroll: () => document.body.style.overflow !== 'hidden',
   })
   instance.on('scroll', ScrollTrigger.update)
   const tick = (time: number) => instance.raf(time * 1000)

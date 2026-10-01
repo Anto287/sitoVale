@@ -4,6 +4,7 @@
  * più sitemap.xml e robots.txt. Titolo, descrizione, canonical, hreflang e anteprime
  * social sono nella lingua di ogni pagina; il contenuto è già scritto nell'HTML.
  */
+import crypto from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 
@@ -11,7 +12,7 @@ const ROOT = path.resolve(import.meta.dirname, '..')
 const DIST = path.join(ROOT, 'dist')
 const SSR = path.join(ROOT, 'dist-ssr')
 
-const { render, LANGUAGES, langSegment, urlFor, SITE_URL, IS_FINAL_URL } = await import(path.join(SSR, 'entry-server.js'))
+const { render, LANGUAGES, langSegment, urlFor, SITE_URL, IS_FINAL_URL, GOATCOUNTER } = await import(path.join(SSR, 'entry-server.js'))
 const template = fs.readFileSync(path.join(DIST, 'index.html'), 'utf8')
 
 const OG_LOCALE = { en: 'en_GB', it: 'it_IT', fr: 'fr_FR' }
@@ -28,8 +29,11 @@ const alternates = [
   `<link rel="alternate" hreflang="x-default" href="${url('en')}">`,
 ].join('\n')
 
+// impronte degli script scritti dentro le pagine, per la Content-Security-Policy (vedi in fondo)
+const inlineScripts = new Set()
+
 for (const lng of LANGUAGES) {
-  const { html, title, description } = await render(lng)
+  const { html, title, description, translation } = await render(lng)
   const head = [
     `<title>${escape(title)}</title>`,
     `<meta name="description" content="${escape(description)}">`,
@@ -46,7 +50,11 @@ for (const lng of LANGUAGES) {
   const page = template
     .replace(/<html lang="[^"]*"/, `<html lang="${lng}"`)
     .replace(/<!--lang-head-->[\s\S]*?<!--\/lang-head-->/, head)
-    .replace('<!--app-->', html)
+    .replace('<!--app-->', () => html)
+    // "<" come \u003c: nessun testo può chiudere lo <script> per sbaglio
+    .replace('</head>', () => `<script type="application/json" id="vb-i18n">${JSON.stringify({ lng, translation }).replaceAll('<', '\\u003c')}</script>\n</head>`)
+
+  for (const [, code] of page.matchAll(/<script>([\s\S]*?)<\/script>/g)) inlineScripts.add(code)
 
   const out = path.join(DIST, langSegment(lng), 'index.html')
   fs.mkdirSync(path.dirname(out), { recursive: true })
@@ -82,5 +90,28 @@ fs.writeFileSync(
   IS_FINAL_URL ? `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n` : 'User-agent: *\nDisallow: /\n',
 )
 console.log(`✓ sitemap.xml (lastmod ${today}), robots.txt`)
+
+// Content-Security-Policy in dist/_headers (Cloudflare Pages): il browser esegue solo i file JS del sito,
+// gli script interni qui sopra (per impronta) e i servizi esterni attivi in src/config.ts.
+const hashes = [...inlineScripts].map((code) => `'sha256-${crypto.createHash('sha256').update(code).digest('base64')}'`)
+const stats = GOATCOUNTER && IS_FINAL_URL
+const csp = [
+  "default-src 'self'",
+  ['script-src', "'self'", ...hashes, stats && 'https://gc.zgo.at'].filter(Boolean).join(' '),
+  // attributi style="" delle pagine pre-generate (anteprime sfocate delle foto, larghezze dei titoli)
+  "style-src 'self' 'unsafe-inline'",
+  ['img-src', "'self'", 'data:', stats && `https://${GOATCOUNTER}.goatcounter.com`].filter(Boolean).join(' '),
+  "font-src 'self'",
+  // il modulo scrive solo al sito stesso (/api/contact, funzione di Cloudflare)
+  ['connect-src', "'self'", stats && `https://${GOATCOUNTER}.goatcounter.com`].filter(Boolean).join(' '),
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'none'",
+  'upgrade-insecure-requests',
+].join('; ')
+const headersFile = path.join(DIST, '_headers')
+fs.writeFileSync(headersFile, fs.readFileSync(headersFile, 'utf8').replace('__CSP__', () => csp))
+console.log(`✓ _headers: Content-Security-Policy con ${hashes.length} script interni`)
 
 fs.rmSync(SSR, { recursive: true, force: true })

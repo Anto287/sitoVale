@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { CONTACT, LEGAL } from '../config'
+import { CONTACT, GOATCOUNTER, LEGAL } from '../config'
 import { SITE_URL } from '../site'
 import { gsap, prefersReducedMotion } from '../lib/gsap'
 
@@ -66,7 +66,14 @@ export function LegalNotice() {
           <h3>{t('legal.ipTitle')}</h3>
           <p>{t('legal.ip')}</p>
           <h3>{t('legal.privacyTitle')}</h3>
-          <p>{t('legal.privacy')}</p>
+          <p>
+            {[
+              t('legal.privacyBase'),
+              t(GOATCOUNTER ? 'legal.privacyStats' : 'legal.privacyNoStats'),
+              t('legal.privacyForm'),
+              t('legal.privacyRights'),
+            ].join(' ')}
+          </p>
         </div>
       </dialog>
     </>

@@ -41,10 +41,10 @@
   "about": {
     "eyebrow": "À propos",
     "title": "Bien skier, c'est d'abord une question de confiance.",
-    "p1": "Je skie depuis l'âge de quatre ans, dans les Apennins, en Italie. J'ai fait de la compétition jusqu'à dix-huit ans, puis j'ai obtenu mon diplôme de monitrice de ski ; depuis cinq ans, je travaille en Tarentaise, entre Les Arcs, Val d'Isère et Tignes.",
+    "p1": "Je skie depuis l'âge de quatre ans, dans les Apennins, en Italie. J'ai fait de la compétition jusqu'à dix-huit ans, puis j'ai obtenu mon diplôme de monitrice de ski ; depuis {{years}} ans, je travaille en Tarentaise, entre Les Arcs, Val d'Isère et Tignes.",
     "p2": "Je suis patiente et enthousiaste. J'enseigne à tous les niveaux et à tous les âges, avec un objectif qui passe avant tout : prendre du plaisir sur les pistes.",
     "cred1": "Diplôme de monitrice de ski",
-    "cred2": "5 ans d'expérience en Tarentaise",
+    "cred2": "{{years}} ans d'expérience en Tarentaise",
     "cred3": "Compétition jusqu'à 18 ans",
     "cred4": "Cours en italien, français et anglais",
     "imgPortrait": "Valentina au sommet, casque et masque, les montagnes derrière",
@@ -91,7 +91,12 @@
     "imgDawn": "Premières lueurs sur les sommets",
     "imgClouds": "Remontée au soleil au-dessus d'une mer de nuages",
     "imgLarches": "Mélèzes enneigés et pistes damées",
-    "imgSunset": "Dernière descente au coucher du soleil"
+    "imgSunset": "Dernière descente au coucher du soleil",
+    "mapLabel": "Carte de la Tarentaise : la vallée de l'Isère d'Albertville à Val d'Isère, avec Les Arcs au-dessus de Bourg-Saint-Maurice et Tignes juste avant Val d'Isère",
+    "mapMontBlanc": "Mont Blanc",
+    "mapFunicular": "Funiculaire · 7 min",
+    "mapItaly": "Italie",
+    "mapBorder": "Frontière (indicative)"
   },
   "gallery": {
     "eyebrow": "Galerie",
@@ -126,7 +131,8 @@
       "lone": "Une bonne monitrice pour m'apprendre à débuter en ski."
     },
     "readMore": "Lire la suite",
-    "readLess": "Réduire"
+    "readLess": "Réduire",
+    "rating": "{{rating}} étoiles sur 5"
   },
   "contact": {
     "eyebrow": "Contact",
@@ -152,7 +158,13 @@
     "people": "Personnes",
     "phPeople": "2 adultes, 1 enfant de 7 ans",
     "orWhatsapp": "Vous préférez WhatsApp ? Envoyez la même demande",
-    "sent": "Parfait ! Si votre messagerie ne s'est pas ouverte, écrivez-moi à"
+    "phone": "Téléphone (facultatif)",
+    "phPhone": "WhatsApp ou portable",
+    "sending": "Envoi en cours…",
+    "sentTitle": "Demande envoyée",
+    "sentText": "Merci {{name}} ! Je vous ai envoyé une confirmation par email et je vous réponds au plus vite avec mes disponibilités et le tarif.",
+    "sendAnother": "Envoyer une autre demande",
+    "mailtoNote": "L'envoi automatique n'a pas fonctionné : votre messagerie s'est ouverte avec le message prêt. Si vous ne la voyez pas, écrivez-moi à"
   },
   "footer": {
     "role": "Monitrice de ski en Tarentaise",
@@ -178,7 +190,14 @@
     "ipTitle": "Photos et contenus",
     "ip": "Les photos et les textes appartiennent à Valentina Bernardi, à l'exception des avis, qui appartiennent à leurs auteurs. Toute réutilisation sans autorisation est interdite.",
     "privacyTitle": "Données personnelles et cookies",
-    "privacy": "Ce site n'utilise ni cookies ni outils de mesure d'audience ou de publicité. Seule la langue choisie est enregistrée dans votre navigateur (localStorage) ; elle ne permet d'identifier personne. Le formulaire de contact n'envoie ni ne conserve aucune donnée : il ouvre votre messagerie ou WhatsApp avec le message prêt, et je ne reçois vos informations que si vous décidez de l'envoyer. Je les utilise uniquement pour vous répondre et organiser les cours. Pour y accéder, les rectifier ou les supprimer, écrivez-moi à l'adresse ci-dessus ; vous pouvez aussi saisir la CNIL (www.cnil.fr).",
-    "close": "Fermer"
+    "close": "Fermer",
+    "privacyBase": "Ce site n'utilise ni cookies ni outils publicitaires. Seule la langue choisie est enregistrée dans votre navigateur, le temps de la visite (sessionStorage) ; elle ne permet d'identifier personne.",
+    "privacyNoStats": "Il n'utilise pas non plus d'outil de mesure d'audience.",
+    "privacyStats": "Pour savoir combien de personnes visitent le site, j'utilise GoatCounter, un outil de mesure d'audience sans cookies qui ne collecte aucune donnée personnelle et ne suit pas les visiteurs d'un site à l'autre.",
+    "privacyRights": "J'utilise vos informations uniquement pour vous répondre et organiser les cours. Pour y accéder, les rectifier ou les supprimer, écrivez-moi à l'adresse ci-dessus ; vous pouvez aussi saisir la CNIL (www.cnil.fr).",
+    "privacyForm": "Le formulaire de contact m'envoie votre demande par email via Resend, un service d'envoi d'emails (États-Unis), et vous adresse une confirmation à l'adresse indiquée ; si l'envoi échoue, votre messagerie s'ouvre avec le message prêt. Vous pouvez aussi envoyer votre demande par WhatsApp. Le site ne conserve aucune donnée."
+  },
+  "terms": {
+    "link": "Conditions et annulation"
   }
 }

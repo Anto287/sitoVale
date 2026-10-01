@@ -41,10 +41,10 @@
   "about": {
     "eyebrow": "Chi sono",
     "title": "Sciare bene è, prima di tutto, una questione di fiducia.",
-    "p1": "Scio da quando avevo quattro anni, sull'Appennino, in Italia. Ho fatto gare fino ai diciotto anni, poi ho conseguito il diploma di maestra di sci; da cinque anni lavoro in Tarentaise, tra Les Arcs, Val d'Isère e Tignes.",
+    "p1": "Scio da quando avevo quattro anni, sull'Appennino, in Italia. Ho fatto gare fino ai diciotto anni, poi ho conseguito il diploma di maestra di sci; da {{years}} anni lavoro in Tarentaise, tra Les Arcs, Val d'Isère e Tignes.",
     "p2": "Sono paziente ed entusiasta. Insegno a tutti i livelli e a tutte le età, con un obiettivo che viene prima di ogni altro: divertirsi sulle piste.",
     "cred1": "Diploma di maestra di sci",
-    "cred2": "5 anni di esperienza in Tarentaise",
+    "cred2": "{{years}} anni di esperienza in Tarentaise",
     "cred3": "Agonista fino ai 18 anni",
     "cred4": "Lezioni in italiano, francese e inglese",
     "imgPortrait": "Valentina in cima, con casco e maschera, le montagne alle spalle",
@@ -91,7 +91,12 @@
     "imgDawn": "Prima luce sulle cime",
     "imgClouds": "Impianto al sole sopra il mare di nuvole",
     "imgLarches": "Larici innevati e piste battute",
-    "imgSunset": "Ultima discesa al tramonto"
+    "imgSunset": "Ultima discesa al tramonto",
+    "mapLabel": "Mappa della Tarentaise: la valle dell'Isère da Albertville a Val d'Isère, con Les Arcs sopra Bourg-Saint-Maurice e Tignes poco prima di Val d'Isère",
+    "mapMontBlanc": "Monte Bianco",
+    "mapFunicular": "Funicolare · 7 min",
+    "mapItaly": "Italia",
+    "mapBorder": "Confine (indicativo)"
   },
   "gallery": {
     "eyebrow": "Galleria",
@@ -126,7 +131,8 @@
       "lone": "È stata una brava maestra per insegnarmi a muovere i primi passi sugli sci."
     },
     "readMore": "Leggi tutto",
-    "readLess": "Mostra meno"
+    "readLess": "Mostra meno",
+    "rating": "{{rating}} stelle su 5"
   },
   "contact": {
     "eyebrow": "Contatti",
@@ -152,7 +158,13 @@
     "people": "Persone",
     "phPeople": "2 adulti, 1 bambino di 7 anni",
     "orWhatsapp": "Preferisci WhatsApp? Invia la stessa richiesta",
-    "sent": "Perfetto! Se l'app di posta non si è aperta, scrivimi a"
+    "phone": "Telefono (facoltativo)",
+    "phPhone": "WhatsApp o cellulare",
+    "sending": "Invio in corso…",
+    "sentTitle": "Richiesta inviata",
+    "sentText": "Grazie {{name}}! Ti ho mandato una conferma per email e ti rispondo al più presto con disponibilità e tariffa.",
+    "sendAnother": "Invia un'altra richiesta",
+    "mailtoNote": "L'invio automatico non è riuscito: si è aperta la tua app di posta con il messaggio già scritto. Se non la vedi, scrivimi a"
   },
   "footer": {
     "role": "Maestra di sci in Tarentaise",
@@ -178,7 +190,14 @@
     "ipTitle": "Fotografie e contenuti",
     "ip": "Fotografie e testi sono di Valentina Bernardi, salvo le recensioni, che appartengono ai rispettivi autori. Non è consentito riutilizzarli senza autorizzazione.",
     "privacyTitle": "Dati personali e cookie",
-    "privacy": "Il sito non usa cookie né strumenti di statistica o pubblicità. Nel browser viene salvata solo la lingua scelta (localStorage), che non identifica nessuno. Il modulo di contatto non invia né conserva dati: apre la tua app di posta o WhatsApp con il messaggio già scritto, e i dati li ricevo solo se decidi di inviarlo. Li uso solo per risponderti e organizzare le lezioni. Per accesso, correzione o cancellazione scrivimi all'indirizzo qui sopra; puoi anche rivolgerti alla CNIL (www.cnil.fr).",
-    "close": "Chiudi"
+    "close": "Chiudi",
+    "privacyBase": "Il sito non usa cookie né strumenti di pubblicità. Nel browser viene salvata solo la lingua scelta, per la durata della visita (sessionStorage), e non identifica nessuno.",
+    "privacyNoStats": "Non usa nemmeno strumenti di statistica.",
+    "privacyStats": "Per sapere quante persone visitano il sito uso GoatCounter, un servizio di statistiche senza cookie che non raccoglie dati personali e non segue i visitatori da un sito all'altro.",
+    "privacyRights": "Uso i tuoi dati solo per risponderti e organizzare le lezioni. Per accesso, correzione o cancellazione scrivimi all’indirizzo qui sopra; puoi anche rivolgerti alla CNIL (www.cnil.fr).",
+    "privacyForm": "Il modulo di contatto mi invia la richiesta per email tramite Resend, un servizio di invio email (Stati Uniti), e ti manda una conferma all'indirizzo che hai indicato; se l'invio non riesce si apre la tua app di posta con il messaggio già scritto. In alternativa puoi mandare la richiesta su WhatsApp. Il sito non conserva i dati."
+  },
+  "terms": {
+    "link": "Condizioni e cancellazioni"
   }
 }

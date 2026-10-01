@@ -7,9 +7,10 @@ import { EASE_OUT, gsap, ScrollTrigger, useGSAP, withMotion } from '../lib/gsap'
 const LINKS = [
   ['#chi', 'nav.about'],
   ['#lezioni', 'nav.lessons'],
-  ['#tariffe', 'nav.rates'],
   ['#dove', 'nav.where'],
+  ['#recensioni', 'nav.reviews'],
   ['#galleria', 'nav.gallery'],
+  ['#tariffe', 'nav.rates'],
   ['#contatti', 'nav.contact'],
 ] as const
 
@@ -61,9 +62,9 @@ export function Nav() {
     { scope: menuRef, dependencies: [open], revertOnUpdate: true },
   )
 
-  // Girando il tablet o allargando la finestra oltre i 960px il menu non esiste più: si chiude.
+  // Girando il tablet o allargando la finestra oltre i 1040px il menu non esiste più: si chiude.
   useEffect(() => {
-    const mq = window.matchMedia('(max-width: 960px)')
+    const mq = window.matchMedia('(max-width: 1040px)')
     const onChange = () => !mq.matches && setOpen(false)
     mq.addEventListener('change', onChange)
     return () => mq.removeEventListener('change', onChange)
@@ -110,7 +111,7 @@ export function Nav() {
         </button>
       </nav>
 
-      {/* Menu a tutto schermo (sotto i 960px). Sta fuori dalla <nav>: la barra, quando si scorre,
+      {/* Menu a tutto schermo (sotto i 1040px). Sta fuori dalla <nav>: la barra, quando si scorre,
           ha sfocatura e traslazione, e un elemento fixed al suo interno si misurerebbe su di lei
           (alta 70px) invece che sullo schermo. Chiuso è visibility:hidden, quindi fuori dal tab. */}
       <div ref={menuRef} className={`menu${open ? ' is-open' : ''}`} id="navmenu" data-lenis-prevent>

@@ -8,16 +8,22 @@
 <meta name="google" content="notranslate">
 <script>
   // Prima di tutto il resto, senza aspettare il JavaScript del sito:
-  // 1) chi apre la home "/" con il browser in italiano o francese va a /it/ o /fr/ —
-  //    a meno che non abbia già scelto una lingua con i pulsanti (vb-lang). Altrimenti inglese.
+  // 1) chi apre la home "/" (anche "/index.html") va alla lingua del browser: /it/, /fr/, altrimenti inglese.
+  //    Vince solo una scelta fatta con i pulsanti EN/IT/FR durante la stessa visita (sessionStorage,
+  //    vb-lang): alla visita successiva decide di nuovo il browser.
   // 2) gli elementi dell'animazione d'ingresso restano nascosti finché GSAP non li prende in carico
   //    (al massimo 4 s, se il JavaScript non dovesse arrivare).
   (function () {
     var d = document.documentElement
     var base = '%BASE_URL%'
-    if (location.pathname === base) {
+    var path = location.pathname.replace(/index\.html$/, '')
+    if (path === base || path + '/' === base) {
       var saved = null
-      try { saved = localStorage.getItem('vb-lang') } catch (e) {}
+      try {
+        saved = sessionStorage.getItem('vb-lang')
+        // versione precedente: la scelta restava per sempre e copriva la lingua del browser
+        localStorage.removeItem('vb-lang')
+      } catch (e) {}
       var prefs = (navigator.languages || [navigator.language || 'en']).map(function (l) { return String(l).slice(0, 2).toLowerCase() })
       var lng = saved || prefs.filter(function (l) { return l === 'en' || l === 'it' || l === 'fr' })[0] || 'en'
       if (lng !== 'en') { location.replace(base + lng + '/' + location.hash); return }

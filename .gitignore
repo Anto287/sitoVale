@@ -9,3 +9,6 @@ dist/
 !.vscode/extensions.json
 .idea
 dist-ssr/
+
+# file temporanei di wrangler (prove locali di Cloudflare)
+.wrangler/

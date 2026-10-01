@@ -56,13 +56,17 @@ export function Hero() {
       <div className="hero-shade" aria-hidden="true" />
       <Snow />
       <div className="hero-inner">
-        <p className="eyebrow" data-intro="hero">
-          {t('hero.eyebrow')}
-        </p>
+        {/* "Maestra di sci" fa parte del titolo: è la prima cosa che legge chi arriva da Google */}
         <h1>
+          <span className="eyebrow hero-kicker" data-intro="hero">
+            {t('hero.eyebrow')}
+            <span className="sr-only"> — </span>
+          </span>
           <span className="ln">
             <i>Valentina</i>
           </span>
+          {/* le righe sono blocchi: senza questo spazio screen reader e Google leggerebbero "ValentinaBernardi" */}
+          {' '}
           <span className="ln">
             <i>
               <em>Bernardi</em>

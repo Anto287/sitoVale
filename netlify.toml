@@ -1,4 +1,0 @@
-# Netlify: comando di build e cartella da pubblicare. Le regole di cache sono in public/_headers.
-[build]
-  command = "npm run build"
-  publish = "dist"

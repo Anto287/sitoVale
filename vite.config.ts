@@ -1,7 +1,7 @@
 import react from '@vitejs/plugin-react'
 import { defineConfig, type Plugin } from 'vite'
-import { CONTACT, SITE_URL as FINAL_SITE_URL } from './src/config'
-import images from './src/data/images.json'
+import { CONTACT, GOATCOUNTER, SITE_URL as FINAL_SITE_URL } from './src/config.ts'
+import images from './src/data/images.json' with { type: 'json' }
 
 /**
  * Completa index.html con i dati di src/config.ts e del manifest delle foto,
@@ -46,13 +46,18 @@ function siteHtml(): Plugin {
       },
     ],
   }
+  // Statistiche senza cookie, solo sul dominio definitivo e solo se configurate in config.ts.
+  const stats =
+    GOATCOUNTER && SITE_URL === FINAL_SITE_URL
+      ? `<script data-goatcounter="https://${GOATCOUNTER}.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>`
+      : ''
   return {
     name: 'site-html',
     transformIndexHtml: (html) =>
       html
         .replaceAll('%SITE_URL%', SITE_URL)
         .replace('<!--hero-preload-->', preload)
-        .replace('<!--json-ld-->', `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`),
+        .replace('<!--json-ld-->', `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>${stats}`),
   }
 }
 

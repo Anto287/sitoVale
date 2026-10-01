@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { revealOnScroll, useGSAP, withMotion } from '../lib/gsap'
+import { selectLesson } from '../lib/lessons'
 import { Photo } from './Photo'
 import { SplitHeading } from './SplitHeading'
 
@@ -37,7 +38,7 @@ export function Lessons() {
               <div className="card-body">
                 <h3>{t(`lessons.${id}.title`)}</h3>
                 <p>{t(`lessons.${id}.text`)}</p>
-                <a className="card-link" href="#contatti">
+                <a className="card-link" href="#contatti" onClick={() => selectLesson(id)}>
                   {t('lessons.cta')} <span aria-hidden="true">→</span>
                 </a>
               </div>

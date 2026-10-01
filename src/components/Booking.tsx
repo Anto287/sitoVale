@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { EASE_OUT, gsap, revealOnScroll, useGSAP, withMotion } from '../lib/gsap'
 import { SplitHeading } from './SplitHeading'
+import { TermsLink } from './TermsLink'
 
 /** Tariffe: nessun listino, solo l'invito a scrivere (richiesta della cliente). */
 export function Booking() {
@@ -11,12 +12,12 @@ export function Booking() {
   useGSAP(
     () =>
       withMotion(() => {
-        revealOnScroll('.eyebrow, .lede, .booking-note')
+        revealOnScroll('.eyebrow')
         gsap.from('.booking-cta', {
-          scale: 0.8,
+          y: 24,
           autoAlpha: 0,
-          duration: 1.2,
-          ease: 'elastic.out(1, 0.6)',
+          duration: 1.1,
+          ease: EASE_OUT,
           scrollTrigger: { trigger: '.booking-cta', start: 'top 92%', once: true },
           clearProps: 'transform',
         })
@@ -49,7 +50,10 @@ export function Booking() {
           </a>
         </div>
         <i className="booking-rule" aria-hidden="true" />
-        <p className="booking-note">{t('booking.note')}</p>
+        <div className="booking-foot">
+          <p className="booking-note">{t('booking.note')}</p>
+          <TermsLink className="terms-link" />
+        </div>
       </div>
     </section>
   )

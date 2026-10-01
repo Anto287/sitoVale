@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
+import { seasonsTaught } from '../config'
 import { gsap, revealImages, revealOnScroll, useGSAP, withMotion } from '../lib/gsap'
 import { Photo } from './Photo'
 import { SplitHeading } from './SplitHeading'
@@ -7,12 +8,14 @@ import { SplitHeading } from './SplitHeading'
 export function About() {
   const { t } = useTranslation()
   const ref = useRef<HTMLElement>(null)
+  const years = seasonsTaught()
 
   useGSAP(
     () =>
       withMotion(() => {
         revealImages('.frame', { stagger: 0.18 })
-        revealOnScroll('.eyebrow, .lede, p:not(.eyebrow), .creds li', { stagger: 0.08 })
+        // solo l'etichetta entra: paragrafi e credenziali sono subito leggibili
+        revealOnScroll('.eyebrow')
         // Le due foto scorrono a velocità diverse: profondità senza esagerare.
         gsap.to('.frame--sq', {
           yPercent: -14,
@@ -39,11 +42,13 @@ export function About() {
         <div>
           <p className="eyebrow">{t('about.eyebrow')}</p>
           <SplitHeading text={t('about.title')} />
-          <p className="lede">{t('about.p1')}</p>
+          <p className="lede" suppressHydrationWarning>
+            {t('about.p1', { years })}
+          </p>
           <p>{t('about.p2')}</p>
           <ul className="creds">
             <li>{t('about.cred1')}</li>
-            <li>{t('about.cred2')}</li>
+            <li suppressHydrationWarning>{t('about.cred2', { years })}</li>
             <li>{t('about.cred3')}</li>
             <li>{t('about.cred4')}</li>
           </ul>
