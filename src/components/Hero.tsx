@@ -34,9 +34,16 @@ export function Hero() {
 
         // L'ingresso parte quando la foto è pronta: altrimenti zoom e dissolvenza girano
         // sul vuoto e la foto compare di colpo a metà. Dopo 1,5 s si parte comunque.
-        const start = () => intro.play()
+        // Un solo avvio: decode() e timeout possono risolversi nello stesso momento.
+        // Evita di riavviare l'animazione quando la foto arriva lentamente.
+        let started = false
+        const start = () => {
+          if (started) return
+          started = true
+          intro.play()
+        }
         const fallback = window.setTimeout(start, 1500)
-        img.decode().then(start, start).finally(() => window.clearTimeout(fallback))
+        void img.decode().then(start, start).finally(() => window.clearTimeout(fallback))
 
         // Uscita allo scroll: parallasse sulla foto, il testo si allontana e sfuma.
         const out = { trigger: ref.current, start: 'top top', end: 'bottom top', scrub: true }
