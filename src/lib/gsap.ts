@@ -26,12 +26,13 @@ let lenis: Lenis | null = null
 
 export function startSmoothScroll() {
   const instance = new Lenis({
-    lerp: 0.1,
-    wheelMultiplier: 0.9,
+    // Una risposta pronta al gesto, senza amplificare la distanza percorsa dalla rotellina.
+    lerp: 0.14,
+    wheelMultiplier: 0.85,
     syncTouch: true,
     // slancio dopo il rilascio: distanza ≈ velocità^1.45 (il telefono da solo è molto più lungo)
-    touchInertiaExponent: 1.45,
-    syncTouchLerp: 0.07,
+    touchInertiaExponent: 1.4,
+    syncTouchLerp: 0.1,
     // pannelli che scorrono da soli (note legali, foto aperte): lo scroll resta il loro
     prevent: (node) => node.nodeName === 'DIALOG' || node.getAttribute('role') === 'dialog',
     // menu o foto aperti bloccano la pagina (body overflow hidden): Lenis non deve muoverla
@@ -57,7 +58,7 @@ export function startSmoothScroll() {
  */
 export function pace(triggers: ScrollTrigger[]) {
   const v = Math.abs(triggers[0]?.getVelocity() ?? 0)
-  return gsap.utils.clamp(0.4, 1, 2200 / Math.max(v, 1))
+  return gsap.utils.clamp(0.55, 1, 2200 / Math.max(v, 1))
 }
 
 /** Curva "morbida" usata per quasi tutte le entrate. */
@@ -86,7 +87,7 @@ export function withMotion(setup: () => void | (() => void)) {
 export function revealOnScroll(targets: gsap.DOMTarget, vars: { y?: number; stagger?: number; start?: string } = {}) {
   const els = gsap.utils.toArray<HTMLElement>(targets)
   if (!els.length) return
-  const { y = 44, stagger = 0.1, start = 'top 90%' } = vars
+  const { y = 28, stagger = 0.075, start = 'top 90%' } = vars
   // transition spenta finché GSAP anima: se l'elemento ha una transizione CSS su transform
   // (hover delle card) il browser la rilancerebbe a ogni fotogramma e l'entrata andrebbe a scatti
   gsap.set(els, { autoAlpha: 0, y, transition: 'none' })
@@ -98,7 +99,7 @@ export function revealOnScroll(targets: gsap.DOMTarget, vars: { y?: number; stag
       gsap.to(batch, {
         autoAlpha: 1,
         y: 0,
-        duration: 1.1 * k,
+        duration: 0.72 * k,
         ease: EASE_OUT,
         stagger: stagger * k,
         overwrite: true,
@@ -120,17 +121,17 @@ export function revealImages(frames: gsap.DOMTarget, vars: { stagger?: number; s
     gsap.set(frame, { clipPath: 'inset(100% 0% 0% 0%)' })
     const img = frame.querySelector('img')
     // transition spenta durante lo zoom: vedi revealOnScroll (le foto hanno l'hover in CSS)
-    if (img) gsap.set(img, { scale: 1.3, transition: 'none' })
+    if (img) gsap.set(img, { scale: 1.12, transition: 'none' })
   })
   ScrollTrigger.batch(els, {
     start,
     once: true,
     onEnter: (batch, triggers) => {
       const k = pace(triggers)
-      gsap.to(batch, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.4 * k, ease: 'power4.inOut', stagger: stagger * k, clearProps: 'clipPath' })
+      gsap.to(batch, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.85 * k, ease: EASE_OUT, stagger: stagger * k, clearProps: 'clipPath' })
       gsap.to(
         batch.map((f) => f.querySelector('img')),
-        { scale: 1, duration: 1.8 * k, ease: EASE_OUT, stagger: stagger * k, clearProps: 'transform,transition' },
+        { scale: 1, duration: 1.1 * k, ease: EASE_OUT, stagger: stagger * k, clearProps: 'transform,transition' },
       )
     },
   })
@@ -140,12 +141,14 @@ export function revealImages(frames: gsap.DOMTarget, vars: { stagger?: number; s
 export function scrollToHash(hash: string) {
   const target = hash === '#top' || hash === '#' ? 0 : document.querySelector(hash)
   if (target === null) return false
-  if (lenis) lenis.scrollTo(target as HTMLElement | 0, { duration: 1.3, easing: gsap.parseEase(EASE_IN_OUT) })
+  const distance = target instanceof HTMLElement ? Math.abs(target.getBoundingClientRect().top) : window.scrollY
+  const duration = gsap.utils.clamp(0.42, 1.2, 0.38 + Math.sqrt(distance) / 60)
+  if (lenis) lenis.scrollTo(target as HTMLElement | 0, { duration, easing: gsap.parseEase('power2.inOut') })
   else
     gsap.to(window, {
       scrollTo: { y: target, autoKill: true },
-      duration: prefersReducedMotion() ? 0 : 1.3,
-      ease: EASE_IN_OUT,
+      duration: prefersReducedMotion() ? 0 : duration,
+      ease: 'power2.inOut',
       overwrite: true,
     })
   history.replaceState(null, '', hash === '#top' ? location.pathname + location.search : hash)

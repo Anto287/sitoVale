@@ -64,7 +64,9 @@ export function Snow() {
         ro.observe(box)
 
         let running = false
-        const run = (on: boolean) => {
+        let inView = false
+        const sync = () => {
+          const on = inView && !document.hidden
           if (on === running) return
           running = on
           if (on) gsap.ticker.add(tick)
@@ -74,12 +76,19 @@ export function Snow() {
           trigger: canvas,
           start: 'top bottom',
           end: 'bottom top',
-          onToggle: (self) => run(self.isActive),
+          onToggle: (self) => {
+            inView = self.isActive
+            sync()
+          },
         })
-        run(true)
+        document.addEventListener('visibilitychange', sync)
+        inView = canvas.getBoundingClientRect().bottom > 0
+        sync()
 
         return () => {
-          run(false)
+          inView = false
+          sync()
+          document.removeEventListener('visibilitychange', sync)
           ro.disconnect()
         }
       }),

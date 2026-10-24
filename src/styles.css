@@ -270,7 +270,9 @@ h2+p,h2+.lede{margin-top:clamp(18px,2vw,26px)}
 }
 
 /* ---------- hero ---------- */
-.hero{position:relative;min-height:min(92vh,880px);display:flex;align-items:flex-end;overflow:hidden;color:#fff;isolation:isolate}
+/* Ritaglia la parallasse senza creare uno scroll interno: overflow:hidden permette
+   al browser di spostare foto e velatura quando si naviga tra le ancore. */
+.hero{position:relative;min-height:min(92vh,880px);display:flex;align-items:flex-end;overflow:clip;color:#fff;isolation:isolate}
 .hero-media{position:absolute;inset:-8% 0;z-index:-2}
 .hero-media img{width:100%;height:100%;object-fit:cover;object-position:center 45%}
 .hero-shade{position:absolute;inset:0;z-index:-1;background:rgb(var(--shade));opacity:0;pointer-events:none}
@@ -345,7 +347,12 @@ main{position:relative}
 
 /* ---------- lezioni ---------- */
 .cards{display:grid;gap:clamp(18px,2.4vw,30px);grid-template-columns:repeat(3,1fr);margin-top:clamp(36px,5vw,60px)}
-@media (max-width:960px){.cards{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:621px) and (max-width:960px){
+  .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .card:last-child{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .card:last-child .card-img{height:100%;aspect-ratio:auto}
+  .card:last-child .card-body{justify-content:center}
+}
 @media (max-width:620px){.cards{grid-template-columns:1fr}}
 .card{
   background:var(--surface);border:1px solid var(--line);border-radius:3px;overflow:hidden;
@@ -657,6 +664,7 @@ textarea{resize:vertical;min-height:92px}
 /* ---------- movimento ridotto ---------- */
 @media (prefers-reduced-motion: reduce){
   *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
+  .hero-media,.hero-inner,.strip-track,#chi .frame--sq,.btn,.lightbox img{will-change:auto}
 }
 
 /* Telefoni: la sfocatura dietro la barra in alto e il bottone in basso va ricalcolata a ogni

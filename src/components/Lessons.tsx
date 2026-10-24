@@ -7,7 +7,7 @@ import { SplitHeading } from './SplitHeading'
 
 const LESSONS = [
   { id: 'private', photo: 'lezioni/curva', focus: 'center 35%' },
-  { id: 'children', photo: 'lezioni/bambini', focus: 'center 40%' },
+  { id: 'children', photo: 'lezioni/bambini', focus: 'center top' },
   { id: 'group', photo: 'lezioni/gruppo', focus: 'center 45%' },
 ] as const
 
@@ -19,7 +19,7 @@ export function Lessons() {
     () =>
       withMotion(() => {
         revealOnScroll('.eyebrow')
-        revealOnScroll('.card', { y: 80, stagger: 0.12, start: 'top 92%' })
+        revealOnScroll('.card', { y: 38, stagger: 0.09, start: 'top 92%' })
       }),
     { scope: ref },
   )

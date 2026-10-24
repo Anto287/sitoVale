@@ -25,7 +25,7 @@ export function Reviews() {
     () =>
       withMotion(() => {
         revealOnScroll('.eyebrow, .reviews-summary, .reviews-nav')
-        revealOnScroll('.review', { y: 60, stagger: 0.1, start: 'top 95%' })
+        revealOnScroll('.review', { y: 32, stagger: 0.08, start: 'top 95%' })
       }),
     { scope: ref },
   )

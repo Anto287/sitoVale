@@ -48,7 +48,7 @@ export function Where() {
           {
             x: () => Math.min(0, strip.clientWidth - track.scrollWidth),
             ease: 'none',
-            scrollTrigger: { trigger: strip, start: 'top bottom', end: 'bottom top', scrub: 0.6, invalidateOnRefresh: true },
+            scrollTrigger: { trigger: strip, start: 'top bottom', end: 'bottom top', scrub: 0.25, invalidateOnRefresh: true },
           },
         )
         revealImages('.strip figure', { stagger: 0.08, start: 'top 95%' })

@@ -58,7 +58,7 @@ export default function App() {
         once: true,
         onEnter: (batch, triggers) => {
           const k = pace(triggers)
-          gsap.to(batch, { '--line': 1, duration: 1.2 * k, ease: 'expo.out', stagger: 0.1 * k, delay: 0.15 * k })
+          gsap.to(batch, { '--line': 1, duration: 0.75 * k, ease: 'expo.out', stagger: 0.07 * k })
         },
       })
     }),

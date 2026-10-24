@@ -40,8 +40,12 @@ export function SkiTrail() {
       const top = offset(main).y
       const e = offset(eyebrow)
       const end = { x: e.x + 34, y: e.y - top + eyebrow.offsetHeight / 2 }
+      // Rientra sopra l'etichetta, poi scende alla sua lineetta: il tratto
+      // orizzontale non deve attraversare le parole "Le lezioni".
+      const clearance = eyebrow.offsetHeight / 2 + 18
+      const approach = { x: end.x + clearance, y: end.y - clearance }
       // spazio libero tra la fine di "Chi sono" e l'etichetta delle Lezioni: lì la traccia gira
-      const gap = end.y - (offset(above).y - top + above.offsetHeight)
+      const gap = approach.y - (offset(above).y - top + above.offsetHeight)
 
       // 1) onda: un coseno, sempre morbido; i picchi sono gli unici punti di svolta.
       // Ampiezza contenuta (max 46 px) e mezze onde lunghe: curve ampie anche sugli schermi molto larghi.
@@ -54,7 +58,7 @@ export function SkiTrail() {
       // Il primo tratto resta nel margine, quindi può cominciare sopra lo spazio libero tra
       // "Chi sono" e "Le lezioni"; rientra fra i testi solo quando è già sotto il loro fondo.
       const inMargin = xTurn - textRight
-      const maxRx = Math.max(40, (xTurn - end.x) * 0.6)
+      const maxRx = Math.max(40, (xTurn - approach.x) * 0.6)
       const heightFor = (rx: number) => {
         const tIn = inMargin >= rx ? Math.PI / 2 : Math.acos(1 - inMargin / rx)
         return Math.max(80, Math.min(560, (gap * 0.9) / Math.max(0.12, 1 - Math.sin(tIn))))
@@ -66,7 +70,7 @@ export function SkiTrail() {
       ry = heightFor(rx)
 
       const y0 = -60
-      const yTurn = end.y - ry
+      const yTurn = approach.y - ry
       // mezze onde in numero pari (~360 px l'una): si parte e si arriva sul lato esterno
       const halves = Math.max(2, 2 * Math.round((yTurn - y0) / 720))
       const half = (yTurn - y0) / halves
@@ -82,7 +86,7 @@ export function SkiTrail() {
       const f = (n: number) => n.toFixed(1)
       const d =
         `${smoothPath(pts)} C${f(xTurn)} ${f(yTurn + k * ry)} ${f(cx + k * rx)} ${f(yEnd)} ${f(cx)} ${f(yEnd)}` +
-        ` L${f(end.x)} ${f(end.y)}`
+        ` L${f(approach.x)} ${f(approach.y)} Q${f(end.x)} ${f(approach.y)} ${f(end.x)} ${f(end.y)}`
       const h = Math.round(end.y + 20)
       setGeo((g) => (g && g.d === d && g.w === w ? g : { w, h, d }))
     }
@@ -108,7 +112,7 @@ export function SkiTrail() {
               // elementi fuori dalla traccia: presi dal documento (con scope un selettore cercherebbe dentro l'svg)
               endTrigger: document.querySelector('#lezioni .eyebrow'),
               end: 'center 65%',
-              scrub: 0.8,
+              scrub: 0.25,
             },
           },
         )
