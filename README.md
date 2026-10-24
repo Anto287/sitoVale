@@ -16,4 +16,4 @@ npm run images
 npm run terms
 ```
 
-Dati e contatti: `src/config.ts`. Testi: `src/i18n/locales/`. Procedura di pubblicazione: [GUIDA-PUBBLICAZIONE.md](GUIDA-PUBBLICAZIONE.md).
+Dati e contatti: `src/config.ts`. Testi: `src/i18n/locales/`.
