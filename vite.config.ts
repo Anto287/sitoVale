@@ -8,8 +8,7 @@ import images from './src/data/images.json' with { type: 'json' }
  * così dominio, contatti e nomi dei file stanno in un posto solo.
  * (Titolo, descrizione e hreflang di ogni lingua li aggiunge scripts/prerender.mjs.)
  */
-// Indirizzo e cartella di pubblicazione: li passa la GitHub Action (vedi src/site.ts).
-// In locale: dominio definitivo e radice.
+// Cloudflare Pages: dominio canonico e radice, senza dipendere dall'URL pages.dev.
 const SITE_URL = (process.env.VITE_SITE_URL || FINAL_SITE_URL).replace(/\/$/, '')
 const BASE = process.env.BASE_PATH ? `${process.env.BASE_PATH.replace(/\/$/, '')}/` : '/'
 

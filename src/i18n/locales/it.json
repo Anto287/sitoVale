@@ -27,7 +27,7 @@
   },
   "hero": {
     "eyebrow": "Maestra di sci · Les Arcs · Val d'Isère · Tignes",
-    "lede": "Lezioni private, per bambini e per famiglie in Tarentaise. Dalla prima curva a una sciata sicura e fluida, al tuo ritmo — in italiano, francese o inglese.",
+    "lede": "Lezioni private, per bambini e per famiglie in Tarentaise. Dalla prima curva a una sciata sicura e fluida, al tuo ritmo, in italiano, francese o inglese.",
     "ctaBook": "Prenota una lezione",
     "ctaLessons": "Scopri le lezioni",
     "imgAlt": "Sciatori davanti al mare di nuvole sulla valle della Tarentaise",
@@ -61,7 +61,7 @@
     },
     "children": {
       "title": "Bambini",
-      "text": "Si comincia giocando e in sicurezza, si arriva alle prime curve vere. Pause al momento giusto, tanta pazienza e genitori sempre aggiornati.",
+      "text": "Si comincia giocando, in sicurezza, fino alle prime vere curve. Pause al momento giusto, tanta pazienza e genitori sempre aggiornati.",
       "imgAlt": "Lezione a una bambina alle prime curve"
     },
     "group": {
@@ -137,7 +137,7 @@
   "contact": {
     "eyebrow": "Contatti",
     "title": "Scrivimi: organizziamo le tue giornate sulla neve.",
-    "lede": "Date, livello e quante persone siete: mi bastano queste tre cose per risponderti con disponibilità e una proposta.",
+    "lede": "Indicami le date, il tuo livello e quante persone siete: ti rispondo con disponibilità e una proposta.",
     "location": "Savoia, Francia"
   },
   "form": {
@@ -150,8 +150,8 @@
     "levelBeginner": "Principiante",
     "levelIntermediate": "Intermedio",
     "levelAdvanced": "Avanzato",
-    "phDates": "12 — 18 / 02",
-    "phMessage": "Qualcosa da sapere? Obiettivi, paure, esperienze passate…",
+    "phDates": "Es. dal 12 al 18 febbraio",
+    "phMessage": "Obiettivi, dubbi o esperienze sugli sci: raccontami cosa hai in mente.",
     "mailSubject": "Richiesta lezione di sci — Tarentaise",
     "lesson": "Lezione",
     "lessonUnsure": "Non so ancora",
@@ -162,9 +162,10 @@
     "phPhone": "WhatsApp o cellulare",
     "sending": "Invio in corso…",
     "sentTitle": "Richiesta inviata",
-    "sentText": "Grazie {{name}}! Ti ho mandato una conferma per email e ti rispondo al più presto con disponibilità e tariffa.",
+    "sentText": "Grazie {{name}}! Ho ricevuto la tua richiesta e ti risponderò al più presto con disponibilità e tariffa.",
     "sendAnother": "Invia un'altra richiesta",
-    "mailtoNote": "L'invio automatico non è riuscito: si è aperta la tua app di posta con il messaggio già scritto. Se non la vedi, scrivimi a"
+    "mailtoNote": "L'invio automatico non è riuscito. Puoi inviare la richiesta dalla tua app di posta usando questo link:",
+    "requiredNote": "Nome ed email sono obbligatori (*). Gli altri campi mi aiutano a organizzare la lezione."
   },
   "footer": {
     "role": "Maestra di sci in Tarentaise",

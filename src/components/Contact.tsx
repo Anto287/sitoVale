@@ -219,14 +219,15 @@ export function Contact() {
               </button>
             </div>
           ) : (
-            <form ref={formRef} onSubmit={onSubmit} aria-busy={sending}>
+            <form ref={formRef} onSubmit={onSubmit} aria-busy={sending} aria-describedby="form-required">
+              <p className="form-intro" id="form-required">{t('form.requiredNote')}</p>
               <div className="row">
                 <label htmlFor="f-name">
-                  <span>{t('form.name')}</span>
+                  <span>{t('form.name')} <span aria-hidden="true">*</span></span>
                   <input id="f-name" name="name" type="text" autoComplete="name" maxLength={CONTACT_LIMITS.name} required />
                 </label>
                 <label htmlFor="f-mail">
-                  <span>{t('form.email')}</span>
+                  <span>{t('form.email')} <span aria-hidden="true">*</span></span>
                   <input id="f-mail" name="email" type="email" autoComplete="email" inputMode="email" maxLength={CONTACT_LIMITS.email} required />
                 </label>
               </div>
@@ -279,7 +280,7 @@ export function Contact() {
                     <path d="M5 12h13m-5-6 6 6-6 6" />
                   </svg>
                 </button>
-                <button className="form-alt" type="button" onClick={onWhatsapp}>
+                <button className="form-alt" type="button" onClick={onWhatsapp} disabled={sending}>
                   {t('form.orWhatsapp')} <span aria-hidden="true">→</span>
                 </button>
               </div>

@@ -38,7 +38,7 @@ export function Lessons() {
               <div className="card-body">
                 <h3>{t(`lessons.${id}.title`)}</h3>
                 <p>{t(`lessons.${id}.text`)}</p>
-                <a className="card-link" href="#contatti" onClick={() => selectLesson(id)}>
+                <a className="card-link" href="#contatti" aria-label={`${t('lessons.cta')}: ${t(`lessons.${id}.title`)}`} onClick={() => selectLesson(id)}>
                   {t('lessons.cta')} <span aria-hidden="true">→</span>
                 </a>
               </div>

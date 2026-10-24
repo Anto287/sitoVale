@@ -27,7 +27,7 @@
   },
   "hero": {
     "eyebrow": "Ski instructor · Les Arcs · Val d'Isère · Tignes",
-    "lede": "Private, children's and family lessons in the Tarentaise. From your very first turn to skiing with confidence and flow, at your own pace — in English, French or Italian.",
+    "lede": "Private, children's and family lessons in the Tarentaise. From your very first turn to skiing with confidence and flow, at your own pace, in English, French or Italian.",
     "ctaBook": "Book a lesson",
     "ctaLessons": "See the lessons",
     "imgAlt": "Skiers above a sea of clouds over the Tarentaise valley",
@@ -42,7 +42,7 @@
     "eyebrow": "About",
     "title": "Skiing well is, above all, a matter of trust.",
     "p1": "I've been skiing since I was four, in the Apennines in Italy. I raced until I was eighteen, then qualified as a ski instructor, and for the past {{years}} years I've been working in the Tarentaise, between Les Arcs, Val d'Isère and Tignes.",
-    "p2": "I'm patient and enthusiastic. I teach every level and every age, with one goal that comes before all others: having fun on the slopes.",
+    "p2": "I'm patient and enthusiastic. I teach skiers of all ages and abilities, with one goal that comes before all others: having fun on the slopes.",
     "cred1": "Qualified ski instructor",
     "cred2": "{{years}} years of experience in the Tarentaise",
     "cred3": "Competitive racer until 18",
@@ -52,7 +52,7 @@
   },
   "lessons": {
     "eyebrow": "The lessons",
-    "title": "Three formats, one goal: skiing better — and loving it.",
+    "title": "Three ways to learn, one goal: ski better and enjoy it.",
     "cta": "Check availability",
     "private": {
       "title": "Private lesson",
@@ -61,7 +61,7 @@
     },
     "children": {
       "title": "Children",
-      "text": "We start with games and safety and work up to real first turns. Breaks at the right moment, lots of patience, and parents always kept in the loop.",
+      "text": "We start with games and safety, building up to those first turns. Breaks at the right moment, plenty of patience, and parents kept in the loop.",
       "imgAlt": "Lesson with a little girl making her first turns"
     },
     "group": {
@@ -136,8 +136,8 @@
   },
   "contact": {
     "eyebrow": "Contact",
-    "title": "Write to me — let's plan your days on the snow.",
-    "lede": "Your dates, your level and how many of you there are: that's all I need to reply with availability and a suggestion.",
+    "title": "Get in touch: let's plan your days on the snow.",
+    "lede": "Tell me your dates, your level and how many people are coming. I'll reply with availability and a suggestion for your lessons.",
     "location": "Savoie, France"
   },
   "form": {
@@ -150,8 +150,8 @@
     "levelBeginner": "Beginner",
     "levelIntermediate": "Intermediate",
     "levelAdvanced": "Advanced",
-    "phDates": "12 — 18 / 02",
-    "phMessage": "Anything I should know? Goals, worries, past experience…",
+    "phDates": "E.g. 12 to 18 February",
+    "phMessage": "Goals, questions or previous skiing experience: tell me what you have in mind.",
     "mailSubject": "Ski lesson enquiry — Tarentaise",
     "lesson": "Lesson",
     "lessonUnsure": "Not sure yet",
@@ -162,9 +162,10 @@
     "phPhone": "WhatsApp or mobile",
     "sending": "Sending…",
     "sentTitle": "Request sent",
-    "sentText": "Thank you, {{name}}! I've sent you a confirmation email and I'll get back to you soon with availability and rates.",
+    "sentText": "Thank you, {{name}}! I've received your request and will get back to you soon with availability and rates.",
     "sendAnother": "Send another request",
-    "mailtoNote": "Automatic sending didn't work: your email app has opened with the message ready. If you can't see it, write to me at"
+    "mailtoNote": "Your request could not be sent automatically. Use this link to send it from your email app:",
+    "requiredNote": "Name and email are required (*). The other fields help me plan your lesson."
   },
   "footer": {
     "role": "Ski instructor in the Tarentaise",

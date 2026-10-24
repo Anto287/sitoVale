@@ -1,111 +1,161 @@
-# Da fare prima di mettere online il sito
+# Preparazione al lancio di Vally Ski
 
-Il sito va pubblicato su **Cloudflare Pages**. Tutti i dati da personalizzare stanno in `src/config.ts`.
-Dopo ogni modifica: `npm run build` per controllare, poi commit e push su `main`: una volta collegato il
-repository, Cloudflare ricostruisce e pubblica il sito da solo.
+**Stato: revisione senza pubblicazione.** Dominio canonico: `https://www.vallyski.com`.
+Non cambiare DNS, account remoti o hosting durante questa fase.
 
-## 1. Obbligatorio
+## Push senza mettere online
 
-- [ ] **Note legali** (in Francia obbligatorie, art. 1-1 LCEN): compilare `LEGAL` in `src/config.ts`.
-      Finché un campo è vuoto, il sito mostra "[da completare]".
-  - `status`: forma giuridica, es. `Entrepreneur individuel (EI)`
-  - `address`: indirizzo professionale
-  - `siret`: 14 cifre
-  - `vat`: n° TVA intracommunautaire, solo se esiste
-  - `host`: l'hosting è Cloudflare → `Cloudflare, Inc. — 101 Townsend St, San Francisco, CA 94107, USA — +1 650 319 8930`
-    (indirizzo e telefono sono richiesti dalla legge: verificarli sul sito di Cloudflare prima di pubblicare)
-- [ ] **Recensioni originali**: incollare in `src/data/reviews.ts`, campo `original`, il testo originale di ogni
-      recensione (Google: "Visualizza originale"; Maison Sport: "Mostra originale"). Oggi 12 su 13 mostrano "Tradotta".
-- [ ] **Condizioni e cancellazioni**: rileggere le versioni italiana e francese dei PDF (`public/docs/`). In francese
-      ho usato *acompte* (anticipo): è il termine giusto se la cifra si perde in caso di annullamento come previsto
-      dalle condizioni, ma per un testo contrattuale conviene una verifica con un professionista o con la scuola.
-      Per correggere un testo: `scripts/terms-content.mjs`, poi `npm run terms`.
-- [ ] **Commit e push**: tutte le modifiche di queste settimane sono ancora solo in locale.
+La vecchia `.github/workflows/deploy.yml` pubblicava GitHub Pages da `main`. Ora è sostituita
+da `.github/workflows/ci.yml`: installazione, lint, build e test, senza deploy o token di pubblicazione.
 
-## 2. Cloudflare Pages e dominio www.vallyski.com
+- Usare il branch di revisione `codex/sitovale-review-2026-10-24`, senza merge su `main`.
+- **Iniziare ogni messaggio di commit da caricare con `[CF-Pages-Skip]`**. Esempio:
+  `[CF-Pages-Skip] Prepara Vally Ski per revisione`. Pages salta il deploy del commit, comprese
+  le anteprime; GitHub Actions può ancora eseguire le verifiche. Evitare il generico `skip ci`.
+- Un branch separato da solo non basta: un'integrazione Git Cloudflare può creare preview pubbliche.
+  Anche aprire una PR può generare preview. Non aprire PR o avviare retry/deploy hook in questa fase.
+- Il prefisso riguarda Pages: eventuali altri servizi e webhook richiedono una verifica separata.
+- Controllo del 24 ottobre 2026: l'integrazione Cloudflare **non è stata confermata né esclusa**.
+  Il dashboard richiede login e non sono disponibili credenziali Wrangler. Gli stati del commit
+  remoto consultato non mostravano deploy Cloudflare: questo non dimostra l'assenza dell'integrazione.
+  Nessun account o record DNS è stato modificato.
 
-- [ ] Account Cloudflare con **autenticazione a due fattori**.
-- [ ] **Workers & Pages → Create → Pages → Connect to Git**: repository `Anto287/sitoVale`, branch `main`.
-  - Framework preset: **None**
-  - Build command: `npm run build`
-  - Build output directory: `dist`
-  - La versione di Node (24) la legge da sola dal file `.node-version`.
-- [ ] Controllare il primo deploy sull'indirizzo provvisorio `…pages.dev`: quell'indirizzo è già marcato
-      "non indicizzare" (`public/_headers`), Google indicizzerà solo il dominio.
-- [ ] **Dominio su Cloudflare**: *Add a domain* → `vallyski.com`, poi dal registrar del dominio sostituire i
-      nameserver con i due indicati da Cloudflare (l'attivazione può richiedere qualche ora).
-- [ ] Nel progetto Pages → **Custom domains**: aggiungere `www.vallyski.com` e `vallyski.com`
-      (Cloudflare crea da solo i record DNS e il certificato HTTPS).
-- [ ] **Rules → Redirect Rules** → modello *Redirect from root to WWW*: `vallyski.com` → `https://www.vallyski.com`.
-- [ ] **SSL/TLS → Edge Certificates**: attivare *Always Use HTTPS*. **DNS → Settings**: attivare **DNSSEC**
-      (Cloudflare indica il record da copiare dal registrar).
-- [ ] Verificare online: `https://www.vallyski.com` si apre, `vallyski.com` porta a `www`,
-      `https://www.vallyski.com/robots.txt` dice `Allow: /`.
-- [ ] **Spegnere GitHub Pages**: su GitHub *Settings → Pages* → *Unpublish site*, poi cancellare
-      `.github/workflows/deploy.yml` (oggi pubblica la versione provvisoria su `anto287.github.io/sitoVale`).
+Per un blocco persistente, in una futura sessione autorizzata: Pages → Settings → Builds & deployments,
+disabilitare **Enable automatic production branch deployments**, impostare preview **None** e salvare.
+Controllare anche GitHub → Settings → Pages e le GitHub Apps installate. Cambiare il workflow non
+ritira un sito già pubblicato.
 
-## 3. Email del modulo contatti (Resend)
+Fonti: [skip commit e GitHub integration](https://developers.cloudflare.com/pages/configuration/git-integration/github-integration/),
+[controlli dei branch](https://developers.cloudflare.com/pages/configuration/branch-build-controls/).
 
-Il modulo spedisce due email dal dominio: la richiesta a Valentina e una conferma al cliente nella sua lingua
-(`functions/api/contact.ts`). Finché questi passaggi non sono fatti, o se il servizio non risponde, il modulo
-apre l'app di posta del visitatore con il messaggio già scritto: nessuna richiesta va persa.
+## Dati reali ancora mancanti o da verificare
 
-- [ ] Account gratuito su [resend.com](https://resend.com) (fino a 3.000 email al mese), con autenticazione a due fattori.
-- [ ] **Domains → Add domain** → `vallyski.com`. Con il dominio su Cloudflare, Resend aggiunge da solo i record
-      DNS (SPF e DKIM: sono la "firma" che evita lo spam); altrimenti copiarli a mano in **Cloudflare → DNS**.
-      Attendere che il dominio risulti *Verified*.
-- [ ] **API Keys → Create API key** con permesso *Sending access*.
-- [ ] In **Cloudflare → progetto Pages → Settings → Variables and Secrets**: aggiungere `RESEND_API_KEY`
-      come **Secret** (ambiente *Production*), incollando la chiave. Poi *Deployments → Retry deployment*.
-      La chiave non va mai scritta nei file del sito.
-- [ ] Record **DMARC** in Cloudflare → DNS: tipo `TXT`, nome `_dmarc`, valore `v=DMARC1; p=none; rua=mailto:bernardivale46@gmail.com`
-      (dopo qualche settimana senza problemi si può passare a `p=quarantine`).
-- [ ] **Prova**: dal sito pubblicato inviare una richiesta con un proprio indirizzo email e controllare che
-      arrivino entrambe: la richiesta nella Gmail di Valentina e la conferma al proprio indirizzo.
-- [ ] **Limite ai tentativi** (contro i bot): in Cloudflare → **Security → WAF → Rate limiting rules**, regola su
-      URI path uguale a `/api/contact`: massimo 5 richieste ogni 10 secondi per IP, azione *Block*.
-- L'indirizzo mittente è `prenotazioni@vallyski.com` (`MAIL` in `src/config.ts`): non serve che esista una
-  casella, le risposte vanno sempre alla Gmail di Valentina.
+- [ ] `LEGAL` in `src/config.ts`: forma giuridica, indirizzo professionale, SIRET, IVA se applicabile,
+  dati dell'hosting verificati. I valori vuoti mostrano `[da completare]`; non inventarli.
+- [ ] Informativa privacy coerente con i servizi effettivi: finalità, conservazione nella casella email,
+  Cloudflare/Resend/Gmail, trasferimenti e gestione delle richieste. Evitare affermazioni assolute
+  sull'assenza di dati nei servizi esterni; far confermare il testo prima del lancio.
+- [ ] Contatti e `FIRST_SEASON = 2021` da confermare con Valentina.
+- [ ] Recensioni: mancano 12 originali su 13 in `src/data/reviews.ts`. Recuperare testi esatti e fonti,
+  verificare date e voti. **Il voto 4,8 di Lone Kondrup T. è una stima preesistente non verificata**:
+  correggerlo dalla fonte o rimuovere la recensione prima del lancio. Non dedurre voti dalle immagini.
+- [ ] Condizioni EN/IT/FR: approvare i testi in `scripts/terms-content.mjs` e i PDF in `public/docs/`,
+  in particolare la gestione dell'anticipo. Rigenerare con `npm run terms` dopo l'approvazione.
 
-## 4. Sicurezza degli account
+## Cloudflare Pages: futuro lancio autorizzato
 
-- [ ] Autenticazione a due fattori su **GitHub**, **Cloudflare**, **Resend**, **registrar del dominio** e **Gmail** di Valentina:
-      chi entra in uno di questi account può cambiare il sito o il dominio.
-- [ ] Se un giorno si vuole anche una casella vera sul dominio (es. `info@vallyski.com`, per ricevere): Cloudflare
-      **Email Routing** la inoltra gratis alla Gmail. Poi aggiornare `CONTACT.email`.
+Queste operazioni possono mettere online il sito o cambiare l'infrastruttura: non eseguirle come parte
+di un semplice push di revisione.
 
-## 5. Da controllare
+| Impostazione | Valore |
+| --- | --- |
+| Prodotto | Cloudflare **Pages** |
+| Repository | `Anto287/sitoVale` |
+| Root directory | radice del repository |
+| Production branch futura | `main` |
+| Framework preset | None / React (Vite), build esplicita |
+| Build command | `npm run build` |
+| Output | `dist` |
+| Node | 24 (`.node-version`; `NODE_VERSION=24` se necessario) |
+| Dominio e percorso | lasciare `VITE_SITE_URL` e `BASE_PATH` non impostate |
+| Secret email | `RESEND_API_KEY`, solo Production, dopo protezioni antiabuso |
+| Preview | nessun secret email; automatiche None finché richiesto |
 
-- [ ] **Voto di Lone Kondrup T.** (`src/data/reviews.ts`): nello screenshot di Maison Sport la quinta stella è
-      piena solo in parte; ho messo 4,8. Correggere se il voto esatto è diverso.
-- [ ] **Anni di esperienza**: calcolati da `FIRST_SEASON = 2021` (inverno 2021/22) in `src/config.ts`.
-      Oggi danno 5 anni; aumentano da soli ogni 1° novembre. Correggere l'anno se la prima stagione è un'altra.
-- [ ] **Recensioni non ancora sul sito**: tra gli screenshot ci sono due recensioni Google che parlano di
-      Valentina, di Gayle Veitch e Adam B. Valutare se aggiungerle (testo + traduzioni + voto).
+`wrangler.jsonc` dichiara output, compatibility date e nome proposto `vallyski`; non crea un progetto
+né pubblica. Allineare `name` al nome effettivo, se diverso, prima di usarlo. La build non necessita
+credenziali Cloudflare o Resend. Non usare `CF_PAGES_URL` come canonico: cambia per ogni deploy.
 
-## 6. Dopo la pubblicazione (consigliato)
+In alternativa all'integrazione Git, **Direct Upload via Wrangler** permette caricamenti manuali.
+La scelta del tipo di progetto non si cambia liberamente in seguito. **Il drag-and-drop del dashboard
+non compila `functions/`**, quindi non è adatto al modulo di questo repository. Un futuro caricamento
+Wrangler va eseguito dalla radice del repository, affinché includa `functions/api/contact.ts`.
 
-- [ ] **Google Search Console**: aggiungere `https://www.vallyski.com` e inviare `https://www.vallyski.com/sitemap.xml`.
-- [ ] **Scheda Google Business** di Valentina: per un servizio locale conta più del sito stesso; metterci il link al sito.
-- [ ] **Statistiche** (facoltative): account gratuito su [goatcounter.com](https://www.goatcounter.com) e codice in
-      `GOATCOUNTER`. Senza cookie: nessun banner necessario, le note legali si aggiornano da sole.
-- [ ] **Dependabot** (facoltativo): su GitHub *Settings → Code security* → attivare *Dependabot alerts* e
-      *security updates*, per sapere quando una libreria usata dal sito ha una falla.
+Fonti: [build Vite](https://developers.cloudflare.com/pages/configuration/build-configuration/),
+[Direct Upload e Functions](https://developers.cloudflare.com/pages/get-started/direct-upload/).
 
-Già pronto, non serve fare nulla: le intestazioni di sicurezza (Content-Security-Policy, protezione da
-iframe, HTTPS obbligatorio) sono in `public/_headers` e Cloudflare le applica da solo. La Content-Security-Policy
-si aggiorna in build: attivando GoatCounter in `src/config.ts` viene autorizzato in automatico.
+### Dominio canonico
 
-## Promemoria comandi
+1. Pages → Custom domains: associare **prima** `www.vallyski.com`; poi configurare il CNAME richiesto.
+   Con DNS esterno, `www` può puntare a `<progetto>.pages.dev` senza migrare tutti i nameserver.
+   Non inventare il target prima di conoscere il progetto.
+2. Per associare anche `vallyski.com` a Pages serve una zona Cloudflare attiva: pianificare l'eventuale
+   migrazione dei nameserver preservando tutti i record esistenti, soprattutto quelli email.
+3. Configurare una Redirect Rule permanente dall'apice a `https://www.vallyski.com`, preservando
+   percorso e query: `/it/?x=1` deve arrivare a `https://www.vallyski.com/it/?x=1`.
+4. Verificare certificato e HTTPS. Le regole per host e HTTP si configurano nel pannello:
+   `_redirects` di Pages non supporta redirect tra domini.
+5. Dopo l'attivazione del dominio, valutare un Bulk Redirect da `<progetto>.pages.dev` a `www`,
+   evitando di coinvolgere le preview se servono per QA.
+
+Fonti: [custom domains](https://developers.cloudflare.com/pages/configuration/custom-domains/),
+[limiti redirect](https://developers.cloudflare.com/pages/configuration/redirects/),
+[redirect pages.dev](https://developers.cloudflare.com/pages/how-to/redirect-to-custom-domain/).
+
+## Modulo contatti e Resend
+
+La Function invia la richiesta a Valentina e una conferma EN/IT/FR al visitatore. Si tratta di una
+richiesta di disponibilità, non di una prenotazione. I test non inviano email reali.
+
+- [ ] Verificare il dominio in Resend; applicare SPF/DKIM del servizio preservando gli altri record
+  email. Definire DMARC con chi gestisce il dominio.
+- [ ] Chiave con permesso di solo invio, salvata come **Secret Production** su Pages. Mai inserirla
+  nel repository o in variabili `VITE_*`, che vengono incluse nel browser.
+- [ ] Prima di abilitarla, proteggere `/api/contact` con rate limiting verificato sul piano Cloudflare
+  effettivo e limiti al volume/costo email. Verificare anche gli host alternativi. Honeypot e Origin
+  non fermano un bot che costruisce richieste HTTP; valutare Turnstile con verifica server se necessario.
+- [ ] Durante il lancio autorizzato, provare l'invio con dati propri: ricezione nella Gmail, conferma
+  nella lingua scelta, Reply-To corretti. L'API accetta soltanto JSON dall'origine HTTPS canonica;
+  sulle preview rimane il ripiego email/WhatsApp. Nessun secret nelle preview.
+- [ ] Validare gestione rimbalzi e monitoraggio dei volumi sul provider.
+
+Le risposte della Function hanno protezioni e `no-store` propri: `_headers` riguarda solo asset statici.
+Input non validi o oltre 20 KB vengono rifiutati senza invii. La conferma non ripete date, composizione
+del gruppo o messaggio libero, evitando link arbitrari. Gli errori non registrano dati del cliente
+né risposte del provider. Dopo il primo invio riuscito, la conferma continua con `waitUntil` per non
+ritardare il browser. Un errore di rete può lasciare incerto l'esito: il ripiego manuale può generare
+un duplicato. Non sono previsti retry automatici o garanzie di consegna.
+
+## Verifiche online, dopo autorizzazione al lancio
+
+- [ ] Home, `/it/`, `/fr/`: HTTP 200, lingua corretta, canonical e hreflang su `www`.
+- [ ] URL casuale inesistente: vero HTTP 404 e noindex, evitando fallback SPA con HTTP 200.
+- [ ] `robots.txt`: Allow e sitemap canonica con tre lingue.
+- [ ] `pages.dev`: header `X-Robots-Tag: noindex`; il noindex non è controllo degli accessi.
+- [ ] CSP senza violazioni, foto/PDF funzionanti e form verificato con dati propri.
+- [ ] Apice `/it/?x=1` → `https://www.vallyski.com/it/?x=1`.
+- [ ] Gestire separatamente l'eventuale vecchio sito GitHub Pages già online.
+- [ ] Dopo il passaggio, inviare sitemap a Search Console e aggiornare i profili pubblici.
+
+Già predisposti: prerender EN/IT/FR, metadata social, JSON-LD senza voti/recensioni strutturati non
+verificati, CSP per hash, protezione iframe, cache immutabile per asset con hash, `404.html` e
+noindex per Pages. Regole del dominio, certificato e intestazioni richiedono verifica sull'hosting reale.
+
+## Comandi locali
 
 ```bash
-npm install      # la prima volta
-npm run dev      # sito in locale su http://localhost:5173
-npm run build    # controllo completo + pagine pronte in dist/
-npm run images   # dopo aver aggiunto o cambiato una foto in photos/
-npm run terms    # dopo aver cambiato le condizioni (scripts/terms-content.mjs)
-npm test         # build + test di modulo contatti, sicurezza e pagine (prima di ogni pubblicazione)
+npm ci          # dipendenze dal lockfile
+npm run dev     # sito locale
+npm run lint    # controllo statico
+npm test        # TypeScript, build e test, senza email reali
+npm run images  # dopo modifiche agli originali in photos/
+npm run terms   # dopo approvazione/modifica delle condizioni
 ```
 
-Testi del sito: `src/i18n/locales/it.json`, `en.json`, `fr.json` (l'inglese è il riferimento: se in
-un'altra lingua manca una frase, la build si ferma e dice quale).
+Usare MFA su GitHub, Cloudflare, registrar, Resend e casella di destinazione; attivare avvisi sulle
+dipendenze. Le statistiche sono disattivate (`GOATCOUNTER = ''`): prima di attivarle verificare anche
+l'informativa rispetto alla configurazione effettiva.
+
+Audit dipendenze del 24 ottobre 2026: il controllo completo con accesso npm ha rilevato **5
+segnalazioni (4 high, 1 low), tutte nell'albero di sviluppo**. Sono coinvolti Sharp, source-map-js,
+PostCSS, Vite e il plugin React, con segnalazioni dirette e propagate tra pacchetti. Sharp e Vite non
+sono runtime del sito pubblicato, ma vanno comunque aggiornati per proteggere elaborazione immagini,
+build e server locale. Non esporre il server di sviluppo come hosting pubblico.
+
+Aggiornamento applicato nello stesso controllo: Sharp **0.35.5**, Vite **8.3.5** e source-map-js
+**1.2.2** nel lockfile, senza aggiornamenti major o `--force`. Il successivo audit completo ha
+restituito **0 vulnerabilità**. Ripetere audit, lint e test prima del lancio: l'esito riguarda
+le dipendenze disponibili e gli advisory noti alla data del controllo, non una garanzia futura.
+
+Fonti: [Sharp](https://github.com/advisories/GHSA-wq5f-xc86-pv6w),
+[source-map-js](https://github.com/advisories/GHSA-68fv-2mgg-jv7q),
+[Vite](https://github.com/advisories/GHSA-rq7h-c2jc-7f22).

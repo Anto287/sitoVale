@@ -82,7 +82,43 @@ const oneLine = (v: unknown, max: number) => clean(v, max).replace(/\s+/g, ' ')
 const EMAIL = /^[^\s@<>()[\]",;:]+@[^\s@<>()[\]",;:]+\.[^\s@<>()[\]",;:]{2,}$/
 
 const json = (status: number, body: object) =>
-  new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } })
+  new Response(JSON.stringify(body), { status, headers: {
+    'Content-Type': 'application/json; charset=utf-8',
+    'Cache-Control': 'no-store',
+    'X-Content-Type-Options': 'nosniff',
+    'X-Frame-Options': 'DENY',
+    'Referrer-Policy': 'no-referrer',
+    'Content-Security-Policy': "default-src 'none'; frame-ancestors 'none'",
+  } })
+
+/** Limite in byte prima del parsing, anche senza Content-Length (richieste chunked). */
+async function readBody(request: Request) {
+  const reader = request.body?.getReader()
+  if (!reader) return ''
+  const chunks: Uint8Array[] = []
+  let length = 0
+  try {
+    while (true) {
+      const { value, done } = await reader.read()
+      if (done) break
+      length += value.byteLength
+      if (length > 20_000) {
+        await reader.cancel()
+        return null
+      }
+      chunks.push(value)
+    }
+  } finally {
+    reader.releaseLock()
+  }
+  const bytes = new Uint8Array(length)
+  let offset = 0
+  for (const chunk of chunks) {
+    bytes.set(chunk, offset)
+    offset += chunk.byteLength
+  }
+  return new TextDecoder().decode(bytes)
+}
 
 // ---------- email ----------
 
@@ -117,29 +153,40 @@ function rowsHtml(rows: Row[]) {
 
 const rowsText = (rows: [string, string][]) => rows.map(([k, v]) => `${k}: ${v}`).join('\n')
 
-async function send(key: string, mail: Record<string, unknown>) {
-  const res = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify(mail),
-  })
-  if (!res.ok) console.error('Resend', res.status, await res.text())
-  return res.ok
+async function send(key: string, mail: Record<string, unknown>, timeout = 8_000) {
+  try {
+    const res = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(mail),
+      signal: AbortSignal.timeout(timeout),
+    })
+    // Non registrare corpo, destinatari o errori del provider: possono contenere dati personali.
+    if (!res.ok) console.error('Contact email delivery failed', res.status)
+    return res.ok
+  } catch {
+    console.error('Contact email delivery unavailable')
+    return false
+  }
 }
 
 // ---------- richiesta ----------
 
-export async function onRequestPost({ request, env }: { request: Request; env: Env }) {
-  // solo dal sito stesso (un altro sito non può usare il modulo al posto nostro)
+export async function onRequestPost(context: { request: Request; env: Env; waitUntil?: (promise: Promise<unknown>) => void }) {
+  const { request, env } = context
+  // Solo origine HTTPS canonica, anche se una preview riceve per errore il secret.
+  // Non è una difesa anti-bot: un client non-browser può falsificare Origin (vedi DA-FARE.md).
   const origin = request.headers.get('Origin')
-  if (origin && new URL(origin).host !== new URL(request.url).host) return json(403, { ok: false })
+  if (origin !== SITE_URL || new URL(request.url).origin !== SITE_URL) return json(403, { ok: false })
+  if (request.headers.get('Content-Type')?.split(';')[0].trim().toLowerCase() !== 'application/json') return json(415, { ok: false })
   if (!env.RESEND_API_KEY) return json(503, { ok: false, error: 'not-configured' })
 
-  const raw = await request.text()
-  if (raw.length > 20_000) return json(413, { ok: false })
   let body: Partial<Record<keyof ContactRequest, unknown>>
   try {
+    const raw = await readBody(request)
+    if (raw === null) return json(413, { ok: false })
     body = JSON.parse(raw)
+    if (!body || typeof body !== 'object' || Array.isArray(body)) return json(400, { ok: false })
   } catch {
     return json(400, { ok: false })
   }
@@ -201,9 +248,10 @@ export async function onRequestPost({ request, env }: { request: Request; env: E
       ['Lingua del sito', LANGUAGE_NAMES[lng]],
     ])}${r.message ? `\n\n${r.message}` : ''}\n\nRispondi a questa email per scrivere direttamente a ${r.name}.`,
   }
-  if (!(await send(env.RESEND_API_KEY, toValentina))) return json(502, { ok: false })
+  // Il browser passa al ripiego dopo 4,5 s: lasciare margine alla risposta HTTP.
+  if (!(await send(env.RESEND_API_KEY, toValentina, 3_000))) return json(502, { ok: false })
 
-  // 2) conferma al cliente, nella lingua del sito. Solo dati brevi, nessun testo libero.
+  // 2) conferma al cliente: solo scelte predefinite, nessuna data o composizione libera del gruppo.
   const c = CONFIRM[lng]
   const first = r.name.split(' ')[0]
   // un "nome" con punti, barre o @ è probabilmente un indirizzo: meglio un saluto senza nome
@@ -211,8 +259,6 @@ export async function onRequestPost({ request, env }: { request: Request; env: E
   const recap: [string, string][] = [
     [label(lng, 'form.lesson'), tr(lng, r.lesson[1])],
     [label(lng, 'form.level'), tr(lng, r.level[1])],
-    ...(r.dates ? [[label(lng, 'form.dates'), r.dates] as [string, string]] : []),
-    ...(r.people ? [[label(lng, 'form.people'), r.people] as [string, string]] : []),
   ]
   const termsUrl = `${SITE_URL}/${TERMS_FILES[lng]}`
   const vars = { whatsapp: CONTACT.whatsappLabel, site }
@@ -236,7 +282,9 @@ ${rowsHtml(recap.map(([k, v]) => [k, escape(v)]))}
     text: `${hello}\n\n${typo(c.intro, lng)}\n\n${c.recap}\n${rowsText(recap)}\n\n${typo(c.terms, lng)}\n${termsUrl}\n\n${typo(fill(c.questions, vars), lng)}\n\n${c.bye}\nValentina\n\n—\nValentina Bernardi · ${tr(lng, 'footer.role')} · ${site}\n${typo(fill(c.why, vars), lng)}`,
   }
   // la richiesta è già arrivata a Valentina: se la conferma non parte, per il visitatore va bene lo stesso
-  await send(env.RESEND_API_KEY, confirmation)
+  const confirmationSend = send(env.RESEND_API_KEY, confirmation)
+  if (context.waitUntil) context.waitUntil(confirmationSend)
+  else await confirmationSend
 
   return json(200, { ok: true })
 }

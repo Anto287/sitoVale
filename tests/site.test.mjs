@@ -95,6 +95,42 @@ describe('nessun segreto nei file pubblicati', () => {
 })
 
 describe('pagine', () => {
+  test('canonical, hreflang e social puntano al dominio definitivo in tutte le lingue', () => {
+    const origin = 'https://www.vallyski.com'
+    for (const [page, suffix] of [['index.html', '/'], ['it/index.html', '/it/'], ['fr/index.html', '/fr/']]) {
+      const html = read(page)
+      assert.ok(html.includes(`<link rel="canonical" href="${origin}${suffix}">`), page)
+      assert.ok(html.includes(`<meta property="og:url" content="${origin}${suffix}">`), page)
+      for (const [lang, segment] of [['en', '/'], ['it', '/it/'], ['fr', '/fr/'], ['x-default', '/']])
+        assert.ok(html.includes(`hreflang="${lang}" href="${origin}${segment}"`), `${page}: ${lang}`)
+      assert.ok(!/<meta name="robots" content="noindex/.test(html), `${page}: produzione non indicizzabile`)
+    }
+  })
+
+  test('sitemap e robots contengono solo i tre indirizzi canonici, senza date di modifica artificiali', () => {
+    assert.deepEqual([...read('sitemap.xml').matchAll(/<loc>(.*?)<\/loc>/g)].map((m) => m[1]), [
+      'https://www.vallyski.com/', 'https://www.vallyski.com/it/', 'https://www.vallyski.com/fr/',
+    ])
+    assert.ok(!read('sitemap.xml').includes('<lastmod>'))
+    assert.match(read('robots.txt'), /Allow: \/\n/)
+    assert.match(read('robots.txt'), /Sitemap: https:\/\/www\.vallyski\.com\/sitemap\.xml/)
+  })
+
+  test('404 esiste e chiede esplicitamente di non essere indicizzata', () => {
+    assert.match(read('404.html'), /<title>Page not found — Vally Ski<\/title>/)
+    assert.match(read('404.html'), /<meta name="robots" content="noindex">/)
+  })
+
+  test('asset e pagine locali referenziati dall’HTML esistono nel risultato della build', () => {
+    for (const page of PAGES)
+      for (const [, href] of read(page).matchAll(/(?:href|src)="(\/[^"#?]*)[^"]*"/g)) {
+        if (href.startsWith('//')) continue
+        const target = path.join(DIST, decodeURIComponent(href))
+        assert.ok(fs.existsSync(target), `${page}: ${href}`)
+        if (fs.statSync(target).isDirectory()) assert.ok(fs.existsSync(path.join(target, 'index.html')), href)
+      }
+  })
+
   test('ogni lingua ha il suo HTML completo, con lingua e testi giusti', () => {
     for (const [page, lang] of [['index.html', 'en'], ['it/index.html', 'it'], ['fr/index.html', 'fr']]) {
       const html = read(page)

@@ -24,7 +24,7 @@ globalThis.fetch = async (url, init) => {
   assert.equal(init.headers.Authorization, `Bearer ${KEY}`)
   const mail = JSON.parse(init.body)
   outbox.push(mail)
-  const status = resendStatus(mail)
+  const status = await resendStatus(mail)
   return new Response(status === 200 ? '{"id":"test"}' : '{"error":"test"}', { status })
 }
 // gli errori di Resend vengono scritti nel log di Cloudflare: qui non servono
@@ -43,10 +43,10 @@ const valid = {
   botcheck: '',
 }
 
-async function post(body, { origin = SITE, env = { RESEND_API_KEY: KEY }, raw } = {}) {
-  const request = new Request(`${SITE}/api/contact`, {
+async function post(body, { origin = SITE, url = SITE, contentType = 'application/json', env = { RESEND_API_KEY: KEY }, raw } = {}) {
+  const request = new Request(`${url}/api/contact`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...(origin ? { Origin: origin } : {}) },
+    headers: { 'Content-Type': contentType, ...(origin ? { Origin: origin } : {}) },
     body: raw ?? JSON.stringify(body),
   })
   const res = await onRequestPost({ request, env })
@@ -126,9 +126,66 @@ describe('ripiego (il sito apre l’app di posta del visitatore)', () => {
     assert.equal(res.status, 200)
     assert.equal(res.body.ok, true)
   })
+
+  test('errore di rete o timeout del primo invio → errore JSON per il ripiego', async () => {
+    resendStatus = () => { throw new TypeError('network failure') }
+    const res = await post(valid)
+    assert.equal(res.status, 502)
+    assert.equal(res.body.ok, false)
+    assert.equal(outbox.length, 1)
+  })
+
+  test('errore di rete nella conferma → la richiesta già ricevuta resta un successo', async () => {
+    resendStatus = (mail) => {
+      if (mail.to[0] !== CONTACT.email) throw new DOMException('Timeout', 'TimeoutError')
+      return 200
+    }
+    assert.equal((await post(valid)).status, 200)
+  })
+
+  test('su Cloudflare la conferma continua in background e non ritarda la risposta al browser', { timeout: 1_000 }, async (t) => {
+    const tasks = []
+    let finishConfirmation
+    let confirmationFinished = false
+    resendStatus = (mail) => mail.to[0] === CONTACT.email ? 200 : new Promise((resolve) => {
+      finishConfirmation = () => { confirmationFinished = true; resolve(200) }
+    })
+    t.after(() => finishConfirmation?.())
+    const request = new Request(`${SITE}/api/contact`, {
+      method: 'POST',
+      headers: { Origin: SITE, 'Content-Type': 'application/json' },
+      body: JSON.stringify(valid),
+    })
+    const response = await onRequestPost({ request, env: { RESEND_API_KEY: KEY }, waitUntil: (task) => tasks.push(task) })
+    assert.equal(response.status, 200)
+    assert.equal(tasks.length, 1)
+    assert.equal(confirmationFinished, false, 'la risposta non deve attendere il secondo invio')
+    finishConfirmation()
+    await Promise.all(tasks)
+    assert.equal(outbox.length, 2)
+  })
 })
 
 describe('sicurezza', () => {
+  test('Origin assente, malformato o con protocollo diverso → rifiutato senza eccezioni', async () => {
+    for (const origin of ['', 'null', 'not-a-url', 'http://www.vallyski.com', `${SITE}.evil.example`])
+      assert.equal((await post(valid, { origin })).status, 403, origin)
+    assert.equal(outbox.length, 0)
+  })
+
+  test('una preview non invia email neppure con il secret di produzione', async () => {
+    assert.equal((await post(valid, { url: 'https://preview.vallyski.pages.dev' })).status, 403)
+    assert.equal(outbox.length, 0)
+  })
+
+  test('accetta solo JSON e include le protezioni anche nelle risposte della Function', async () => {
+    assert.equal((await post(valid, { contentType: 'text/plain' })).status, 415)
+    const response = await onRequestPost({ request: new Request(`${SITE}/api/contact`, { method: 'POST' }), env: {} })
+    assert.equal(response.headers.get('Cache-Control'), 'no-store')
+    assert.equal(response.headers.get('X-Content-Type-Options'), 'nosniff')
+    assert.equal(response.headers.get('X-Frame-Options'), 'DENY')
+  })
+
   test('richiesta da un altro sito → rifiutata', async () => {
     const res = await post(valid, { origin: 'https://sito-malevolo.example' })
     assert.equal(res.status, 403)
@@ -167,7 +224,7 @@ describe('sicurezza', () => {
   })
 
   test('il modulo non può spedire testi scelti da altri a indirizzi scelti da altri', async () => {
-    await post({ ...valid, email: 'vittima@example.com', name: 'www.offerta-truffa.example', message: 'COMPRA ORA su offerta-truffa.example' })
+    await post({ ...valid, email: 'vittima@example.com', name: 'www.offerta-truffa.example', dates: 'https://offerta-truffa.example', people: 'COMPRA ORA', message: 'COMPRA ORA su offerta-truffa.example' })
     const c = toClient()
     assert.ok(!c.html.includes('COMPRA ORA') && !c.text.includes('COMPRA ORA'), 'il messaggio libero non va al destinatario')
     assert.ok(!c.html.includes('offerta-truffa') && !c.text.includes('offerta-truffa'), 'un "nome" che è un indirizzo web non viene ripetuto')
@@ -177,6 +234,25 @@ describe('sicurezza', () => {
     assert.equal((await post(null, { raw: '{non è json' })).status, 400)
     assert.equal((await post(null, { raw: 'x'.repeat(25_000) })).status, 413)
     assert.equal((await post({ ...valid, name: '   ' })).status, 400)
+    for (const body of [null, [], 42, true, 'test']) assert.equal((await post(body)).status, 400)
+    assert.equal((await post(null, { raw: JSON.stringify({ message: '雪'.repeat(8_000) }) })).status, 413, 'limite in byte, non caratteri')
+    assert.equal(outbox.length, 0)
+  })
+
+  test('body a blocchi: interrompe la lettura quando supera il limite senza Content-Length', async () => {
+    let cancelled = false
+    const request = new Request(`${SITE}/api/contact`, {
+      method: 'POST',
+      headers: { Origin: SITE, 'Content-Type': 'application/json' },
+      body: new ReadableStream({
+        pull(controller) { controller.enqueue(new Uint8Array(10_001)) },
+        cancel() { cancelled = true },
+      }),
+      duplex: 'half',
+    })
+    const response = await onRequestPost({ request, env: { RESEND_API_KEY: KEY } })
+    assert.equal(response.status, 413)
+    assert.equal(cancelled, true)
     assert.equal(outbox.length, 0)
   })
 

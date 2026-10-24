@@ -1,5 +1,6 @@
 /**
- * Converte le foto di photos/<cartella>/*.jpg in WebP responsive per il sito.
+ * Converte le foto JPG/PNG di photos/<cartella>/ in WebP responsive per il sito.
+ * I ritocchi locali sono salvati in PNG per conservare i pixel fuori dall'area modificata.
  *
  *   npm run images
  *
@@ -37,6 +38,7 @@ const SETTINGS = JSON.stringify({ WIDTHS, WEBP, sharpen: 0.5 })
 
 const previous = fs.existsSync(MANIFEST) ? JSON.parse(fs.readFileSync(MANIFEST, 'utf8')) : {}
 const manifest = {}
+const sources = new Map()
 const produced = new Set()
 let converted = 0
 
@@ -45,6 +47,8 @@ for (const category of fs.readdirSync(SRC).filter((d) => fs.statSync(path.join(S
     const name = file.replace(/\.[^.]+$/, '')
     const key = `${category}/${name}`
     const src = path.join(SRC, category, file)
+    if (sources.has(key)) throw new Error(`Foto duplicata: ${key}. Conservare un solo originale JPG o PNG.`)
+    sources.set(key, src)
     const mtime = fs.statSync(src).mtimeMs
 
     // rotate() applica l'orientamento EXIF; l'output non porta metadati (niente GPS, niente modello di telefono)
@@ -105,9 +109,10 @@ for (const category of fs.existsSync(OUT) ? fs.readdirSync(OUT) : []) {
 fs.writeFileSync(MANIFEST, JSON.stringify(manifest, null, 2) + '\n')
 
 const og = Object.entries(manifest).find(([k]) => k === OG.photo)
-const ogStale = !fs.existsSync(OG.out) || fs.statSync(OG.out).mtimeMs < Math.max(fs.statSync(path.join(SRC, `${OG.photo}.jpg`)).mtimeMs, fs.statSync(import.meta.filename).mtimeMs)
+const ogSource = sources.get(OG.photo)
+const ogStale = ogSource && (!fs.existsSync(OG.out) || fs.statSync(OG.out).mtimeMs < Math.max(fs.statSync(ogSource).mtimeMs, fs.statSync(import.meta.filename).mtimeMs))
 if (og && ogStale) {
-  await sharp(path.join(SRC, `${OG.photo}.jpg`))
+  await sharp(ogSource)
     .rotate()
     .resize(1200, 630, { fit: 'cover', position: 'attention', kernel: 'lanczos3' })
     // colore a piena risoluzione (4:4:4): bordi puliti tra neve e giacche scure

@@ -19,7 +19,7 @@ const OG_LOCALE = { en: 'en_GB', it: 'it_IT', fr: 'fr_FR' }
 const escape = (s) => s.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
 const url = urlFor
 
-// Indirizzo provvisorio (es. anto287.github.io/sitoVale): non va indicizzato, altrimenti Google
+// Una build di prova con VITE_SITE_URL diverso dal dominio canonico non va indicizzata, altrimenti Google
 // registra un doppione del sito che resterebbe in giro anche dopo il passaggio al dominio vero.
 const noindex = IS_FINAL_URL ? [] : ['<meta name="robots" content="noindex">']
 if (!IS_FINAL_URL) console.log(`ℹ indirizzo provvisorio ${SITE_URL}: pagine con noindex`)
@@ -62,23 +62,22 @@ for (const lng of LANGUAGES) {
   console.log(`✓ ${path.relative(ROOT, out).padEnd(20)} ${Math.round(page.length / 1024)} KB — ${title}`)
 }
 
-// GitHub Pages mostra 404.html per gli indirizzi che non esistono: la home in inglese,
-// con un titolo che lo dice e senza indicizzazione.
+// La presenza di 404.html mantiene il vero stato HTTP 404 su Cloudflare Pages,
+// evitando il fallback SPA (200) per URL inesistenti. L'HTML permette di tornare al sito.
 const notFound = fs
   .readFileSync(path.join(DIST, 'index.html'), 'utf8')
   .replace(/<meta name="robots" content="noindex">\n?/, '')
+  .replace(/<title>[\s\S]*?<\/title>/, '<title>Page not found — Vally Ski</title>')
   .replace('<meta name="description"', '<meta name="robots" content="noindex">\n<meta name="description"')
 fs.writeFileSync(path.join(DIST, '404.html'), notFound)
 console.log('✓ 404.html')
 
-// lastmod = data della build: dice a Google quando il sito è stato aggiornato l'ultima volta.
-const today = new Date().toISOString().slice(0, 10)
+// Nessun lastmod artificiale: una nuova build non significa che il contenuto sia cambiato.
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${LANGUAGES.map(
   (lng) => `  <url>
     <loc>${url(lng)}</loc>
-    <lastmod>${today}</lastmod>
 ${[...LANGUAGES.map((l) => `    <xhtml:link rel="alternate" hreflang="${l}" href="${url(l)}"/>`), `    <xhtml:link rel="alternate" hreflang="x-default" href="${url('en')}"/>`].join('\n')}
   </url>`,
 ).join('\n')}
@@ -89,7 +88,7 @@ fs.writeFileSync(
   path.join(DIST, 'robots.txt'),
   IS_FINAL_URL ? `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n` : 'User-agent: *\nDisallow: /\n',
 )
-console.log(`✓ sitemap.xml (lastmod ${today}), robots.txt`)
+console.log('✓ sitemap.xml, robots.txt')
 
 // Content-Security-Policy in dist/_headers (Cloudflare Pages): il browser esegue solo i file JS del sito,
 // gli script interni qui sopra (per impronta) e i servizi esterni attivi in src/config.ts.

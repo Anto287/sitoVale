@@ -18,6 +18,7 @@ export function Nav() {
   const { t } = useTranslation()
   const ref = useRef<HTMLElement>(null)
   const menuRef = useRef<HTMLDivElement>(null)
+  const toggleRef = useRef<HTMLButtonElement>(null)
   const [open, setOpen] = useState(false)
   const [stuck, setStuck] = useState(false)
   const openRef = useRef(open)
@@ -39,7 +40,7 @@ export function Nav() {
         ScrollTrigger.create({
           start: () => window.innerHeight * 0.6,
           end: 'max',
-          onUpdate: (self) => hide(self.direction === 1 && !openRef.current ? -110 : 0),
+          onUpdate: (self) => hide(self.direction === 1 && !openRef.current && !nav.contains(document.activeElement) ? -110 : 0),
           onLeaveBack: () => hide(0),
         })
       })
@@ -53,7 +54,14 @@ export function Nav() {
       if (!open) return
       withMotion(() => {
         gsap
-          .timeline({ defaults: { ease: EASE_OUT } })
+          .timeline({
+            defaults: { ease: EASE_OUT },
+            onComplete: () => {
+              if (document.activeElement === toggleRef.current) {
+                menuRef.current?.querySelector<HTMLAnchorElement>('a')?.focus({ preventScroll: true })
+              }
+            },
+          })
           .from(menuRef.current, { clipPath: 'inset(0% 0% 100% 0%)', duration: 0.7, ease: 'power3.inOut', clearProps: 'clipPath' })
           .from('.menu-links a > *', { yPercent: 110, duration: 0.9, stagger: 0.06 }, 0.3)
           .from('.menu-foot > *', { y: 20, autoAlpha: 0, duration: 0.8, stagger: 0.08 }, 0.55)
@@ -71,11 +79,38 @@ export function Nav() {
   }, [])
 
   useEffect(() => {
-    document.body.style.overflow = open ? 'hidden' : ''
     if (!open) return
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false)
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    const background = [...document.querySelectorAll<HTMLElement>('.hero, main, .footer, .mobile-cta, .skip-link')]
+    const previousInert = background.map((element) => element.inert)
+    background.forEach((element) => { element.inert = true })
+    const focusFrame = requestAnimationFrame(() => {
+      menuRef.current?.querySelector<HTMLAnchorElement>('a')?.focus({ preventScroll: true })
+    })
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.preventDefault()
+        setOpen(false)
+        toggleRef.current?.focus({ preventScroll: true })
+      }
+      if (e.key === 'Tab') {
+        const items = [
+          toggleRef.current!,
+          ...menuRef.current!.querySelectorAll<HTMLElement>('a[href], button'),
+        ].filter((element) => element.getClientRects().length > 0)
+        const index = items.indexOf(document.activeElement as HTMLElement)
+        e.preventDefault()
+        items[(index + (e.shiftKey ? -1 : 1) + items.length) % items.length]?.focus()
+      }
+    }
     document.addEventListener('keydown', onKey)
-    return () => document.removeEventListener('keydown', onKey)
+    return () => {
+      cancelAnimationFrame(focusFrame)
+      document.body.style.overflow = previousOverflow
+      background.forEach((element, index) => { element.inert = previousInert[index] })
+      document.removeEventListener('keydown', onKey)
+    }
   }, [open])
 
   return (
@@ -97,9 +132,10 @@ export function Nav() {
           {t('nav.book')}
         </a>
         <button
+          ref={toggleRef}
           className="burger"
           type="button"
-          aria-label={t('a11y.menu')}
+          aria-label={t(open ? 'a11y.close' : 'a11y.menu')}
           aria-expanded={open}
           aria-controls="navmenu"
           onClick={() => setOpen((o) => !o)}
@@ -114,7 +150,7 @@ export function Nav() {
       {/* Menu a tutto schermo (sotto i 1040px). Sta fuori dalla <nav>: la barra, quando si scorre,
           ha sfocatura e traslazione, e un elemento fixed al suo interno si misurerebbe su di lei
           (alta 70px) invece che sullo schermo. Chiuso è visibility:hidden, quindi fuori dal tab. */}
-      <div ref={menuRef} className={`menu${open ? ' is-open' : ''}`} id="navmenu" data-lenis-prevent>
+      <div ref={menuRef} className={`menu${open ? ' is-open' : ''}`} id="navmenu" role="navigation" aria-label={t('a11y.menu')} aria-hidden={!open} inert={!open} data-lenis-prevent>
         <ol className="menu-links">
           {LINKS.map(([href, key], i) => (
             <li key={href}>

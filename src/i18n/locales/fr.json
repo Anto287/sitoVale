@@ -27,7 +27,7 @@
   },
   "hero": {
     "eyebrow": "Monitrice de ski · Les Arcs · Val d'Isère · Tignes",
-    "lede": "Cours particuliers, enfants et familles en Tarentaise. Du premier virage à un ski sûr et fluide, à votre rythme — en français, anglais ou italien.",
+    "lede": "Cours particuliers, enfants et familles en Tarentaise. Du premier virage à un ski sûr et fluide, à votre rythme, en français, anglais ou italien.",
     "ctaBook": "Réserver un cours",
     "ctaLessons": "Voir les cours",
     "imgAlt": "Skieurs devant la mer de nuages sur la vallée de la Tarentaise",
@@ -41,7 +41,7 @@
   "about": {
     "eyebrow": "À propos",
     "title": "Bien skier, c'est d'abord une question de confiance.",
-    "p1": "Je skie depuis l'âge de quatre ans, dans les Apennins, en Italie. J'ai fait de la compétition jusqu'à dix-huit ans, puis j'ai obtenu mon diplôme de monitrice de ski ; depuis {{years}} ans, je travaille en Tarentaise, entre Les Arcs, Val d'Isère et Tignes.",
+    "p1": "J'ai commencé à skier à quatre ans dans les Apennins, en Italie. J'ai fait de la compétition jusqu'à dix-huit ans, puis j'ai obtenu mon diplôme de monitrice de ski. Depuis {{years}} ans, je travaille en Tarentaise, entre Les Arcs, Val d'Isère et Tignes.",
     "p2": "Je suis patiente et enthousiaste. J'enseigne à tous les niveaux et à tous les âges, avec un objectif qui passe avant tout : prendre du plaisir sur les pistes.",
     "cred1": "Diplôme de monitrice de ski",
     "cred2": "{{years}} ans d'expérience en Tarentaise",
@@ -52,7 +52,7 @@
   },
   "lessons": {
     "eyebrow": "Les cours",
-    "title": "Trois formules, un seul objectif : mieux skier, en prenant du plaisir.",
+    "title": "Trois formules, un seul objectif : mieux skier et se faire plaisir.",
     "cta": "Demander les disponibilités",
     "private": {
       "title": "Cours particulier",
@@ -61,7 +61,7 @@
     },
     "children": {
       "title": "Enfants",
-      "text": "On commence par le jeu et la sécurité, pour arriver aux premiers vrais virages. Des pauses au bon moment, beaucoup de patience et des parents toujours informés.",
+      "text": "On commence par le jeu, en toute sécurité, jusqu'aux premiers vrais virages. Des pauses au bon moment, beaucoup de patience et des parents toujours informés.",
       "imgAlt": "Cours avec une fillette à ses premiers virages"
     },
     "group": {
@@ -137,7 +137,7 @@
   "contact": {
     "eyebrow": "Contact",
     "title": "Écrivez-moi : organisons vos journées sur la neige.",
-    "lede": "Vos dates, votre niveau et combien vous êtes : il ne m'en faut pas plus pour vous répondre avec mes disponibilités et une proposition.",
+    "lede": "Indiquez-moi vos dates, votre niveau et le nombre de participants : je vous répondrai avec mes disponibilités et une proposition.",
     "location": "Savoie, France"
   },
   "form": {
@@ -150,8 +150,8 @@
     "levelBeginner": "Débutant",
     "levelIntermediate": "Intermédiaire",
     "levelAdvanced": "Confirmé",
-    "phDates": "12 — 18 / 02",
-    "phMessage": "Quelque chose à savoir ? Objectifs, appréhensions, expérience…",
+    "phDates": "Ex. du 12 au 18 février",
+    "phMessage": "Objectifs, questions ou expérience à ski : dites-moi ce que vous avez en tête.",
     "mailSubject": "Demande de cours de ski — Tarentaise",
     "lesson": "Cours",
     "lessonUnsure": "Je ne sais pas encore",
@@ -162,9 +162,10 @@
     "phPhone": "WhatsApp ou portable",
     "sending": "Envoi en cours…",
     "sentTitle": "Demande envoyée",
-    "sentText": "Merci {{name}} ! Je vous ai envoyé une confirmation par email et je vous réponds au plus vite avec mes disponibilités et le tarif.",
+    "sentText": "Merci {{name}} ! J’ai bien reçu votre demande et je vous répondrai dès que possible avec mes disponibilités et le tarif.",
     "sendAnother": "Envoyer une autre demande",
-    "mailtoNote": "L'envoi automatique n'a pas fonctionné : votre messagerie s'est ouverte avec le message prêt. Si vous ne la voyez pas, écrivez-moi à"
+    "mailtoNote": "L'envoi automatique a échoué. Utilisez ce lien pour envoyer votre demande depuis votre messagerie :",
+    "requiredNote": "Le nom et l'adresse email sont obligatoires (*). Les autres champs m'aident à préparer votre cours."
   },
   "footer": {
     "role": "Monitrice de ski en Tarentaise",

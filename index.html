@@ -25,8 +25,8 @@
         localStorage.removeItem('vb-lang')
       } catch (e) {}
       var prefs = (navigator.languages || [navigator.language || 'en']).map(function (l) { return String(l).slice(0, 2).toLowerCase() })
-      var lng = saved || prefs.filter(function (l) { return l === 'en' || l === 'it' || l === 'fr' })[0] || 'en'
-      if (lng !== 'en') { location.replace(base + lng + '/' + location.hash); return }
+      var lng = /^(en|it|fr)$/.test(saved || '') ? saved : prefs.filter(function (l) { return l === 'en' || l === 'it' || l === 'fr' })[0] || 'en'
+      if (lng !== 'en') { location.replace(base + lng + '/' + location.search + location.hash); return }
     }
     if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
       d.classList.add('intro-pending')

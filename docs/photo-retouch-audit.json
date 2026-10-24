@@ -1,0 +1,127 @@
+{
+  "date": "2026-10-24",
+  "method": "Built-in image_gen fabric reconstruction; only local feathered patches composited over original decoded pixels; edited sources stored losslessly as PNG.",
+  "invariants": "Original decoded RGB pixels outside each mask rectangle are identical (checked pixel by pixel); scene, face, framing and other logos preserved. Responsive WebP files are derived normally, with resizing and lossy compression.",
+  "photos": [
+    {
+      "source": "valentina/pista-bastoncini-rosa.jpg",
+      "output": "photos/valentina/pista-bastoncini-rosa.png",
+      "mask": [
+        382,
+        765,
+        84,
+        33
+      ],
+      "changedPixels": 2528,
+      "percentChanged": 0.1657,
+      "outsideChanged": 0,
+      "originalSha256": "bd8c49c198cfdfaa7511d10d109b71a060b23bc2d0bfe0d91a49e388871fdc92",
+      "editedSha256": "8ae88504ee937873125772eaa96a136c8e1d62550498f8de61c2f545e9b0459c"
+    },
+    {
+      "source": "lezioni/gruppo.jpg",
+      "output": "photos/lezioni/gruppo.png",
+      "mask": [
+        1333,
+        482,
+        74,
+        38
+      ],
+      "changedPixels": 2568,
+      "percentChanged": 0.0816,
+      "outsideChanged": 0,
+      "originalSha256": "156adb9089b8915be8b5b3097b2832454ad47bc9df07bb14132c9bd1684ead12",
+      "editedSha256": "89b75e001e8d0133e63a870115d4d86da65013a98363cce22b2faebffbcfe33f"
+    },
+    {
+      "source": "lezioni/curva.jpg",
+      "output": "photos/lezioni/curva.png",
+      "mask": [
+        516,
+        690,
+        59,
+        26
+      ],
+      "changedPixels": 1257,
+      "percentChanged": 0.0612,
+      "outsideChanged": 0,
+      "originalSha256": "decebd3a5b4e58df2a2654ced457ba112dca3f435b682cd0522f5922e5dd3a00",
+      "editedSha256": "32b1a0d2dd5a23694d9818f6ab1addc0b372c2d7ac7b548980987ee492adc3a1"
+    },
+    {
+      "source": "lezioni/mare-di-nuvole.jpg",
+      "output": "photos/lezioni/mare-di-nuvole.png",
+      "mask": [
+        1178,
+        627,
+        58,
+        69
+      ],
+      "changedPixels": 3743,
+      "percentChanged": 0.2119,
+      "outsideChanged": 0,
+      "originalSha256": "0a0bde1e2713bf127abe4f4e419c11acdb93b0accd0fad9a2600353f22996afc",
+      "editedSha256": "495317be88adf67a7b3272662f8532db8a7f294106c46af1f35798bad200e68b"
+    },
+    {
+      "source": "lezioni/bambini.jpg",
+      "output": "photos/lezioni/bambini.png",
+      "mask": [
+        331,
+        435,
+        49,
+        41
+      ],
+      "changedPixels": 1829,
+      "percentChanged": 0.0953,
+      "outsideChanged": 0,
+      "originalSha256": "1c45197c0523516c8ac70c7f27e308962547b2e4c3d0a6ac6617d4de70df7b60",
+      "editedSha256": "7fe098e0162a434704387d521f8e25134cd651e664b2774b232d09ba2dd6f19e"
+    },
+    {
+      "source": "lezioni/duo.jpg",
+      "output": "photos/lezioni/duo.png",
+      "mask": [
+        613,
+        1085,
+        51,
+        54
+      ],
+      "changedPixels": 2545,
+      "percentChanged": 0.1326,
+      "outsideChanged": 0,
+      "originalSha256": "54b772b42cd207404df6426e3082ad1e03b9dbc07138e8d9edd41ac7d926f8a4",
+      "editedSha256": "fdf0795ab4e89e158f63e85df388be937f5d972903ffc7b4067081145d45e714"
+    },
+    {
+      "source": "valentina/cresta.jpg",
+      "output": "photos/valentina/cresta.png",
+      "mask": [
+        198,
+        1045,
+        32,
+        26
+      ],
+      "changedPixels": 718,
+      "percentChanged": 0.0374,
+      "outsideChanged": 0,
+      "originalSha256": "35ac7404ad8b3998c559e17508c87e6d7d0e2689a2e2694641dc01a0d489f0a5",
+      "editedSha256": "24e4d5de714f097aee34dfe721fdd65ab9a0bcfbe268d3d53becdb1aeed54b6e"
+    },
+    {
+      "source": "lezioni/bambina-pista.jpg",
+      "output": "photos/lezioni/bambina-pista.png",
+      "mask": [
+        643,
+        676,
+        16,
+        12
+      ],
+      "changedPixels": 140,
+      "percentChanged": 0.007291666666666667,
+      "outsideChanged": 0,
+      "originalSha256": "11254908043e21dc986e44a735f9bf63139b7a79aa77dbeb074cf62c5d452c1b",
+      "editedSha256": "ece5dd48252922f5613f77dbbdfd4b2d605f787a974546ebf66461e49cdf952f"
+    }
+  ]
+}

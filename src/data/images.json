@@ -5,15 +5,15 @@
     "files": [
       [
         480,
-        "/images/lezioni/bambina-pista-480.94465422.webp"
+        "/images/lezioni/bambina-pista-480.3c17d1ae.webp"
       ],
       [
         800,
-        "/images/lezioni/bambina-pista-800.a4d92dd6.webp"
+        "/images/lezioni/bambina-pista-800.0bdaf1f5.webp"
       ],
       [
         1200,
-        "/images/lezioni/bambina-pista-1200.a691da9e.webp"
+        "/images/lezioni/bambina-pista-1200.86177aab.webp"
       ]
     ],
     "heights": [
@@ -21,8 +21,8 @@
       1067,
       1600
     ],
-    "lqip": "data:image/webp;base64,UklGRogAAABXRUJQVlA4IHwAAACQBACdASoYACAAPt1cqU6opKOiMBgIARAbiWQAAC4FSrT7O9g60trBXq2kMrwA/RwnzDOlZLUROf5RQwY2JwPzJEGK4F//US2YsXHygrHC/8GiML6HYSd3SdxedGmmJnEsIYY2+rk3W71/ea4X3LOyJfsaT3TRq72gMAAA",
-    "mtime": 1790498098540.4968,
+    "lqip": "data:image/webp;base64,UklGRogAAABXRUJQVlA4IHwAAABQBACdASoYACAAPt1cqU6opKOiMBgIARAbiWQAABTtCgSEfzHv8Fd1gWAAAP0fiosZ39o7men+EtHl6/KSitWwtM0LG3/xdbMWLj5QVjhf+DRGGBGI+UMUNugUHACELlPa6TjBBFZ4Szdl/4pgL0n6ERJxd/KFuvutAAAA",
+    "mtime": 1792844907910.809,
     "settings": "{\"WIDTHS\":[480,800,1200,1600,2048],\"WEBP\":{\"quality\":80,\"effort\":6,\"smartSubsample\":true,\"preset\":\"photo\"},\"sharpen\":0.5}"
   },
   "lezioni/bambini": {
@@ -31,15 +31,15 @@
     "files": [
       [
         480,
-        "/images/lezioni/bambini-480.8fe2d235.webp"
+        "/images/lezioni/bambini-480.fae5119c.webp"
       ],
       [
         800,
-        "/images/lezioni/bambini-800.659d1f7d.webp"
+        "/images/lezioni/bambini-800.6e743dab.webp"
       ],
       [
         1200,
-        "/images/lezioni/bambini-1200.31c9dd1a.webp"
+        "/images/lezioni/bambini-1200.780a6ec1.webp"
       ]
     ],
     "heights": [
@@ -47,8 +47,8 @@
       1067,
       1600
     ],
-    "lqip": "data:image/webp;base64,UklGRqgAAABXRUJQVlA4IJwAAABQBQCdASoYACAAPtlWpEyoJKOiN/VYAQAbCWoArDN2yIAQm8XJGpgzG+NHasyykftlNqAA/qJXOT2+Au94dvwm1fWCJA8eztfIdXHzBC/06Wea+1TR8V75sN/vvjRYjmF+cUH6mAO0R5GjDmgJ2McbpKJZDZywEXeBuurUX3qU9n07HzUYdw2hucT5OUWGXL9UbS4i8M5EgoPkMAA=",
-    "mtime": 1790498098538.653,
+    "lqip": "data:image/webp;base64,UklGRqwAAABXRUJQVlA4IKAAAABQBQCdASoYACAAPtVYo0yoJSMiN/VYAQAaiWoAqSPUgLdzD1QHLiZk7EqkOeEjCVv9sYAA/qJXOT2+Au94dvwoj0yXPq0sRkRygQ0O9+TZbVGCAH7w9tQcgVxtkD3QCQFHvYIAApsQhXXBNauKclWmHRZiULKxe751YWl8iHH0+pE35YaurG3su8CizDijedNZFVkr7MAq7ugDWXU33s4A",
+    "mtime": 1792844706109.2944,
     "settings": "{\"WIDTHS\":[480,800,1200,1600,2048],\"WEBP\":{\"quality\":80,\"effort\":6,\"smartSubsample\":true,\"preset\":\"photo\"},\"sharpen\":0.5}"
   },
   "lezioni/curva": {
@@ -57,15 +57,15 @@
     "files": [
       [
         480,
-        "/images/lezioni/curva-480.a391280e.webp"
+        "/images/lezioni/curva-480.f4a840fa.webp"
       ],
       [
         800,
-        "/images/lezioni/curva-800.04d93979.webp"
+        "/images/lezioni/curva-800.e42235e8.webp"
       ],
       [
         1170,
-        "/images/lezioni/curva-1170.b9002f47.webp"
+        "/images/lezioni/curva-1170.b6d56446.webp"
       ]
     ],
     "heights": [
@@ -73,8 +73,8 @@
       1200,
       1755
     ],
-    "lqip": "data:image/webp;base64,UklGRpoAAABXRUJQVlA4II4AAADwBQCdASoYACQAPt1ap00opSOiNVQIARAbiWUAxNgKupThyF1MuAHaJcyhfqj+WpLEd5Qr7oThAAD9Tu1B6G+d7uC52HxoFRSjNQEwCis0O0Mir4drhJ88SbQC8a4rXaXpLmTqLO5cpkz99xRZMVau4fQRQYBNgqg4OckEtcEz+Sgh4JB3TcLMEhPrgAAA",
-    "mtime": 1790498098544.2896,
+    "lqip": "data:image/webp;base64,UklGRpoAAABXRUJQVlA4II4AAACwBQCdASoYACQAPt1ap00opSOiNVQIARAbiWUAwvgKupThyPfSkzpKllAFdzUwb+wfqk1E6DAA/U7tQehvne7gudh8aBUUozUBMAorNDq/0VkVCePq50gjfjXFa7S9JcydRZ3LlMmfvLAzedg5kDGLqD/Mogx57e3ByeOV7Amh0HTAQ59/9E7Gy/A+swAA",
+    "mtime": 1792844705813.024,
     "settings": "{\"WIDTHS\":[480,800,1200,1600,2048],\"WEBP\":{\"quality\":80,\"effort\":6,\"smartSubsample\":true,\"preset\":\"photo\"},\"sharpen\":0.5}"
   },
   "lezioni/duo": {
@@ -83,15 +83,15 @@
     "files": [
       [
         480,
-        "/images/lezioni/duo-480.e66d12f5.webp"
+        "/images/lezioni/duo-480.86a9c717.webp"
       ],
       [
         800,
-        "/images/lezioni/duo-800.c8a6a659.webp"
+        "/images/lezioni/duo-800.4d033adf.webp"
       ],
       [
         1200,
-        "/images/lezioni/duo-1200.fd4d8142.webp"
+        "/images/lezioni/duo-1200.6b62633d.webp"
       ]
     ],
     "heights": [
@@ -99,8 +99,8 @@
       1067,
       1600
     ],
-    "lqip": "data:image/webp;base64,UklGRqgAAABXRUJQVlA4IJwAAAAQBQCdASoYACAAPt1iq0+opSOiKAqpEBuJaACw7DTrb2GVInanVpYeiW4VnIdrcygAAPG8vZw7CwDb5vMlLTR5P7U+wh6zbCfOHdmheLZ4NXfRoZEZJg/gNlNrKKSHeJQMw5UMrBLdb4BQm+d0CX1az721rywU1K1wcqyWc+KMGc+INDtB4l9rNciFLvbscBmYr+f1CwgUnEbeIAA=",
-    "mtime": 1790498098542.3945,
+    "lqip": "data:image/webp;base64,UklGRqgAAABXRUJQVlA4IJwAAAAQBQCdASoYACAAPt1iq08opSQiKAqpEBuJaACxHxgE/G0eRJqexZpYqeIs3GMtXj14APHI/S3ZWfQ5eeO4fAH/maLP+1PGD1m2E+cM7ogWaKGGdZwZuQMedQFMXK55DvEoGYcqGfEwUJeBSmrdAl8TfNrEejYjU3GOktts7D0OGTbArkkvtS/A6wbjqWPx/a5V6haC7QrClxsAAAA=",
+    "mtime": 1792844706252.7014,
     "settings": "{\"WIDTHS\":[480,800,1200,1600,2048],\"WEBP\":{\"quality\":80,\"effort\":6,\"smartSubsample\":true,\"preset\":\"photo\"},\"sharpen\":0.5}"
   },
   "lezioni/gruppo": {
@@ -109,23 +109,23 @@
     "files": [
       [
         480,
-        "/images/lezioni/gruppo-480.328e22e6.webp"
+        "/images/lezioni/gruppo-480.10ad029d.webp"
       ],
       [
         800,
-        "/images/lezioni/gruppo-800.e6fac7d5.webp"
+        "/images/lezioni/gruppo-800.c7b55cbe.webp"
       ],
       [
         1200,
-        "/images/lezioni/gruppo-1200.df92bc79.webp"
+        "/images/lezioni/gruppo-1200.769b5e1f.webp"
       ],
       [
         1600,
-        "/images/lezioni/gruppo-1600.a84183cf.webp"
+        "/images/lezioni/gruppo-1600.5b12fa59.webp"
       ],
       [
         2048,
-        "/images/lezioni/gruppo-2048.476e149f.webp"
+        "/images/lezioni/gruppo-2048.f36103fe.webp"
       ]
     ],
     "heights": [
@@ -135,8 +135,8 @@
       1200,
       1536
     ],
-    "lqip": "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAAAQBQCdASoYABIAPt1cp0yopSOiMBgMARAbiWMAsOwODcYa/bLXFV0JxazdbY4nqBAAAP6MVDEyPOxe/ZbFA5/PPeN4ZlXq8yoTHbH2i+0xtijYwuXfbgBBsyiBF5nAnFRNohDJxAA=",
-    "mtime": 1790498098536.6155,
+    "lqip": "data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAADQBACdASoYABIAPt1cp0yopSOiMBgMARAbiWMAt7gIM9KsU2xFZ4bwJpMs6rWCAAD+jFQxIK2kpso72LYHP13HM3zX4MttioEx2xovujlM+iXczqEi3yv0h1h9cxgAnM/xBPgAAAA=",
+    "mtime": 1792844705603.8535,
     "settings": "{\"WIDTHS\":[480,800,1200,1600,2048],\"WEBP\":{\"quality\":80,\"effort\":6,\"smartSubsample\":true,\"preset\":\"photo\"},\"sharpen\":0.5}"
   },
   "lezioni/mare-di-nuvole": {
@@ -145,19 +145,19 @@
     "files": [
       [
         480,
-        "/images/lezioni/mare-di-nuvole-480.93443793.webp"
+        "/images/lezioni/mare-di-nuvole-480.f1d0b7c8.webp"
       ],
       [
         800,
-        "/images/lezioni/mare-di-nuvole-800.3ce23859.webp"
+        "/images/lezioni/mare-di-nuvole-800.9758f1e3.webp"
       ],
       [
         1200,
-        "/images/lezioni/mare-di-nuvole-1200.7a840083.webp"
+        "/images/lezioni/mare-di-nuvole-1200.6c95e911.webp"
       ],
       [
         1472,
-        "/images/lezioni/mare-di-nuvole-1472.f4bb299f.webp"
+        "/images/lezioni/mare-di-nuvole-1472.80a95269.webp"
       ]
     ],
     "heights": [
@@ -166,8 +166,8 @@
       978,
       1200
     ],
-    "lqip": "data:image/webp;base64,UklGRpoAAABXRUJQVlA4II4AAACQBQCdASoYABQAPt1eqU6opKOiMBgIARAbiWQAnTKDKQAnFm6DX+6WjOSdd+jTAwnGm3xSoAD97g1qvaTZbUQgv0LHI+l5iU0BfVB6rZjVtl3n11Feg3QH+YnV2kLXhFdvSjWAgn1bNlHYEaBDcboMbLROrMdS8I8eeRARO43/QIlns+bMA5KwIVeaGAAA",
-    "mtime": 1790498098534.8752,
+    "lqip": "data:image/webp;base64,UklGRp4AAABXRUJQVlA4IJIAAACQBQCdASoYABQAPt1eqU6opKOiMBgIARAbiWQAnTKDJ6wnFm6DX+6WjQ7iehG/nyUrc+TSIAD97g1qvaTZbUQgv0LHI+l5iU0CfpGvxt64YdT/GD4/06ld0q43x9hMe/ntVjOG7VsBO0jU7i5LA2w01jvrONcopVQbdIEbpH9qkT9gAnMez5vPLASA6w7H3CzQAA==",
+    "mtime": 1792844705957.3552,
     "settings": "{\"WIDTHS\":[480,800,1200,1600,2048],\"WEBP\":{\"quality\":80,\"effort\":6,\"smartSubsample\":true,\"preset\":\"photo\"},\"sharpen\":0.5}"
   },
   "panorami/alba": {
@@ -193,7 +193,7 @@
       1600
     ],
     "lqip": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAABQBACdASoYACAAPs1UokynpKMlt/qoAPAZiUAYoignAAQzTgPXptlUY1fAAP7JtwpWYNlu8grzLG3zx1l33/Owhi18bKOOUCMNvHb9MI1k5JnwAAA=",
-    "mtime": 1790498098557.1274,
+    "mtime": 1790528936050.5369,
     "settings": "{\"WIDTHS\":[480,800,1200,1600,2048],\"WEBP\":{\"quality\":80,\"effort\":6,\"smartSubsample\":true,\"preset\":\"photo\"},\"sharpen\":0.5}"
   },
   "panorami/bosco-innevato": {
@@ -219,7 +219,7 @@
       1600
     ],
     "lqip": "data:image/webp;base64,UklGRooAAABXRUJQVlA4IH4AAADQBACdASoYACAAPt1mqE+opaOiKAqpEBuJQBOgAeWall6zOTXJ/7CwIvYk69DogAD+Ai7Xtb+N2PzFTB6C4NduVfaOg5c/BeJn0x7AvZXYk+WlXrGnwiCKjyTQnpw+GQHnE1QCqqdWJ5wRNffZTDBZbCg9eOGdRKNvtOdlwAA=",
-    "mtime": 1790498098547.0698,
+    "mtime": 1790528936052.479,
     "settings": "{\"WIDTHS\":[480,800,1200,1600,2048],\"WEBP\":{\"quality\":80,\"effort\":6,\"smartSubsample\":true,\"preset\":\"photo\"},\"sharpen\":0.5}"
   },
   "panorami/cabinovia-monte-bianco": {
@@ -245,7 +245,7 @@
       1600
     ],
     "lqip": "data:image/webp;base64,UklGRtAAAABXRUJQVlA4IMQAAABwBwCdASoYACsAPt1gp04opaOiMBVaqRAbiWYArDlBWH2KwEKftw5pujv3uejhN79dcxjYx0TWmoLeHOVLp0dwtXTVMAD+2KlzRTXZOK1burD5mrKTlGIAdbPQ/NEJF8I9aeTRpAqNDs8Ziu9MoZ8giRdy4C/43A1zZRm8K1zOO3h1llbggrB3pLpUvxg+yqVwqkGPS1frhrZHKrVJxMr87Osn5I8Uwq5XHT62hSSH5HjJmdZtmouP/ndRHZMH9CG+AAAA",
-    "mtime": 1790498098554.4001,
+    "mtime": 1790528936053.2585,
     "settings": "{\"WIDTHS\":[480,800,1200,1600,2048],\"WEBP\":{\"quality\":80,\"effort\":6,\"smartSubsample\":true,\"preset\":\"photo\"},\"sharpen\":0.5}"
   },
   "panorami/larici": {
@@ -271,7 +271,7 @@
       1600
     ],
     "lqip": "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAABwBQCdASoYACAAPt1Wpk2opCMiMBgMARAbiUAWHd5IiNWoxlD7oAYxgEg2w7bC6QL5wmJwAP7jE8W90fehvRZ1ZaVcy5b3LG3LFL30m9PoshG3/Q3gZxL+/M+wTHYQaPUiRsj2VNvYP7vk/o0PvHel2j1othJTI58AAA==",
-    "mtime": 1790498098564.9707,
+    "mtime": 1790528936054.3384,
     "settings": "{\"WIDTHS\":[480,800,1200,1600,2048],\"WEBP\":{\"quality\":80,\"effort\":6,\"smartSubsample\":true,\"preset\":\"photo\"},\"sharpen\":0.5}"
   },
   "panorami/mare-di-nuvole": {
@@ -297,7 +297,7 @@
       1600
     ],
     "lqip": "data:image/webp;base64,UklGRoYAAABXRUJQVlA4IHoAAAAwBQCdASoYACAAPtFWpUyoJKOiMAwBABoJQBOmW+Bptedf0VAIz6CJR48rIf/ntu9hAAD+2lzjFOHD5j/oCRQaDNnYMeJOGCVGm6CKI1B3GpYD/A3URoqj/qd/qVKCNny4eFKiBkn1KBzVHLAj8Y2JO1VyhAZq4s7AAA==",
-    "mtime": 1790498098559.7988,
+    "mtime": 1790528936055.5276,
     "settings": "{\"WIDTHS\":[480,800,1200,1600,2048],\"WEBP\":{\"quality\":80,\"effort\":6,\"smartSubsample\":true,\"preset\":\"photo\"},\"sharpen\":0.5}"
   },
   "panorami/monte-bianco": {
@@ -323,7 +323,7 @@
       1600
     ],
     "lqip": "data:image/webp;base64,UklGRpgAAABXRUJQVlA4IIwAAACQBQCdASoYACsAPtFYo0y/paMiNVgMA/AaCUAY5agAGi152dQwTtQSOJQdXJal54m8G6YIoAD+7oV/hBB3slK369EBZm3kb2WOT3x6XH6nudMiAZpbUa1vx/YOHlMRivwDPUBmk+SaAaX+l8WWYS/K2Bvexkb775lD2ZCDa19Pjgn5hvr7JtEnAAAAAA==",
-    "mtime": 1790498098552.2017,
+    "mtime": 1790528936056.781,
     "settings": "{\"WIDTHS\":[480,800,1200,1600,2048],\"WEBP\":{\"quality\":80,\"effort\":6,\"smartSubsample\":true,\"preset\":\"photo\"},\"sharpen\":0.5}"
   },
   "panorami/seggiovia": {
@@ -349,7 +349,7 @@
       1600
     ],
     "lqip": "data:image/webp;base64,UklGRngAAABXRUJQVlA4IGwAAADwBACdASoYACAAPt1ep02opSOiKA1REBuJZQCdM75GzY679LBoAJLSTiWlbGnAgwAA/rFGIhGK5OQb6fylQt1QxKqCWkZq9GJLEdMrsvI6a7pcBi+gVKNz0ZaywSRTmWivusb7+QGWeJ2AAAA=",
-    "mtime": 1790498098549.9714,
+    "mtime": 1790528936057.633,
     "settings": "{\"WIDTHS\":[480,800,1200,1600,2048],\"WEBP\":{\"quality\":80,\"effort\":6,\"smartSubsample\":true,\"preset\":\"photo\"},\"sharpen\":0.5}"
   },
   "panorami/tramonto-pista": {
@@ -375,7 +375,7 @@
       1600
     ],
     "lqip": "data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAACwBACdASoYACAAPt1apEyopSMiMBgMARAbiWMAnQA0a3DVvo0wtbkpQn69ESCAAMpyaWmVLR9qR2RrvoDL/K2QQXRTfADER8q+hGfadCnYE7ZLhlGtmD1VaSogHv7ZbUjjmAlvN8dVBlLHd/EFBrh5Z4Y3DWCj8AA=",
-    "mtime": 1790498098571.0464,
+    "mtime": 1790528936058.3083,
     "settings": "{\"WIDTHS\":[480,800,1200,1600,2048],\"WEBP\":{\"quality\":80,\"effort\":6,\"smartSubsample\":true,\"preset\":\"photo\"},\"sharpen\":0.5}"
   },
   "valentina/bosco": {
@@ -406,7 +406,7 @@
       994
     ],
     "lqip": "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAACwAwCdASoYAA8APt1apkyopSOiMAgBEBuJQBOgAU1y9v/H+neOYAD+qVDKswJlSiHbEG9CaY7RTfOC+FlbmgDhOxbO1whFNxMh8zTFBQucWeBr23PsvK6IAAA=",
-    "mtime": 1790498098525.7715,
+    "mtime": 1790528936059.097,
     "settings": "{\"WIDTHS\":[480,800,1200,1600,2048],\"WEBP\":{\"quality\":80,\"effort\":6,\"smartSubsample\":true,\"preset\":\"photo\"},\"sharpen\":0.5}"
   },
   "valentina/cresta": {
@@ -415,15 +415,15 @@
     "files": [
       [
         480,
-        "/images/valentina/cresta-480.8c2c382c.webp"
+        "/images/valentina/cresta-480.b877ef88.webp"
       ],
       [
         800,
-        "/images/valentina/cresta-800.fdede86f.webp"
+        "/images/valentina/cresta-800.1afd5449.webp"
       ],
       [
         1200,
-        "/images/valentina/cresta-1200.3c96dbf8.webp"
+        "/images/valentina/cresta-1200.32466e5c.webp"
       ]
     ],
     "heights": [
@@ -431,8 +431,8 @@
       1067,
       1600
     ],
-    "lqip": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAADwBACdASoYACAAPt1gpUyopiOiMBgMARAbiWMAAI9i4aJ4BE4mLwv2D1ClDjBVxYQA/uMtKNVmP3VSrQun/8Gu8CHy+5u90XcVQ8YQYOi6ePEf35lzUyA2llyx2lRVwo7cGTkfvIEAaEzGi8dmf+keA5vqQAAA",
-    "mtime": 1790498098519.505,
+    "lqip": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAAAQBQCdASoYACAAPt1gpUyopiOiMBgMARAbiWMAAIp5lWYOZcD8XXlra2njGiov6YQAAP7ZXrCjV4yZBWSoLPv8Gu79WfubvdHg6/SQ1Ah9DYgfEEtLA3nqxnk5656L4MIt6wOPSXaP/fmIynh1+UNbnhwNAAAA",
+    "mtime": 1792844706405.1475,
     "settings": "{\"WIDTHS\":[480,800,1200,1600,2048],\"WEBP\":{\"quality\":80,\"effort\":6,\"smartSubsample\":true,\"preset\":\"photo\"},\"sharpen\":0.5}"
   },
   "valentina/neve-fresca-pini": {
@@ -463,7 +463,7 @@
       1066
     ],
     "lqip": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAADwAwCdASoYABAAPt1cpkyopSOiMAgBEBuJQBOmUABsUSAt2vm/5X4AAP7FTV6TUPzlQ3fMi1C2i7X26Rmwt2nYR8IzNvIAAAA=",
-    "mtime": 1790498098527.861,
+    "mtime": 1790528936061.176,
     "settings": "{\"WIDTHS\":[480,800,1200,1600,2048],\"WEBP\":{\"quality\":80,\"effort\":6,\"smartSubsample\":true,\"preset\":\"photo\"},\"sharpen\":0.5}"
   },
   "valentina/neve-fresca": {
@@ -494,7 +494,7 @@
       1007
     ],
     "lqip": "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAAAQAwCdASoYAA8APt1cpkyopSOiMAgBEBuJYwCdAC0Hc4AA/ukuf0JH4S81pNIvHJ1n+bvon0sOABk4wAA=",
-    "mtime": 1790498098523.54,
+    "mtime": 1790528936061.8276,
     "settings": "{\"WIDTHS\":[480,800,1200,1600,2048],\"WEBP\":{\"quality\":80,\"effort\":6,\"smartSubsample\":true,\"preset\":\"photo\"},\"sharpen\":0.5}"
   },
   "valentina/pista-bastoncini-rosa": {
@@ -503,15 +503,15 @@
     "files": [
       [
         480,
-        "/images/valentina/pista-bastoncini-rosa-480.621e675f.webp"
+        "/images/valentina/pista-bastoncini-rosa-480.e6f790c4.webp"
       ],
       [
         800,
-        "/images/valentina/pista-bastoncini-rosa-800.a45e0a11.webp"
+        "/images/valentina/pista-bastoncini-rosa-800.c780ba0c.webp"
       ],
       [
         978,
-        "/images/valentina/pista-bastoncini-rosa-978.0b7cba04.webp"
+        "/images/valentina/pista-bastoncini-rosa-978.11005a70.webp"
       ]
     ],
     "heights": [
@@ -519,8 +519,8 @@
       1276,
       1560
     ],
-    "lqip": "data:image/webp;base64,UklGRrQAAABXRUJQVlA4IKgAAABwBgCdASoYACYAPt1opU6opqMiKrgMARAbiWUAwZAJDktWmX+WO/nwVN/HIdEyX1B2C0Eg7OXHLDlnyAAA/reBpQizPJ13l3OFZZSUCVGcQcYOiuRd+KX5woOekZQZoF7NrmgW7Lo8mXUwQQ5LAxq13UgdTwqgeGJ3+vNKJsF+aJvxQYtYQdc6urfGSCqUE84yiillhRbG0LJBIaFKQKSjTo0QSz+AAAA=",
-    "mtime": 1790498098521.4639,
+    "lqip": "data:image/webp;base64,UklGRrAAAABXRUJQVlA4IKQAAAAQBgCdASoYACYAPt1oqVAopiOiqrgIARAbiWUAygAJDlKF+IhuSD0pcNyMeqxrkRRblKRAxWErEAAA/prB5vRfLWbslxL750Q2TqjMY2zGXP2ld+A3/DuUJDMxovMkULCCBAcsrw4/MKB2Vd5InwRhfgCnF+W/HkRJ1MijdBpJMJObi3pq54jfp9X3vmmnrDatWCJMUeptlzFteSH4m+FEcIAAAA==",
+    "mtime": 1792844705373.7632,
     "settings": "{\"WIDTHS\":[480,800,1200,1600,2048],\"WEBP\":{\"quality\":80,\"effort\":6,\"smartSubsample\":true,\"preset\":\"photo\"},\"sharpen\":0.5}"
   },
   "valentina/ritratto-bn": {
@@ -551,7 +551,7 @@
       2048
     ],
     "lqip": "data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAADwBACdASoYACAAPtFYokyoJSMiN/VYAQAaCWkAALvL0jUBh69vD9PgR25vPJOj7BAA/up1sioJyhX2Eb7OnEBvsMIDcV9xge9W0ZpfMf+q0ApPQuYzvH0Zp9gUqvOrxfLPHWGGDq6BaiQwwrwQnYAA",
-    "mtime": 1790498098533.1338,
+    "mtime": 1790528936063.8103,
     "settings": "{\"WIDTHS\":[480,800,1200,1600,2048],\"WEBP\":{\"quality\":80,\"effort\":6,\"smartSubsample\":true,\"preset\":\"photo\"},\"sharpen\":0.5}"
   },
   "valentina/ritratto-casco": {
@@ -572,7 +572,7 @@
       600
     ],
     "lqip": "data:image/webp;base64,UklGRowAAABXRUJQVlA4IIAAAADQBACdASoYABgAPt1orFEopaQiqAgBEBuJYgCdMtB8CAmLZxh6pT1hYK5eZSGX2AD5wrpevruqNF1VHHndQ7Ma6VNb4sO0HN5qISmE8GvCYCTv6i5YDapOGrpKuGmt/E1ez7tmEo61wcQgtmLdbBPB243HxSDrxkdeWZqftAAAAA==",
-    "mtime": 1790498098517.3804,
+    "mtime": 1790528936065.492,
     "settings": "{\"WIDTHS\":[480,800,1200,1600,2048],\"WEBP\":{\"quality\":80,\"effort\":6,\"smartSubsample\":true,\"preset\":\"photo\"},\"sharpen\":0.5}"
   },
   "valentina/ritratto-maschera": {
@@ -603,7 +603,7 @@
       2048
     ],
     "lqip": "data:image/webp;base64,UklGRsYAAABXRUJQVlA4ILoAAAAQBgCdASoYACAAPs1OokynpCMiN/qoAPAZiWwAnTLVNQeu3NgIdiCIcNnlFT2kr5uA8Vu2p1ftxwAA/uLoTJJfznxGYDtFk4hwjiI/6qUNhAX/A/XYvgeevIkTlQnPkiOSt6i1+DbyOMJKvT3Z6uwXz+ed7D+/xtdfa5Av8Pis620HeEBb9EAUMRqLQwilYZ2ZVGMJK0IG4GWrWrSfw9dqE2A11fBLrRq3Pyt48QFThwQk3CthE6GCAAA=",
-    "mtime": 1790498098531.4563,
+    "mtime": 1790528936066.9355,
     "settings": "{\"WIDTHS\":[480,800,1200,1600,2048],\"WEBP\":{\"quality\":80,\"effort\":6,\"smartSubsample\":true,\"preset\":\"photo\"},\"sharpen\":0.5}"
   },
   "valentina/ritratto-sorriso": {
@@ -634,7 +634,7 @@
       1080
     ],
     "lqip": "data:image/webp;base64,UklGRoIAAABXRUJQVlA4IHYAAADQBACdASoYABIAPtFUpUyoJKOiMAwBABoJZACxH1XB+qNeILtJWOW5cucmBvbSwAD3H9TXuHobTaTdRmDuDq8tNP+No4OY0v0MXnptvvIrinluKSTfp/jQnUiPQSrLyaQl9qf2ZdRKwEErBXnCWZPDHMENFAAA",
-    "mtime": 1790498098529.4941,
+    "mtime": 1790528936067.652,
     "settings": "{\"WIDTHS\":[480,800,1200,1600,2048],\"WEBP\":{\"quality\":80,\"effort\":6,\"smartSubsample\":true,\"preset\":\"photo\"},\"sharpen\":0.5}"
   }
 }
