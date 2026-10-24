@@ -8,11 +8,6 @@ type Props = {
   style?: CSSProperties
 }
 
-/**
- * Titolo che entra riga per riga da sotto una maschera.
- * Il `key` sul testo fa rimontare l'elemento al cambio lingua: SplitText
- * lavora su un nodo nuovo e React non si trova mai il DOM modificato sotto i piedi.
- */
 export function SplitHeading(props: Props) {
   return <SplitHeadingInner key={props.text} {...props} />
 }

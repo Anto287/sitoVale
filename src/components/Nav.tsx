@@ -28,12 +28,9 @@ export function Nav() {
 
   useGSAP(
     () => {
-      // Sfondo pieno dopo i primi 40px di scroll. Si guarda la posizione e non
-      // isActive: con end 'max' in fondo alla pagina il trigger risulterebbe "uscito".
       const sync = (self: ScrollTrigger) => setStuck(self.scroll() > 40)
       ScrollTrigger.create({ start: 0, end: 'max', onUpdate: sync, onRefresh: sync })
 
-      // Scendendo la barra si nasconde, risalendo torna.
       return withMotion(() => {
         const nav = ref.current!
         const hide = gsap.quickTo(nav, 'yPercent', { duration: 0.5, ease: 'power3.out' })
@@ -48,7 +45,6 @@ export function Nav() {
     { scope: ref },
   )
 
-  // Menu mobile: il pannello scende dall'alto, le voci salgono in cascata dalla loro riga.
   useGSAP(
     () => {
       if (!open) return
@@ -70,7 +66,6 @@ export function Nav() {
     { scope: menuRef, dependencies: [open], revertOnUpdate: true },
   )
 
-  // Girando il tablet o allargando la finestra oltre i 1040px il menu non esiste più: si chiude.
   useEffect(() => {
     const mq = window.matchMedia('(max-width: 1040px)')
     const onChange = () => !mq.matches && setOpen(false)
@@ -147,9 +142,6 @@ export function Nav() {
         </button>
       </nav>
 
-      {/* Menu a tutto schermo (sotto i 1040px). Sta fuori dalla <nav>: la barra, quando si scorre,
-          ha sfocatura e traslazione, e un elemento fixed al suo interno si misurerebbe su di lei
-          (alta 70px) invece che sullo schermo. Chiuso è visibility:hidden, quindi fuori dal tab. */}
       <div ref={menuRef} className={`menu${open ? ' is-open' : ''}`} id="navmenu" role="navigation" aria-label={t('a11y.menu')} aria-hidden={!open} inert={!open} data-lenis-prevent>
         <ol className="menu-links">
           {LINKS.map(([href, key], i) => (
@@ -184,7 +176,6 @@ function LangSwitch({ className, ...rest }: { className?: string; 'data-intro'?:
   const { t, i18n } = useTranslation()
   return (
     <div className={className ? `lang ${className}` : 'lang'} role="group" aria-label={t('a11y.languageGroup')} {...rest}>
-      {/* link veri (/it/, /fr/): li seguono anche i motori di ricerca; al clic si cambia senza ricaricare */}
       {LANGUAGES.map((code) => (
         <a
           key={code}

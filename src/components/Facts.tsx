@@ -14,7 +14,6 @@ export function Facts() {
     <section ref={ref} className="facts">
       <div className="wrap">
         <div className="fact">
-          {/* la pagina pre-generata può avere un anno in meno se la stagione è cominciata dopo la build */}
           <b className="fig" suppressHydrationWarning>
             {seasonsTaught()}
           </b>

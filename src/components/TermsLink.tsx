@@ -3,7 +3,6 @@ import { TERMS_FILES } from '../data/terms'
 import type { Language } from '../i18n'
 import { withBase } from '../site'
 
-/** Scarica "Condizioni e cancellazioni" in PDF nella lingua selezionata. */
 export function TermsLink({ className }: { className?: string }) {
   const { t, i18n } = useTranslation()
   const lng = (i18n.resolvedLanguage ?? 'en') as Language

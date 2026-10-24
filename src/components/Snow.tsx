@@ -3,7 +3,6 @@ import { gsap, ScrollTrigger, useGSAP, withMotion } from '../lib/gsap'
 
 type Flake = { x: number; y: number; r: number; s: number; d: number; o: number }
 
-/** Neve leggera sulla hero. Gira sul ticker di GSAP e si ferma fuori schermo. */
 export function Snow() {
   const ref = useRef<HTMLCanvasElement>(null)
 
@@ -13,14 +12,11 @@ export function Snow() {
         const canvas = ref.current!
         const ctx = canvas.getContext('2d')
         if (!ctx) return
-        // I fiocchi sono puntini sfocati: oltre 1,5× di densità non si vede differenza, si paga solo in GPU.
         const dpr = Math.min(window.devicePixelRatio || 1, 1.5)
         let w = 0
         let h = 0
         let flakes: Flake[] = []
 
-        // Le misure si leggono dalla hero, non dal canvas: il canvas cambia risoluzione
-        // qui dentro e non deve mai essere lui a decidere quanto è grande.
         const box = canvas.parentElement!
         const size = () => {
           w = box.clientWidth
@@ -38,7 +34,6 @@ export function Snow() {
           }))
         }
 
-        // deltaRatio mantiene la stessa velocità a 60, 120 o 144 Hz
         const tick = () => {
           const k = gsap.ticker.deltaRatio(60)
           ctx.clearRect(0, 0, w, h)

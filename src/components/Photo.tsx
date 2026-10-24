@@ -4,21 +4,11 @@ import { images, photoSrcSet, photoUrl, type PhotoKey } from '../lib/photos'
 type Props = Omit<ImgHTMLAttributes<HTMLImageElement>, 'src' | 'srcSet' | 'width' | 'height'> & {
   photo: PhotoKey
   alt: string
-  /** Quanto è larga la foto nella pagina: il browser sceglie da qui la versione da scaricare. */
   sizes: string
-  /** Foto sopra la piega (hero): caricata subito e con priorità alta. */
   priority?: boolean
-  /** Punto della foto da tenere quando viene ritagliata (object-position). */
   focus?: string
 }
 
-/**
- * Oltre 2× di densità una foto non si vede più nitida, pesa solo di più. Per gli schermi 3×
- * (molti telefoni) ogni misura viene ripetuta scalata di 2/3 sotto una media query sulla
- * risoluzione, così il browser sceglie la versione adatta a un 2×. Tutto in HTML: funziona
- * anche prima che parta il JavaScript. Es. "90vw" →
- * "(min-resolution: 2.5dppx) calc(90vw * 0.667), 90vw".
- */
 function capSizes(sizes: string) {
   const entries = sizes.split(',').map((e) => e.trim())
   const capped = entries.map((entry) => {
@@ -29,11 +19,6 @@ function capSizes(sizes: string) {
   return [...capped, ...entries].join(', ')
 }
 
-/**
- * <img> responsive dalle WebP generate da `npm run images`.
- * Finché la foto non arriva si vede la sua anteprima sfocata (pochi byte, già nel JS),
- * quindi niente riquadri vuoti né salti di layout.
- */
 export function Photo({ photo, alt, sizes, priority, focus, style, ...rest }: Props) {
   const img = images[photo]
   const files = img.files as [number, string][]

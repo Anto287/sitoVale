@@ -4,19 +4,14 @@ import { RESORTS, type PlaceId } from '../data/places'
 import { smoothPath, type Pt } from '../lib/curves'
 import { EASE_OUT, gsap, useGSAP, withMotion } from '../lib/gsap'
 
-/*
- * Mappa stilizzata della Tarentaise. Le posizioni vengono dalle coordinate reali
- * (x = (longitudine − 6,33°) × 700, y = (45,87° − latitudine) × 1000): distanze e direzioni
- * sono giuste, il disegno è volutamente essenziale. Il confine con l'Italia è indicativo.
- */
 const RIVER: Pt[] = [
-  [44, 194], // Albertville
-  [141, 385], // Moûtiers
-  [224, 315], // Aime
-  [307, 251], // Bourg-Saint-Maurice
-  [387, 282], // Sainte-Foy-Tarentaise
-  [422, 370], // lago del Chevril
-  [455, 421], // Val d'Isère
+  [44, 194],
+  [141, 385],
+  [224, 315],
+  [307, 251],
+  [387, 282],
+  [422, 370],
+  [455, 421],
 ]
 const BORDER: Pt[] = [
   [375, 37],
@@ -41,15 +36,11 @@ const PEAKS = [
   { name: 'Grande Motte', alt: '3456 m', x: 402, y: 431, lx: 390, ly: 452, anchor: 'end' },
 ] as const
 
-
 const peak = (x: number, y: number, s = 9) => `M${x - s} ${y + s * 0.75} L${x} ${y - s * 0.85} L${x + s} ${y + s * 0.75} Z`
 
-/** Mappa che si disegna entrando: la valle dell'Isère, poi paesi, cime e le tre stazioni. */
 export function TarentaiseMap({ active, onHover }: { active: PlaceId | null; onHover: (id: PlaceId | null) => void }) {
   const { t } = useTranslation()
   const ref = useRef<SVGSVGElement>(null)
-  // Telefono: la mappa è larga ~330 px, le scritte piccole sparirebbero. Restano stazioni,
-  // fiume e Monte Bianco, con nomi più grandi (la pagina pre-generata parte dalla versione desktop).
   const [compact, setCompact] = useState(false)
   useEffect(() => {
     const mq = window.matchMedia('(max-width: 600px)')
@@ -64,7 +55,6 @@ export function TarentaiseMap({ active, onHover }: { active: PlaceId | null; onH
       withMotion(() => {
         gsap
           .timeline({ defaults: { ease: EASE_OUT }, scrollTrigger: { trigger: ref.current, start: 'top 80%', once: true } })
-          // linee tratteggiate in dissolvenza: DrawSVG userebbe lo stesso stroke-dasharray e il tratteggio sparirebbe
           .from('.map-border', { autoAlpha: 0, duration: 1.4 }, 0.4)
           .from('.map-river', { drawSVG: '0%', duration: 2.2, ease: 'power2.inOut' }, 0.1)
           .from('.map-town', { autoAlpha: 0, y: 6, duration: 0.6, stagger: 0.18 }, 0.5)
@@ -90,7 +80,6 @@ export function TarentaiseMap({ active, onHover }: { active: PlaceId | null; onH
         <text x="66" y="292" className="map-river-label" transform="rotate(62 66 292)">
           Isère
         </text>
-        {/* legenda */}
         <g className="map-legend">
           <path d="M24 430 H52" className="map-funicular" />
           <text x="62" y="434" className="map-small map-funicular-label">

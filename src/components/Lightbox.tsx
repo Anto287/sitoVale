@@ -5,15 +5,9 @@ import { EASE_IN_OUT, gsap, prefersReducedMotion, useGSAP } from '../lib/gsap'
 import { photoSrcSet } from '../lib/photos'
 import { Photo } from './Photo'
 
-/*
- * Foto a tutto schermo della galleria. File a parte, scaricato solo quando la galleria
- * si avvicina (o al primo tocco su una foto): chi non arriva fin lì non lo paga.
- */
-
 const N = GALLERY.length
 const wrap = (i: number) => (i + N) % N
 
-/** Trasformazione che porta il riquadro `to` a coincidere con `from`. */
 function delta(from: DOMRect, to: DOMRect) {
   return {
     x: from.left - to.left,
@@ -23,7 +17,6 @@ function delta(from: DOMRect, to: DOMRect) {
   }
 }
 
-/** Scarica in anticipo le foto accanto a quella aperta: sfogliando non si aspetta. */
 function preload(i: number) {
   const img = new Image()
   img.sizes = '100vw'
@@ -44,8 +37,6 @@ export default function Lightbox({ view, setView, thumbs }: Props) {
 
   const go = useCallback((dir: 1 | -1) => setView((v) => (v ? { index: wrap(v.index + dir), dir } : v)), [setView])
 
-  // Apertura: la foto parte esattamente dalla miniatura e si espande (FLIP).
-  // Sfogliando: la nuova foto entra dal lato giusto.
   useGSAP(
     (_ctx, contextSafe) => {
       if (!view) return
@@ -64,7 +55,6 @@ export default function Lightbox({ view, setView, thumbs }: Props) {
         return
       }
 
-      // Niente flash della foto a tutto schermo mentre si decodifica.
       gsap.set(lb, { backgroundColor: 'rgba(20,20,24,0)' })
       gsap.set(img, { autoAlpha: 0 })
       const play = contextSafe!(() => {
@@ -82,7 +72,6 @@ export default function Lightbox({ view, setView, thumbs }: Props) {
 
   const { contextSafe } = useGSAP({ scope: lbRef })
 
-  // Chiusura: stesso percorso al contrario, poi si restituisce il focus.
   // oxlint-disable-next-line react/refs -- contextSafe restituisce un handler: i ref si leggono solo al click
   const close = contextSafe(() => {
     if (!view || closing.current) return
@@ -102,7 +91,6 @@ export default function Lightbox({ view, setView, thumbs }: Props) {
 
     closing.current = true
     const target = thumb.getBoundingClientRect()
-    // Dopo aver sfogliato la miniatura può essere fuori schermo: meglio sfumare.
     const onScreen = target.bottom > 0 && target.top < window.innerHeight
     gsap
       .timeline({ defaults: { ease: EASE_IN_OUT }, onComplete: done })
@@ -124,7 +112,6 @@ export default function Lightbox({ view, setView, thumbs }: Props) {
       if (e.key === 'Escape') close()
       if (e.key === 'ArrowRight') go(1)
       if (e.key === 'ArrowLeft') go(-1)
-      // il focus resta dentro il dialog
       if (e.key === 'Tab') {
         const items = [...lbRef.current!.querySelectorAll<HTMLButtonElement>('button')]
         const i = items.indexOf(document.activeElement as HTMLButtonElement)
@@ -139,7 +126,6 @@ export default function Lightbox({ view, setView, thumbs }: Props) {
     }
   }, [view, close, go])
 
-  // Swipe orizzontale su touch: avanti/indietro. Uno swipe verticale non fa nulla.
   const onPointerDown = (e: PointerEvent) => {
     if (e.pointerType !== 'mouse') swipe.current = { x: e.clientX, y: e.clientY }
   }

@@ -1,16 +1,5 @@
 import type { Language } from '../i18n'
 
-/**
- * Recensioni reali di clienti, da Google e Maison Sport.
- *
- * Ogni recensione va mostrata nella lingua in cui è stata scritta, uguale per tutti i visitatori:
- * basta compilare `original` con il testo esatto (su Google: "Visualizza originale";
- * su Maison Sport: "Mostra originale"). Finché manca, il sito usa la traduzione nella lingua
- * del visitatore (src/i18n/locales/*.json → reviews.items.<id>) con l'etichetta "Tradotta".
- *
- * `date`: mese della visita (Google) o data della recensione (Maison Sport), AAAA-MM.
- * `rating`: voto ufficiale in stelle, come appare sulla piattaforma (Maison Sport può dare decimali).
- */
 export type Review = {
   id: string
   author: string

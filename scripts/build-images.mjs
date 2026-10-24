@@ -1,20 +1,3 @@
-/**
- * Converte le foto JPG/PNG di photos/<cartella>/ in WebP responsive per il sito.
- * I ritocchi locali sono salvati in PNG per conservare i pixel fuori dall'area modificata.
- *
- *   npm run images
- *
- * - public/images/<cartella>/<nome>-<larghezza>.<impronta>.webp   una versione per larghezza
- * - src/data/images.json      manifest: dimensioni, file, anteprima sfocata
- * - public/og-image.jpg       anteprima 1200×630 per i link condivisi
- * - public/icons/*            icone (schermata home iPhone/Android, Google) da public/favicon.svg
- *
- * L'impronta (hash del contenuto) nel nome permette ai browser di tenere le foto in cache
- * per un anno: se una foto cambia cambia anche il nome, quindi viene riscaricata subito.
- *
- * Le larghezze non superano mai l'originale: ingrandire non aggiunge dettaglio, solo peso.
- * Una foto già convertita e non modificata viene saltata.
- */
 import crypto from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
@@ -24,16 +7,10 @@ const ROOT = path.resolve(import.meta.dirname, '..')
 const SRC = path.join(ROOT, 'photos')
 const OUT = path.join(ROOT, 'public/images')
 const MANIFEST = path.join(ROOT, 'src/data/images.json')
-// Anteprima dei link condivisi (WhatsApp, Facebook, iMessage…). La foto di gruppo ha l'originale
-// più grande (2048 px): rimpicciolita a 1200 resta nitida, mentre quella della hero (1472 px, da WhatsApp)
-// mostrava la grana della compressione. Sotto i 300 KB, oltre i quali WhatsApp può non mostrarla.
 const OG = { photo: 'lezioni/gruppo', out: path.join(ROOT, 'public/og-image.jpg') }
 
 const WIDTHS = [480, 800, 1200, 1600, 2048]
-// 80 è il punto in cui il WebP è indistinguibile a occhio dall'originale sulle foto di neve;
-// sotto, i cieli azzurri iniziano a fare "gradini" (banding).
 const WEBP = { quality: 80, effort: 6, smartSubsample: true, preset: 'photo' }
-// se cambiano le impostazioni, tutte le foto vengono rigenerate
 const SETTINGS = JSON.stringify({ WIDTHS, WEBP, sharpen: 0.5 })
 
 const previous = fs.existsSync(MANIFEST) ? JSON.parse(fs.readFileSync(MANIFEST, 'utf8')) : {}
@@ -51,7 +28,6 @@ for (const category of fs.readdirSync(SRC).filter((d) => fs.statSync(path.join(S
     sources.set(key, src)
     const mtime = fs.statSync(src).mtimeMs
 
-    // rotate() applica l'orientamento EXIF; l'output non porta metadati (niente GPS, niente modello di telefono)
     const meta = await sharp(src).rotate().metadata()
     const [w, h] = meta.orientation >= 5 ? [meta.height, meta.width] : [meta.width, meta.height]
     const widths = [...WIDTHS.filter((x) => x < w), Math.min(w, WIDTHS.at(-1))].filter((x, i, a) => a.indexOf(x) === i)
@@ -67,7 +43,6 @@ for (const category of fs.readdirSync(SRC).filter((d) => fs.statSync(path.join(S
     const files = []
     for (const x of widths) {
       let img = sharp(src).rotate().resize({ width: x, kernel: 'lanczos3' })
-      // un filo di nitidezza compensa l'ammorbidimento del ridimensionamento
       if (x < w) img = img.sharpen({ sigma: 0.5 })
       const buf = await img.webp(WEBP).toBuffer()
       const hash = crypto.createHash('sha256').update(buf).digest('hex').slice(0, 8)
@@ -93,7 +68,6 @@ for (const category of fs.readdirSync(SRC).filter((d) => fs.statSync(path.join(S
   }
 }
 
-// Via i file generati da foto che non esistono più.
 for (const category of fs.existsSync(OUT) ? fs.readdirSync(OUT) : []) {
   const dir = path.join(OUT, category)
   if (!fs.statSync(dir).isDirectory()) continue
@@ -115,20 +89,16 @@ if (og && ogStale) {
   await sharp(ogSource)
     .rotate()
     .resize(1200, 630, { fit: 'cover', position: 'attention', kernel: 'lanczos3' })
-    // colore a piena risoluzione (4:4:4): bordi puliti tra neve e giacche scure
     .jpeg({ quality: 88, mozjpeg: true, chromaSubsampling: '4:4:4' })
     .toFile(OG.out)
   console.log('✓ og-image.jpg 1200×630')
 }
 
-// ---------- icone, da public/favicon.svg ----------
 const ICON_SRC = path.join(ROOT, 'public/favicon.svg')
 const ICONS = path.join(ROOT, 'public/icons')
 fs.mkdirSync(ICONS, { recursive: true })
 const svg = fs.readFileSync(ICON_SRC, 'utf8')
-// iOS e Android arrotondano da soli: per loro il riquadro deve essere pieno, senza angoli tondi
 const fullBleed = Buffer.from(svg.replace(/rx="\d+"/, 'rx="0"'))
-// "maskable": Android può ritagliare a cerchio, quindi il segno sta nel 70% centrale
 const maskable = Buffer.from(svg.replace(/rx="\d+"/, 'rx="0"').replace('scale(1.16)', 'scale(0.9)'))
 const icons = [
   ['favicon-48.png', Buffer.from(svg), 48],

@@ -1,17 +1,3 @@
-/**
- * POST /api/contact — Cloudflare Pages Function (gira sui server di Cloudflare insieme al sito).
- *
- * Riceve la richiesta del modulo contatti e spedisce con Resend, dal dominio del sito:
- *   1. a Valentina (in italiano): la richiesta completa; "Rispondi" scrive direttamente al cliente
- *   2. al cliente (nella lingua del sito): conferma di ricezione, riepilogo, condizioni in PDF, contatti
- *
- * Configurazione su Cloudflare (Settings → Variables and Secrets): RESEND_API_KEY, come "Secret".
- * Se manca o l'invio fallisce risponde con un errore e il sito apre l'app di posta del visitatore.
- *
- * Protezioni: solo richieste dal sito stesso, dimensioni e campi controllati, campo trappola per i bot,
- * nessun testo libero del visitatore nella conferma (il modulo non può servire a mandare spam ad altri).
- * Per limitare i tentativi ripetuti: regola di rate limiting su Cloudflare (vedi DA-FARE.md).
- */
 import { CONTACT, MAIL, SITE_URL } from '../../src/config.ts'
 import { TERMS_FILES } from '../../src/data/terms.ts'
 import type { Language } from '../../src/i18n/index.ts'
@@ -24,10 +10,8 @@ type Env = { RESEND_API_KEY?: string }
 
 const LOCALES = { en, it, fr }
 const LANGS = Object.keys(LOCALES) as Language[]
-/** Testo di una chiave dei file di traduzione, es. "form.name". */
 const tr = (lng: Language, key: string) => key.split('.').reduce<unknown>((o, k) => (o as Record<string, unknown>)?.[k], LOCALES[lng]) as string
 
-/** Testi delle email al cliente. {name} = nome di battesimo, {whatsapp} = numero. */
 const CONFIRM = {
   it: {
     subject: 'Ho ricevuto la tua richiesta · Valentina Bernardi',
@@ -66,9 +50,6 @@ const CONFIRM = {
 
 const LANGUAGE_NAMES: Record<Language, string> = { it: 'italiano', en: 'inglese', fr: 'francese' }
 
-// ---------- controllo dei dati ----------
-
-/** Testo pulito: senza caratteri di controllo, spazi ai bordi, lunghezza massima. */
 const clean = (v: unknown, max: number) =>
   typeof v === 'string'
     ? v
@@ -77,7 +58,6 @@ const clean = (v: unknown, max: number) =>
         .trim()
         .slice(0, max)
     : ''
-/** Come clean, su una sola riga (nome, email, oggetto: niente a capo). */
 const oneLine = (v: unknown, max: number) => clean(v, max).replace(/\s+/g, ' ')
 const EMAIL = /^[^\s@<>()[\]",;:]+@[^\s@<>()[\]",;:]+\.[^\s@<>()[\]",;:]{2,}$/
 
@@ -91,7 +71,6 @@ const json = (status: number, body: object) =>
     'Content-Security-Policy': "default-src 'none'; frame-ancestors 'none'",
   } })
 
-/** Limite in byte prima del parsing, anche senza Content-Length (richieste chunked). */
 async function readBody(request: Request) {
   const reader = request.body?.getReader()
   if (!reader) return ''
@@ -120,16 +99,12 @@ async function readBody(request: Request) {
   return new TextDecoder().decode(bytes)
 }
 
-// ---------- email ----------
-
 const escape = (s: string) => s.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;')
-/** Francese: spazio indivisibile prima di : ; ! ? */
 const typo = (s: string, lng: Language) => (lng === 'fr' ? s.replace(/ ([:;!?])/g, ' $1') : s)
 const fill = (s: string, vars: Record<string, string>) => s.replace(/\{(\w+)\}/g, (_, k: string) => vars[k] ?? '')
 
 type Row = [label: string, html: string]
 
-/** Impaginazione comune: stili in linea (i programmi di posta ignorano i fogli di stile), colori del sito. */
 function layout(lng: Language, body: string, footer: string) {
   return `<!doctype html><html lang="${lng}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"></head>
 <body style="margin:0;padding:0;background:#F7F4F4">
@@ -161,7 +136,6 @@ async function send(key: string, mail: Record<string, unknown>, timeout = 8_000)
       body: JSON.stringify(mail),
       signal: AbortSignal.timeout(timeout),
     })
-    // Non registrare corpo, destinatari o errori del provider: possono contenere dati personali.
     if (!res.ok) console.error('Contact email delivery failed', res.status)
     return res.ok
   } catch {
@@ -170,12 +144,8 @@ async function send(key: string, mail: Record<string, unknown>, timeout = 8_000)
   }
 }
 
-// ---------- richiesta ----------
-
 export async function onRequestPost(context: { request: Request; env: Env; waitUntil?: (promise: Promise<unknown>) => void }) {
   const { request, env } = context
-  // Solo origine HTTPS canonica, anche se una preview riceve per errore il secret.
-  // Non è una difesa anti-bot: un client non-browser può falsificare Origin (vedi DA-FARE.md).
   const origin = request.headers.get('Origin')
   if (origin !== SITE_URL || new URL(request.url).origin !== SITE_URL) return json(403, { ok: false })
   if (request.headers.get('Content-Type')?.split(';')[0].trim().toLowerCase() !== 'application/json') return json(415, { ok: false })
@@ -191,7 +161,6 @@ export async function onRequestPost(context: { request: Request; env: Env; waitU
     return json(400, { ok: false })
   }
 
-  // i bot compilano anche il campo nascosto: risposta di successo, nessuna email
   if (body.botcheck) return json(200, { ok: true })
 
   const L = CONTACT_LIMITS
@@ -209,9 +178,8 @@ export async function onRequestPost(context: { request: Request; env: Env; waitU
   if (!r.name || !EMAIL.test(r.email)) return json(400, { ok: false, error: 'invalid' })
 
   const site = SITE_URL.replace('https://', '')
-  const label = (lang: Language, key: string) => tr(lang, key).replace(/\s*\(.*\)$/, '') // "Telefono (facoltativo)" → "Telefono"
+  const label = (lang: Language, key: string) => tr(lang, key).replace(/\s*\(.*\)$/, '')
 
-  // 1) a Valentina, in italiano
   const phoneDigits = r.phone.replace(/[^\d]/g, '')
   const all: Row[] = [
     [label('it', 'form.name'), escape(r.name)],
@@ -248,13 +216,10 @@ export async function onRequestPost(context: { request: Request; env: Env; waitU
       ['Lingua del sito', LANGUAGE_NAMES[lng]],
     ])}${r.message ? `\n\n${r.message}` : ''}\n\nRispondi a questa email per scrivere direttamente a ${r.name}.`,
   }
-  // Il browser passa al ripiego dopo 4,5 s: lasciare margine alla risposta HTTP.
   if (!(await send(env.RESEND_API_KEY, toValentina, 3_000))) return json(502, { ok: false })
 
-  // 2) conferma al cliente: solo scelte predefinite, nessuna data o composizione libera del gruppo.
   const c = CONFIRM[lng]
   const first = r.name.split(' ')[0]
-  // un "nome" con punti, barre o @ è probabilmente un indirizzo: meglio un saluto senza nome
   const hello = /^[\p{L}'’-]{1,40}$/u.test(first) ? fill(c.hello, { name: first }) : c.helloNoName
   const recap: [string, string][] = [
     [label(lng, 'form.lesson'), tr(lng, r.lesson[1])],
@@ -281,7 +246,6 @@ ${rowsHtml(recap.map(([k, v]) => [k, escape(v)]))}
     ),
     text: `${hello}\n\n${typo(c.intro, lng)}\n\n${c.recap}\n${rowsText(recap)}\n\n${typo(c.terms, lng)}\n${termsUrl}\n\n${typo(fill(c.questions, vars), lng)}\n\n${c.bye}\nValentina\n\n—\nValentina Bernardi · ${tr(lng, 'footer.role')} · ${site}\n${typo(fill(c.why, vars), lng)}`,
   }
-  // la richiesta è già arrivata a Valentina: se la conferma non parte, per il visitatore va bene lo stesso
   const confirmationSend = send(env.RESEND_API_KEY, confirmation)
   if (context.waitUntil) context.waitUntil(confirmationSend)
   else await confirmationSend

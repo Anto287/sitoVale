@@ -1,7 +1,3 @@
-/**
- * Test sul sito compilato (dist/): intestazioni di sicurezza per Cloudflare, nessun segreto nei file
- * pubblicati, pagine coerenti. Richiede una build: `npm test` la esegue prima.
- */
 import assert from 'node:assert/strict'
 import { createHash } from 'node:crypto'
 import fs from 'node:fs'
@@ -12,7 +8,6 @@ const DIST = path.resolve(import.meta.dirname, '../dist')
 const read = (f) => fs.readFileSync(path.join(DIST, f), 'utf8')
 const PAGES = ['index.html', 'it/index.html', 'fr/index.html', '404.html']
 
-/** Tutti i file pubblicati, con percorso relativo. */
 function files(dir = DIST) {
   return fs.readdirSync(dir, { withFileTypes: true }).flatMap((e) => {
     const p = path.join(dir, e.name)
@@ -20,7 +15,6 @@ function files(dir = DIST) {
   })
 }
 
-/** Intestazioni valide per un percorso, come le applica Cloudflare da _headers. */
 function headersFor(rule) {
   const out = {}
   let active = false

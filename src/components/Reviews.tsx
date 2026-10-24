@@ -12,7 +12,6 @@ export function Reviews() {
   const trackRef = useRef<HTMLDivElement>(null)
   const barRef = useRef<HTMLSpanElement>(null)
   const [edge, setEdge] = useState({ start: true, end: false })
-  // voto medio, mostrato una volta sola in testa alla sezione (nelle card sarebbe sempre uguale)
   const average = REVIEWS.reduce((sum, r) => sum + r.rating, 0) / REVIEWS.length
 
   const month = new Intl.DateTimeFormat(lang, { month: 'long', year: 'numeric' })
@@ -30,7 +29,6 @@ export function Reviews() {
     { scope: ref },
   )
 
-  // Barra di avanzamento e stato dei pulsanti seguono lo scroll orizzontale.
   useEffect(() => {
     const track = trackRef.current!
     const setBar = gsap.quickSetter(barRef.current, 'scaleX')
@@ -56,7 +54,6 @@ export function Reviews() {
     const by = card ? card.offsetWidth + gap : track.clientWidth
     const max = track.scrollWidth - track.clientWidth
     const x = Math.max(0, Math.min(max, track.scrollLeft + dir * by))
-    // scroll-snap disattivato durante il tween, altrimenti il browser "tira" la card a metà corsa
     track.style.scrollSnapType = 'none'
     gsap.to(track, {
       scrollTo: { x },
@@ -78,7 +75,6 @@ export function Reviews() {
             <SplitHeading text={t('reviews.title')} style={{ maxWidth: '16ch' }} />
             <div className="reviews-summary">
               <Stars rating={average} />
-              {/* il voto lo legge già l'etichetta delle stelle: qui solo per l'occhio */}
               <b aria-hidden="true">{new Intl.NumberFormat(lang, { minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(average)}</b>
               <span className="sr-only"> · </span>
               <span>{t('reviews.summary', { count: REVIEWS.length })}</span>
@@ -105,13 +101,11 @@ export function Reviews() {
         tabIndex={0}
         role="region"
         aria-label={t('reviews.eyebrow')}
-        // gesto orizzontale (trackpad o dito): scorre le card; quello verticale scorre la pagina
         data-lenis-prevent-horizontal
       >
         {REVIEWS.map((r) => (
           <ReviewCard
             key={r.id}
-            // testo originale se c'è (uguale in ogni lingua), altrimenti la traduzione
             text={r.original?.text ?? t(`reviews.items.${r.id as 'lynne'}`)}
             textLang={r.original ? (r.original.lang === 'other' ? undefined : r.original.lang) : lang}
             author={r.author}
@@ -135,7 +129,6 @@ type CardProps = { text: string; textLang?: string; author: string; source: Revi
 
 const STAR = 'M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z'
 
-/** Voto in stelle: le stelle piene coprono la parte giusta, anche con i decimali. */
 function Stars({ rating }: { rating: number }) {
   const { t, i18n } = useTranslation()
   const value = new Intl.NumberFormat(i18n.resolvedLanguage, { minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(rating)
@@ -156,7 +149,6 @@ function Stars({ rating }: { rating: number }) {
   )
 }
 
-/** Fonte della recensione: la "G" di Google, una sigla per Maison Sport. */
 function SourceMark({ source }: { source: Review['source'] }) {
   if (source === 'Google')
     return (
@@ -174,7 +166,6 @@ function SourceMark({ source }: { source: Review['source'] }) {
   )
 }
 
-/** Card con il testo tagliato a 9 righe; "Leggi tutto" compare solo se serve davvero. */
 function ReviewCard({ text, textLang, author, source, meta, translated }: CardProps) {
   const { t } = useTranslation()
   const pRef = useRef<HTMLParagraphElement>(null)
@@ -197,7 +188,6 @@ function ReviewCard({ text, textLang, author, source, meta, translated }: CardPr
     const p = pRef.current!
     const from = p.offsetHeight
     setOpen((o) => !o)
-    // altezza animata con GSAP: dal valore attuale a quello nuovo, poi si libera
     requestAnimationFrame(() => {
       gsap.fromTo(p, { height: from }, { height: p.scrollHeight > from ? p.scrollHeight : 'auto', duration: prefersReducedMotion() ? 0 : 0.5, ease: EASE_IN_OUT, clearProps: 'height' })
     })
@@ -208,7 +198,6 @@ function ReviewCard({ text, textLang, author, source, meta, translated }: CardPr
       <span className="mark" aria-hidden="true">
         “
       </span>
-      {/* lang: gli screen reader leggono la recensione con la pronuncia della sua lingua */}
       <p ref={pRef} className={open ? '' : 'is-clamped'} lang={textLang}>
         {text}
       </p>
@@ -217,7 +206,6 @@ function ReviewCard({ text, textLang, author, source, meta, translated }: CardPr
           {open ? t('reviews.readLess') : t('reviews.readMore')}
         </button>
       ) : (
-        // stesso spazio del pulsante, così tutte le card chiuse hanno la stessa altezza
         <span className="review-more is-spacer" aria-hidden="true">
           {t('reviews.readMore')}
         </span>

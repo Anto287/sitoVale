@@ -54,7 +54,6 @@ export function Footer() {
         </div>
       </div>
       <div className="wrap footer-bottom">
-        {/* l'anno della pagina pre-generata può differire da quello del visitatore a gennaio */}
         <span suppressHydrationWarning>© {new Date().getFullYear()} Valentina Bernardi</span>
         <span className="footer-bottom-links">
           <LegalNotice />

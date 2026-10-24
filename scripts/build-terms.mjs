@@ -1,13 +1,3 @@
-/**
- * Genera "Condizioni e cancellazioni" in PDF, una per lingua, in public/docs/:
- *
- *   npm run terms
- *
- * Testi in scripts/terms-content.mjs, contatti da src/config.ts, nomi dei file da src/data/terms.ts.
- * Impaginazione in HTML con font e colori del sito, stampata in A4 su una pagina da Google Chrome
- * (deve essere installato; percorso diverso con la variabile CHROME).
- * I PDF generati vanno inclusi nel commit: la build del sito non li rigenera.
- */
 import { execFileSync } from 'node:child_process'
 import fs from 'node:fs'
 import os from 'node:os'
@@ -19,13 +9,11 @@ import { TERMS } from './terms-content.mjs'
 const ROOT = path.resolve(import.meta.dirname, '..')
 const CHROME = process.env.CHROME || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
 const font = (file) => fs.readFileSync(path.join(ROOT, 'node_modules/@fontsource-variable', file)).toString('base64')
-// font dentro l'HTML: Chrome non carica file locali da una pagina aperta da disco
 const FONTS = `
 @font-face{font-family:Bodoni;font-weight:400 900;src:url(data:font/woff2;base64,${font('bodoni-moda/files/bodoni-moda-latin-opsz-normal.woff2')}) format('woff2')}
 @font-face{font-family:Jost;font-weight:100 900;src:url(data:font/woff2;base64,${font('jost/files/jost-latin-wght-normal.woff2')}) format('woff2')}`
 
 const escape = (s) => s.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
-// francese: spazio indivisibile prima di : ; % ! ? (non vanno a capo da soli)
 const text = (s, lng) => {
   let out = escape(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')
   if (lng === 'fr') out = out.replace(/ ([:;%!?])/g, ' $1')

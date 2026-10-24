@@ -14,9 +14,7 @@ export function About() {
     () =>
       withMotion(() => {
         revealImages('.frame', { stagger: 0.18 })
-        // solo l'etichetta entra: paragrafi e credenziali sono subito leggibili
         revealOnScroll('.eyebrow')
-        // Le due foto scorrono a velocità diverse: profondità senza esagerare.
         gsap.to('.frame--sq', {
           yPercent: -14,
           ease: 'none',

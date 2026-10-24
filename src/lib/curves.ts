@@ -1,9 +1,5 @@
 export type Pt = readonly [number, number]
 
-/**
- * Curva morbida che passa per tutti i punti (Catmull-Rom convertita in Bézier):
- * nei punti di giunzione la direzione non cambia mai di colpo, quindi niente spigoli.
- */
 export function smoothPath(pts: readonly Pt[], digits = 1) {
   const f = (n: number) => n.toFixed(digits)
   let d = `M${f(pts[0][0])} ${f(pts[0][1])}`

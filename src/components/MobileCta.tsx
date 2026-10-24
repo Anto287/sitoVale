@@ -3,10 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { CONTACT } from '../config'
 import { gsap, ScrollTrigger, useGSAP } from '../lib/gsap'
 
-/**
- * Solo telefono: barra fissa in basso con "Prenota" e WhatsApp.
- * Compare dopo la hero e sparisce quando si arriva ai contatti, dove non serve più.
- */
 export function MobileCta() {
   const { t } = useTranslation()
   const ref = useRef<HTMLDivElement>(null)
@@ -20,7 +16,6 @@ export function MobileCta() {
         const show = (on: boolean) =>
           gsap.to(bar, { yPercent: on ? 0 : 130, autoAlpha: on ? 1 : 0, duration: reduce ? 0 : 0.5, ease: on ? 'power3.out' : 'power2.in', overwrite: true })
         gsap.set(bar, { yPercent: 130, autoAlpha: 0 })
-        // elementi presi dal documento: con `scope` un selettore testuale cercherebbe solo dentro la barra
         ScrollTrigger.create({
           trigger: document.getElementById('top'),
           start: 'bottom 60%',

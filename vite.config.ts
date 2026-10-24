@@ -3,12 +3,6 @@ import { defineConfig, type Plugin } from 'vite'
 import { CONTACT, GOATCOUNTER, SITE_URL as FINAL_SITE_URL } from './src/config.ts'
 import images from './src/data/images.json' with { type: 'json' }
 
-/**
- * Completa index.html con i dati di src/config.ts e del manifest delle foto,
- * così dominio, contatti e nomi dei file stanno in un posto solo.
- * (Titolo, descrizione e hreflang di ogni lingua li aggiunge scripts/prerender.mjs.)
- */
-// Cloudflare Pages: dominio canonico e radice, senza dipendere dall'URL pages.dev.
 const SITE_URL = (process.env.VITE_SITE_URL || FINAL_SITE_URL).replace(/\/$/, '')
 const BASE = process.env.BASE_PATH ? `${process.env.BASE_PATH.replace(/\/$/, '')}/` : '/'
 
@@ -45,7 +39,6 @@ function siteHtml(): Plugin {
       },
     ],
   }
-  // Statistiche senza cookie, solo sul dominio definitivo e solo se configurate in config.ts.
   const stats =
     GOATCOUNTER && SITE_URL === FINAL_SITE_URL
       ? `<script data-goatcounter="https://${GOATCOUNTER}.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>`
@@ -60,10 +53,8 @@ function siteHtml(): Plugin {
   }
 }
 
-// https://vite.dev/config/
 export default defineConfig({
   base: BASE,
   plugins: [react(), siteHtml()],
-  // nel build SSR (pre-generazione delle pagine) GSAP va incluso nel bundle: i suoi plugin non sono moduli ESM per Node
   ssr: { noExternal: ['gsap', '@gsap/react'] },
 })

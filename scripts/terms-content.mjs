@@ -1,8 +1,3 @@
-/**
- * Testi di "Condizioni e cancellazioni" nelle tre lingue del sito, per scripts/build-terms.mjs.
- * L'inglese è l'originale di Valentina; italiano e francese ne sono la traduzione.
- * **testo** = grassetto. Dopo una modifica: npm run terms
- */
 export const TERMS = {
   en: {
     eyebrow: 'Winter season · Terms & cancellation policy',

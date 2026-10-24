@@ -4,7 +4,6 @@ import { EASE_OUT, gsap, revealOnScroll, useGSAP, withMotion } from '../lib/gsap
 import { SplitHeading } from './SplitHeading'
 import { TermsLink } from './TermsLink'
 
-/** Tariffe: nessun listino, solo l'invito a scrivere (richiesta della cliente). */
 export function Booking() {
   const { t } = useTranslation()
   const ref = useRef<HTMLElement>(null)
@@ -21,7 +20,6 @@ export function Booking() {
           scrollTrigger: { trigger: '.booking-cta', start: 'top 92%', once: true },
           clearProps: 'transform',
         })
-        // La linea fucsia si disegna da sinistra mentre la sezione entra.
         gsap.from('.booking-rule', {
           scaleX: 0,
           transformOrigin: '0% 50%',

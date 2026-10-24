@@ -5,7 +5,6 @@ import { revealImages, revealOnScroll, useGSAP, withMotion } from '../lib/gsap'
 import { Photo } from './Photo'
 import { SplitHeading } from './SplitHeading'
 
-// la lightbox è un file a parte: si scarica quando la galleria è vicina (vedi sotto)
 const Lightbox = lazy(() => import('./Lightbox'))
 
 export function Gallery() {
@@ -24,7 +23,6 @@ export function Gallery() {
     { scope: ref },
   )
 
-  // A uno schermo e mezzo dalla galleria si scarica la lightbox: al tocco su una foto è già pronta.
   useEffect(() => {
     const io = new IntersectionObserver(
       ([entry]) => {

@@ -1,9 +1,3 @@
-/**
- * Ultimo passo di `npm run build`: genera una pagina HTML completa per lingua
- *   dist/index.html (inglese)   dist/it/index.html   dist/fr/index.html
- * più sitemap.xml e robots.txt. Titolo, descrizione, canonical, hreflang e anteprime
- * social sono nella lingua di ogni pagina; il contenuto è già scritto nell'HTML.
- */
 import crypto from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
@@ -19,8 +13,6 @@ const OG_LOCALE = { en: 'en_GB', it: 'it_IT', fr: 'fr_FR' }
 const escape = (s) => s.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
 const url = urlFor
 
-// Una build di prova con VITE_SITE_URL diverso dal dominio canonico non va indicizzata, altrimenti Google
-// registra un doppione del sito che resterebbe in giro anche dopo il passaggio al dominio vero.
 const noindex = IS_FINAL_URL ? [] : ['<meta name="robots" content="noindex">']
 if (!IS_FINAL_URL) console.log(`ℹ indirizzo provvisorio ${SITE_URL}: pagine con noindex`)
 
@@ -29,7 +21,6 @@ const alternates = [
   `<link rel="alternate" hreflang="x-default" href="${url('en')}">`,
 ].join('\n')
 
-// impronte degli script scritti dentro le pagine, per la Content-Security-Policy (vedi in fondo)
 const inlineScripts = new Set()
 
 for (const lng of LANGUAGES) {
@@ -51,7 +42,6 @@ for (const lng of LANGUAGES) {
     .replace(/<html lang="[^"]*"/, `<html lang="${lng}"`)
     .replace(/<!--lang-head-->[\s\S]*?<!--\/lang-head-->/, head)
     .replace('<!--app-->', () => html)
-    // "<" come \u003c: nessun testo può chiudere lo <script> per sbaglio
     .replace('</head>', () => `<script type="application/json" id="vb-i18n">${JSON.stringify({ lng, translation }).replaceAll('<', '\\u003c')}</script>\n</head>`)
 
   for (const [, code] of page.matchAll(/<script>([\s\S]*?)<\/script>/g)) inlineScripts.add(code)
@@ -62,8 +52,6 @@ for (const lng of LANGUAGES) {
   console.log(`✓ ${path.relative(ROOT, out).padEnd(20)} ${Math.round(page.length / 1024)} KB — ${title}`)
 }
 
-// La presenza di 404.html mantiene il vero stato HTTP 404 su Cloudflare Pages,
-// evitando il fallback SPA (200) per URL inesistenti. L'HTML permette di tornare al sito.
 const notFound = fs
   .readFileSync(path.join(DIST, 'index.html'), 'utf8')
   .replace(/<meta name="robots" content="noindex">\n?/, '')
@@ -72,7 +60,6 @@ const notFound = fs
 fs.writeFileSync(path.join(DIST, '404.html'), notFound)
 console.log('✓ 404.html')
 
-// Nessun lastmod artificiale: una nuova build non significa che il contenuto sia cambiato.
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${LANGUAGES.map(
@@ -90,18 +77,14 @@ fs.writeFileSync(
 )
 console.log('✓ sitemap.xml, robots.txt')
 
-// Content-Security-Policy in dist/_headers (Cloudflare Pages): il browser esegue solo i file JS del sito,
-// gli script interni qui sopra (per impronta) e i servizi esterni attivi in src/config.ts.
 const hashes = [...inlineScripts].map((code) => `'sha256-${crypto.createHash('sha256').update(code).digest('base64')}'`)
 const stats = GOATCOUNTER && IS_FINAL_URL
 const csp = [
   "default-src 'self'",
   ['script-src', "'self'", ...hashes, stats && 'https://gc.zgo.at'].filter(Boolean).join(' '),
-  // attributi style="" delle pagine pre-generate (anteprime sfocate delle foto, larghezze dei titoli)
   "style-src 'self' 'unsafe-inline'",
   ['img-src', "'self'", 'data:', stats && `https://${GOATCOUNTER}.goatcounter.com`].filter(Boolean).join(' '),
   "font-src 'self'",
-  // il modulo scrive solo al sito stesso (/api/contact, funzione di Cloudflare)
   ['connect-src', "'self'", stats && `https://${GOATCOUNTER}.goatcounter.com`].filter(Boolean).join(' '),
   "object-src 'none'",
   "base-uri 'self'",

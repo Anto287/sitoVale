@@ -13,11 +13,6 @@ export function Hero() {
       withMotion(() => {
         const chars = SplitText.create('h1 .ln i', { type: 'chars', charsClass: 'ch' }).chars
 
-        // Ingresso: la foto rientra dallo zoom, il nome sale lettera per lettera,
-        // poi testo, bottoni e barra di navigazione (fuori scope: querySelectorAll).
-        // La foto è già a schermo prima del JavaScript (pagina pre-generata), leggermente
-        // ingrandita e velata dal CSS (html.intro-pending): si parte da lì com'è adesso,
-        // senza farla sparire nel nero e ricomparire.
         const img = ref.current!.querySelector<HTMLImageElement>('.hero-media img')!
         const shade = ref.current!.querySelector<HTMLElement>('.hero-shade')!
         const intro = gsap.timeline({ paused: true, defaults: { ease: EASE_OUT } })
@@ -28,14 +23,8 @@ export function Hero() {
           .from('[data-intro="hero"]', { y: 26, autoAlpha: 0, duration: 1.1, stagger: 0.12 }, 0.75)
           .from(document.querySelectorAll('[data-intro="nav"]'), { y: -18, autoAlpha: 0, duration: 0.9, stagger: 0.05, clearProps: 'transform' }, 0.9)
 
-        // Da qui gli elementi sono nascosti dagli stati iniziali di GSAP: si toglie il "nascondi"
-        // messo da index.html per non vederli apparire e sparire mentre il JavaScript arrivava.
         document.documentElement.classList.remove('intro-pending')
 
-        // L'ingresso parte quando la foto è pronta: altrimenti zoom e dissolvenza girano
-        // sul vuoto e la foto compare di colpo a metà. Dopo 1,5 s si parte comunque.
-        // Un solo avvio: decode() e timeout possono risolversi nello stesso momento.
-        // Evita di riavviare l'animazione quando la foto arriva lentamente.
         let started = false
         const start = () => {
           if (started) return
@@ -45,7 +34,6 @@ export function Hero() {
         const fallback = window.setTimeout(start, 1500)
         void img.decode().then(start, start).finally(() => window.clearTimeout(fallback))
 
-        // Uscita allo scroll: parallasse sulla foto, il testo si allontana e sfuma.
         const out = { trigger: ref.current, start: 'top top', end: 'bottom top', scrub: true }
         gsap.to('.hero-media', { yPercent: 16, ease: 'none', scrollTrigger: out })
         gsap.to('.hero-inner', { yPercent: -18, autoAlpha: 0, ease: 'none', scrollTrigger: { ...out, end: 'bottom 25%' } })
@@ -63,7 +51,6 @@ export function Hero() {
       <div className="hero-shade" aria-hidden="true" />
       <Snow />
       <div className="hero-inner">
-        {/* "Maestra di sci" fa parte del titolo: è la prima cosa che legge chi arriva da Google */}
         <h1>
           <span className="eyebrow hero-kicker" data-intro="hero">
             {t('hero.eyebrow')}
@@ -72,7 +59,6 @@ export function Hero() {
           <span className="ln">
             <i>Valentina</i>
           </span>
-          {/* le righe sono blocchi: senza questo spazio screen reader e Google leggerebbero "ValentinaBernardi" */}
           {' '}
           <span className="ln">
             <i>

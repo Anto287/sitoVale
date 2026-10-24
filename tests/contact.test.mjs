@@ -1,9 +1,3 @@
-/**
- * Test della funzione del modulo contatti (functions/api/contact.ts): funzionamento, ripiego e sicurezza.
- * Nessuna email parte davvero: le chiamate a Resend vengono intercettate.
- *
- *   npm test
- */
 import assert from 'node:assert/strict'
 import { beforeEach, describe, test } from 'node:test'
 import { CONTACT, MAIL } from '../src/config.ts'
@@ -12,7 +6,6 @@ import { onRequestPost } from '../functions/api/contact.ts'
 const SITE = 'https://www.vallyski.com'
 const KEY = 're_chiave_di_prova_123'
 
-/** Email "spedite" durante il test e risposta che dà Resend (ok o errore, anche per singola email). */
 let outbox
 let resendStatus
 beforeEach(() => {
@@ -27,7 +20,6 @@ globalThis.fetch = async (url, init) => {
   const status = await resendStatus(mail)
   return new Response(status === 200 ? '{"id":"test"}' : '{"error":"test"}', { status })
 }
-// gli errori di Resend vengono scritti nel log di Cloudflare: qui non servono
 console.error = () => {}
 
 const valid = {

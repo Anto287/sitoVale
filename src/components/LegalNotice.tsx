@@ -4,10 +4,6 @@ import { CONTACT, GOATCOUNTER, LEGAL } from '../config'
 import { SITE_URL } from '../site'
 import { gsap, prefersReducedMotion } from '../lib/gsap'
 
-/**
- * Note legali / mentions légales (in Francia obbligatorie per un sito professionale).
- * <dialog> nativo: focus, Esc e accessibilità li gestisce il browser. I dati stanno in src/config.ts.
- */
 export function LegalNotice() {
   const { t } = useTranslation()
   const ref = useRef<HTMLDialogElement>(null)

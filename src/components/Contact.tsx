@@ -10,10 +10,6 @@ import { SplitHeading } from './SplitHeading'
 
 type Status = { kind: 'idle' } | { kind: 'sending' } | { kind: 'sent'; name: string } | { kind: 'mailto'; href: string }
 
-/**
- * Oltre questo tempo si rinuncia e si apre l'app di posta. Sotto i 5 s: dopo, il browser
- * considera il clic su "Invia" troppo lontano e potrebbe non aprire l'app.
- */
 const SEND_TIMEOUT = 4500
 
 export function Contact() {
@@ -22,7 +18,6 @@ export function Contact() {
   const formRef = useRef<HTMLFormElement>(null)
   const shellRef = useRef<HTMLDivElement>(null)
   const [status, setStatus] = useState<Status>({ kind: 'idle' })
-  // altezza del riquadro prima del cambio modulo ↔ conferma, per animare il passaggio
   const shellHeight = useRef(0)
 
   useGSAP(
@@ -34,8 +29,6 @@ export function Contact() {
     { scope: ref },
   )
 
-  // Conferma: il riquadro passa dall'altezza del modulo a quella del messaggio,
-  // la lineetta fucsia si disegna, poi titolo e testo salgono.
   useGSAP(
     () => {
       if (status.kind !== 'sent') return
@@ -50,7 +43,6 @@ export function Contact() {
     { scope: shellRef, dependencies: [status.kind], revertOnUpdate: true },
   )
 
-  // Il testo della richiesta, uguale per email e WhatsApp.
   const compose = (form: HTMLFormElement) => {
     const f = new FormData(form)
     const lesson = LESSONS.find(([id]) => id === f.get('lesson'))
@@ -59,7 +51,6 @@ export function Contact() {
     return [
       line(t('form.name'), f.get('name')),
       line(t('form.email'), f.get('email')),
-      // nell'email basta "Telefono", senza "(facoltativo)"
       line(t('form.phone').replace(/\s*\(.*\)$/, ''), f.get('phone')),
       line(t('form.lesson'), lesson && t(lesson[1])),
       line(t('form.level'), level && t(level[1])),
@@ -71,7 +62,6 @@ export function Contact() {
       .join('\n')
   }
 
-  // Il modulo esce (campi che svaniscono in cascata), poi compare la conferma.
   const showSent = (name: string) => {
     shellHeight.current = shellRef.current!.offsetHeight
     if (prefersReducedMotion()) return setStatus({ kind: 'sent', name })
@@ -85,8 +75,6 @@ export function Contact() {
     })
   }
 
-  // La richiesta parte dal sito (functions/api/contact.ts su Cloudflare, email dal dominio con Resend).
-  // Se non riesce, per qualsiasi motivo, si apre l'app di posta del visitatore con il messaggio già scritto.
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const form = e.currentTarget
@@ -129,7 +117,6 @@ export function Contact() {
     }
   }
 
-  // Stessa richiesta su WhatsApp. Il browser controlla prima i campi obbligatori.
   const onWhatsapp = () => {
     const form = formRef.current!
     if (!form.reportValidity()) return
@@ -142,7 +129,6 @@ export function Contact() {
     setStatus({ kind: 'idle' })
   }
 
-  // dopo "Invia un'altra richiesta" il modulo rientra vuoto
   useGSAP(
     () => {
       if (status.kind !== 'idle' || !shellHeight.current) return
@@ -271,7 +257,6 @@ export function Contact() {
                 <span>{t('form.message')}</span>
                 <textarea id="f-msg" name="message" rows={3} maxLength={CONTACT_LIMITS.message} placeholder={t('form.phMessage')} />
               </label>
-              {/* trappola per i bot: invisibile e fuori dal tab */}
               <input className="form-trap" type="checkbox" name="botcheck" tabIndex={-1} autoComplete="off" aria-hidden="true" />
               <div className="form-actions">
                 <button className="btn btn--accent" type="submit" data-magnetic disabled={sending}>
@@ -285,10 +270,8 @@ export function Contact() {
                 </button>
               </div>
               <p className={`form-note${status.kind === 'mailto' ? ' is-error' : ''}`} role="status" aria-live="polite">
-                {/* vuoto finché non serve: resta nella pagina perché gli screen reader leggano il messaggio */}
                 {status.kind === 'mailto' && (
                   <>
-                    {/* il link riapre l'app di posta con lo stesso messaggio già scritto */}
                     {t('form.mailtoNote')} <a href={status.href}>{CONTACT.email}</a>
                   </>
                 )}

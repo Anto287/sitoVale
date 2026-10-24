@@ -13,7 +13,6 @@ const STRIP: { photo: PhotoKey; alt: StripAlt; focus?: string }[] = [
   { photo: 'panorami/mare-di-nuvole', alt: 'where.imgClouds' },
   { photo: 'panorami/bosco-innevato', alt: 'where.imgForest' },
   { photo: 'panorami/cabinovia-monte-bianco', alt: 'where.imgGondola' },
-  // la montagna sta in basso nella foto: il ritaglio parte da lì
   { photo: 'panorami/monte-bianco', alt: 'where.imgMontBlanc', focus: 'center 85%' },
   { photo: 'panorami/seggiovia', alt: 'where.imgChairlift' },
   { photo: 'panorami/alba', alt: 'where.imgDawn' },
@@ -24,7 +23,6 @@ const STRIP: { photo: PhotoKey; alt: StripAlt; focus?: string }[] = [
 export function Where() {
   const { t } = useTranslation()
   const ref = useRef<HTMLElement>(null)
-  // stazione evidenziata: passando sulla lista o sulla mappa si accendono entrambe
   const [active, setActive] = useState<PlaceId | null>(null)
 
   useGSAP(
@@ -32,13 +30,11 @@ export function Where() {
       withMotion(() => {
         revealOnScroll('.eyebrow')
 
-        // Le tre stazioni: riga che si disegna, poi nome e descrizione.
         gsap
           .timeline({ scrollTrigger: { trigger: '.places', start: 'top 85%', once: true } })
           .from('.places .rule', { scaleX: 0, transformOrigin: '0% 50%', duration: 1.2, ease: 'power4.inOut', stagger: 0.15 })
           .from('.places li > :not(.rule)', { y: 18, autoAlpha: 0, duration: 0.9, ease: EASE_OUT, stagger: 0.08 }, 0.3)
 
-        // Striscia di panorami: scorre in orizzontale mentre si scende nella pagina.
         const strip = ref.current!.querySelector<HTMLElement>('.strip')!
         const track = strip.querySelector<HTMLElement>('.strip-track')!
         strip.classList.add('is-driven')

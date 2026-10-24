@@ -1,20 +1,19 @@
-# Vally Ski
+# Vally Ski — Valentina Bernardi
 
-Sito React/Vite con pagine statiche EN/IT/FR e Cloudflare Pages Function per il modulo contatti.
-Dominio previsto: `https://www.vallyski.com`. Richiede Node 24.
+Sito vetrina React + Vite, pagine statiche pre-generate in inglese, italiano e francese.
+Modulo contatti tramite Cloudflare Pages Function (`functions/api/contact.ts`) con invio email via Resend.
 
-Avvio locale: `npm ci`, poi `npm run dev`. Verifica: `npm run lint` e `npm test`.
-La build genera `dist/`; il bundle SSR temporaneo viene rimosso dal prerender. I test intercettano
-il servizio email e non inviano messaggi reali.
+- Dominio definitivo: `https://www.vallyski.com`
+- Anteprima: `https://anto287.github.io/sitoVale/` (non indicizzata, modulo con ripiego su email)
+- Node 24
 
-**Il push serve soltanto alla revisione.** La CI non pubblica. Iniziare i commit di revisione con
-`[CF-Pages-Skip]` per evitare deploy da eventuali integrazioni Git di Pages; un branch separato
-può comunque attivare preview. Non aprire PR o effettuare merge durante questa fase.
+```bash
+npm ci
+npm run dev
+npm run lint
+npm test
+npm run images
+npm run terms
+```
 
-Configurazione, dati mancanti e futuro lancio: [DA-FARE.md](DA-FARE.md). `wrangler.jsonc` prepara
-Pages ma non crea progetti né avvia pubblicazioni. Non aggiungere chiavi o token al repository:
-`RESEND_API_KEY` va soltanto sul server.
-
-File principali: `src/config.ts` per dati e dominio, `src/i18n/locales/` per testi,
-`scripts/prerender.mjs` per SEO e CSP, `public/_headers` per gli asset statici,
-`functions/api/contact.ts` per l'endpoint. Foto e PDF sono locali; la CI usa gli asset già generati.
+Dati e contatti: `src/config.ts`. Testi: `src/i18n/locales/`. Procedura di pubblicazione: [GUIDA-PUBBLICAZIONE.md](GUIDA-PUBBLICAZIONE.md).

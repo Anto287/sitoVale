@@ -19,11 +19,8 @@ import { gsap, pace, ScrollTrigger, scrollToHash, startSmoothScroll, useGSAP, wi
 export default function App() {
   const { t, i18n } = useTranslation()
 
-  // Scroll morbido con rotellina/trackpad (spento con "riduci movimento": resta quello nativo).
   useGSAP(() => withMotion(startSmoothScroll))
 
-  // Tutti i link #ancora scorrono con GSAP invece del salto secco.
-  // Statistiche: si contano i tocchi su WhatsApp ed email (solo se GoatCounter è attivo).
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
       const link = (e.target as Element).closest<HTMLAnchorElement>('a[href]')
@@ -38,8 +35,6 @@ export default function App() {
     return () => document.removeEventListener('click', onClick)
   }, [])
 
-  // Testi di lunghezza diversa e font caricati in ritardo spostano le sezioni:
-  // ricalcolo le posizioni dei trigger.
   useEffect(() => {
     const id = requestAnimationFrame(() => ScrollTrigger.refresh())
     return () => cancelAnimationFrame(id)
@@ -48,7 +43,6 @@ export default function App() {
     void document.fonts?.ready.then(() => ScrollTrigger.refresh())
   }, [])
 
-  // La lineetta fucsia degli eyebrow si disegna quando la sezione entra.
   useGSAP(() =>
     withMotion(() => {
       const eyebrows = gsap.utils.toArray<HTMLElement>('.eyebrow')
@@ -64,7 +58,6 @@ export default function App() {
     }),
   )
 
-  // Bottoni "magnetici": seguono leggermente il puntatore (solo mouse).
   useGSAP(() =>
     withMotion(() => {
       if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return
@@ -98,7 +91,6 @@ export default function App() {
       </a>
       <Nav />
       <Hero />
-      {/* ordine pensato per alternare fasce colorate e sezioni di foto */}
       <main>
         <SkiTrail />
         <Facts />
