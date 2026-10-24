@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { smoothPath, type Pt } from '../lib/curves'
-import { gsap, RICH_MOTION, ScrollTrigger, useGSAP, withRichMotion } from '../lib/gsap'
+import { gsap, isTouch, MOTION_OK, ScrollTrigger, useGSAP, withMotion } from '../lib/gsap'
 
 function offset(el: HTMLElement | null) {
   let x = 0
@@ -22,7 +22,7 @@ export function SkiTrail() {
   const [enabled, setEnabled] = useState(false)
 
   useEffect(() => {
-    const mq = window.matchMedia(RICH_MOTION)
+    const mq = window.matchMedia(MOTION_OK)
     const sync = () => setEnabled(mq.matches)
     sync()
     mq.addEventListener('change', sync)
@@ -89,7 +89,7 @@ export function SkiTrail() {
   useGSAP(
     () => {
       if (!geo) return
-      return withRichMotion(() => {
+      return withMotion(() => {
         gsap.fromTo(
           'path',
           { drawSVG: '0%' },
@@ -101,7 +101,7 @@ export function SkiTrail() {
               start: 'top 75%',
               endTrigger: document.querySelector('#lezioni .eyebrow'),
               end: 'center 65%',
-              scrub: 0.25,
+              scrub: isTouch() ? true : 0.25,
             },
           },
         )

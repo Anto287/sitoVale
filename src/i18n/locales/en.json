@@ -32,6 +32,12 @@
     "imgAlt": "Skiers above a sea of clouds over the Tarentaise valley",
     "scroll": "Scroll"
   },
+  "facts": {
+    "label": "At a glance",
+    "years": "years in the Tarentaise",
+    "languages": "languages",
+    "reviews": "{{count}} reviews"
+  },
   "about": {
     "eyebrow": "About",
     "title": "Hi, I'm Valentina.",

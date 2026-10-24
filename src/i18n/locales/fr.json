@@ -32,6 +32,12 @@
     "imgAlt": "Skieurs devant la mer de nuages sur la vallée de la Tarentaise",
     "scroll": "Défiler"
   },
+  "facts": {
+    "label": "En bref",
+    "years": "ans en Tarentaise",
+    "languages": "langues",
+    "reviews": "{{count}} avis"
+  },
   "about": {
     "eyebrow": "À propos",
     "title": "Bonjour, moi c'est Valentina.",

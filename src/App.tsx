@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { About } from './components/About'
 import { Contact } from './components/Contact'
+import { Facts } from './components/Facts'
 import { Footer } from './components/Footer'
 import { Gallery } from './components/Gallery'
 import { Hero } from './components/Hero'
@@ -50,6 +51,7 @@ export default function App() {
       <Hero />
       <main>
         <SkiTrail />
+        <Facts />
         <About />
         <Lessons />
         <Where />

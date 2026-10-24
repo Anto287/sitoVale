@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { EASE_OUT, gsap, revealImages, revealOnScroll, useGSAP, withMotion, withRichMotion } from '../lib/gsap'
+import { EASE_OUT, gsap, revealImages, revealOnScroll, RICH_MOTION, useGSAP, withMotion, withRichMotion } from '../lib/gsap'
 import { RESORTS, type PlaceId } from '../data/places'
 import type { PhotoKey } from '../lib/photos'
 import { Photo } from './Photo'
@@ -34,7 +34,7 @@ export function Where() {
           .timeline({ scrollTrigger: { trigger: '.places', start: 'top 85%', once: true } })
           .from('.places .rule', { scaleX: 0, transformOrigin: '0% 50%', duration: 1.2, ease: 'power4.inOut', stagger: 0.15 })
           .from('.places li > :not(.rule)', { y: 18, autoAlpha: 0, duration: 0.9, ease: EASE_OUT, stagger: 0.08 }, 0.3)
-        revealImages('.strip figure', { stagger: 0.08, start: 'top 95%' })
+        revealImages('.strip figure:not(.strip-clone)', { stagger: 0.08, start: 'top 95%' })
       }),
     { scope: ref },
   )
@@ -55,6 +55,22 @@ export function Where() {
           },
         )
         return () => strip.classList.remove('is-driven')
+      }),
+    { scope: ref },
+  )
+
+  useGSAP(
+    () =>
+      withMotion(() => {
+        if (window.matchMedia(RICH_MOTION).matches) return
+        const strip = ref.current!.querySelector<HTMLElement>('.strip')!
+        strip.classList.add('is-marquee')
+        const io = new IntersectionObserver(([entry]) => strip.classList.toggle('is-paused', !entry.isIntersecting))
+        io.observe(strip)
+        return () => {
+          io.disconnect()
+          strip.classList.remove('is-marquee', 'is-paused')
+        }
       }),
     { scope: ref },
   )
@@ -86,6 +102,11 @@ export function Where() {
           {STRIP.map((p) => (
             <figure key={p.photo}>
               <Photo photo={p.photo} alt={t(p.alt)} focus={p.focus} sizes="(max-width: 780px) 210px, 36vw" />
+            </figure>
+          ))}
+          {STRIP.map((p) => (
+            <figure key={`${p.photo}-loop`} className="strip-clone" aria-hidden="true">
+              <Photo photo={p.photo} alt="" focus={p.focus} sizes="(max-width: 780px) 210px, 36vw" />
             </figure>
           ))}
         </div>
