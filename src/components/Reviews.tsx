@@ -129,7 +129,7 @@ type CardProps = { text: string; textLang?: string; author: string; source: Revi
 
 const STAR = 'M12 2.8l2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.8z'
 
-export function Stars({ rating }: { rating: number }) {
+function Stars({ rating }: { rating: number }) {
   const { t, i18n } = useTranslation()
   const value = new Intl.NumberFormat(i18n.resolvedLanguage, { minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(rating)
   const row = (

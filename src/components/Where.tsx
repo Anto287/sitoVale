@@ -47,19 +47,6 @@ export function Where() {
         const shift = () => Math.min(0, strip.clientWidth - track.scrollWidth)
         strip.classList.add('is-driven')
 
-        if (isTouch() && CSS.supports('animation-timeline: view()')) {
-          const sync = () => strip.style.setProperty('--strip-shift', `${shift()}px`)
-          sync()
-          const ro = new ResizeObserver(sync)
-          ro.observe(strip)
-          ro.observe(track)
-          strip.classList.add('is-css-driven')
-          return () => {
-            ro.disconnect()
-            strip.classList.remove('is-driven', 'is-css-driven')
-          }
-        }
-
         gsap.fromTo(
           track,
           { x: () => shift() * 0.08 },
