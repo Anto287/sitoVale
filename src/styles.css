@@ -488,19 +488,20 @@ input,select,textarea{
 }
 input::placeholder,textarea::placeholder{color:color-mix(in srgb, var(--band-fg) 58%, transparent)}
 form label{position:relative;transition:color .3s var(--ease)}
-form label::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:0 50%;transition:transform .5s var(--ease);pointer-events:none}
+.control{position:relative;display:block}
+.control::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:0 50%;transition:transform .5s var(--ease);pointer-events:none}
 form label:focus-within{color:var(--band-fg)}
-form label:focus-within::after{transform:scaleX(1)}
+.control:focus-within::after{transform:scaleX(1)}
 form label:hover input,form label:hover select,form label:hover textarea{border-bottom-color:color-mix(in srgb, var(--band-fg) 55%, transparent)}
 input:focus,select:focus,textarea:focus,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:none;border-bottom-color:transparent}
 input:user-invalid,textarea:user-invalid{border-bottom-color:var(--accent)}
 .select{position:relative;display:block}
-.select::after{
-  content:"";position:absolute;right:4px;top:50%;width:8px;height:8px;margin-top:-6px;pointer-events:none;
+.select::before{
+  content:"";position:absolute;z-index:1;right:4px;top:50%;width:8px;height:8px;margin-top:-6px;pointer-events:none;
   border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg);
   color:color-mix(in srgb, var(--band-fg) 70%, transparent);transition:transform .35s var(--ease),color .3s var(--ease);
 }
-.select:focus-within::after{color:var(--accent);transform:translateY(3px) rotate(225deg)}
+.select:focus-within::before{color:var(--accent);transform:translateY(3px) rotate(225deg)}
 form select{-webkit-appearance:none;appearance:none;padding-right:28px;cursor:pointer;text-overflow:ellipsis}
 @supports (appearance:base-select){
   form select,form select::picker(select){appearance:base-select}
@@ -633,5 +634,10 @@ textarea{resize:vertical;min-height:92px}
 .contact .terms-link{color:var(--band-fg);text-decoration-color:color-mix(in srgb, var(--band-fg) 40%, transparent)}
 .contact .terms-link:hover{text-decoration-color:var(--accent)}
 form label:has(select:open){color:var(--band-fg)}
-form label:has(select:open)::after{transform:scaleX(1)}
-.select:has(select:open)::after{color:var(--accent);transform:translateY(3px) rotate(225deg)}
+.control:has(select:open)::after{transform:scaleX(1)}
+.select:has(select:open)::before{color:var(--accent);transform:translateY(3px) rotate(225deg)}
+.field-help{display:block;margin-top:2px;font-size:13px;line-height:1.45;letter-spacing:normal;text-transform:none;color:color-mix(in srgb, var(--band-fg) 78%, transparent)}
+.field-help.is-error{color:color-mix(in srgb, var(--accent) 55%, var(--band-fg))}
+.field-help button{padding:0;border:0;background:none;font:inherit;color:var(--band-fg);text-decoration:underline;text-decoration-color:var(--accent);text-underline-offset:3px;cursor:pointer}
+form label:has(.field-help.is-error) input{border-bottom-color:var(--accent)}
+.form-captcha:empty{display:none}

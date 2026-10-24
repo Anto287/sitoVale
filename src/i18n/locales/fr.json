@@ -155,7 +155,11 @@
     "sentText": "Merci {{name}} ! J’ai bien reçu votre demande et je vous répondrai dès que possible avec mes disponibilités et le tarif.",
     "sendAnother": "Envoyer une autre demande",
     "mailtoNote": "L'envoi automatique a échoué. Utilisez ce lien pour envoyer votre demande depuis votre messagerie :",
-    "requiredNote": "Le nom et l'adresse email sont obligatoires (*). Les autres champs m'aident à préparer votre cours."
+    "requiredNote": "Le nom et l'adresse email sont obligatoires (*). Les autres champs m'aident à préparer votre cours.",
+    "emailMissing": "Indiquez votre email pour que je puisse vous répondre.",
+    "emailInvalid": "Cette adresse email ne semble pas correcte.",
+    "emailNotFound": "Cette adresse email ne semble pas exister : vérifiez-la.",
+    "emailSuggest": "Vouliez-vous dire"
   },
   "footer": {
     "role": "Monitrice de ski en Tarentaise",

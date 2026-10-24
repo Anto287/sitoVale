@@ -6,7 +6,7 @@ const ROOT = path.resolve(import.meta.dirname, '..')
 const DIST = path.join(ROOT, 'dist')
 const SSR = path.join(ROOT, 'dist-ssr')
 
-const { render, LANGUAGES, langSegment, urlFor, SITE_URL, IS_FINAL_URL, GOATCOUNTER } = await import(path.join(SSR, 'entry-server.js'))
+const { render, LANGUAGES, langSegment, urlFor, SITE_URL, IS_FINAL_URL, GOATCOUNTER, TURNSTILE_SITE_KEY } = await import(path.join(SSR, 'entry-server.js'))
 const template = fs.readFileSync(path.join(DIST, 'index.html'), 'utf8')
 
 const OG_LOCALE = { en: 'en_GB', it: 'it_IT', fr: 'fr_FR' }
@@ -81,7 +81,8 @@ const hashes = [...inlineScripts].map((code) => `'sha256-${crypto.createHash('sh
 const stats = GOATCOUNTER && IS_FINAL_URL
 const csp = [
   "default-src 'self'",
-  ['script-src', "'self'", ...hashes, stats && 'https://gc.zgo.at'].filter(Boolean).join(' '),
+  ['script-src', "'self'", ...hashes, stats && 'https://gc.zgo.at', TURNSTILE_SITE_KEY && 'https://challenges.cloudflare.com'].filter(Boolean).join(' '),
+  TURNSTILE_SITE_KEY && 'frame-src https://challenges.cloudflare.com',
   "style-src 'self' 'unsafe-inline'",
   ['img-src', "'self'", 'data:', stats && `https://${GOATCOUNTER}.goatcounter.com`].filter(Boolean).join(' '),
   "font-src 'self'",
@@ -91,7 +92,9 @@ const csp = [
   "form-action 'self'",
   "frame-ancestors 'none'",
   'upgrade-insecure-requests',
-].join('; ')
+]
+  .filter(Boolean)
+  .join('; ')
 const headersFile = path.join(DIST, '_headers')
 fs.writeFileSync(headersFile, fs.readFileSync(headersFile, 'utf8').replace('__CSP__', () => csp))
 console.log(`✓ _headers: Content-Security-Policy con ${hashes.length} script interni`)

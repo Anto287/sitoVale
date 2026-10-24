@@ -4,9 +4,10 @@ import type { Language } from '../../src/i18n/index.ts'
 import en from '../../src/i18n/locales/en.json' with { type: 'json' }
 import fr from '../../src/i18n/locales/fr.json' with { type: 'json' }
 import it from '../../src/i18n/locales/it.json' with { type: 'json' }
-import { CONTACT_LIMITS, FORM_LESSONS, FORM_LEVELS, type ContactRequest } from '../../src/lib/lessons.ts'
+import { emailDomain, isDisposableEmail, isValidEmail, normalizeEmail } from '../../src/lib/email.ts'
+import { CONTACT_LIMITS, FORM_LESSONS, FORM_LEVELS, MIN_FILL_TIME, type ContactRequest } from '../../src/lib/lessons.ts'
 
-type Env = { RESEND_API_KEY?: string }
+type Env = { RESEND_API_KEY?: string; TURNSTILE_SECRET_KEY?: string }
 
 const LOCALES = { en, it, fr }
 const LANGS = Object.keys(LOCALES) as Language[]
@@ -59,7 +60,6 @@ const clean = (v: unknown, max: number) =>
         .slice(0, max)
     : ''
 const oneLine = (v: unknown, max: number) => clean(v, max).replace(/\s+/g, ' ')
-const EMAIL = /^[^\s@<>()[\]",;:]+@[^\s@<>()[\]",;:]+\.[^\s@<>()[\]",;:]{2,}$/
 
 const json = (status: number, body: object) =>
   new Response(JSON.stringify(body), { status, headers: {
@@ -144,6 +144,70 @@ async function send(key: string, mail: Record<string, unknown>, timeout = 8_000)
   }
 }
 
+
+const WINDOW = 10 * 60_000
+const MAX_PER_IP = 4
+const CONFIRM_EVERY = 60 * 60_000
+const byIp = new Map<string, number[]>()
+const confirmedAt = new Map<string, number>()
+
+function prune(now: number) {
+  if (byIp.size > 1000) for (const [ip, times] of byIp) if (times.every((t) => now - t > WINDOW)) byIp.delete(ip)
+  if (confirmedAt.size > 1000) for (const [email, t] of confirmedAt) if (now - t > CONFIRM_EVERY) confirmedAt.delete(email)
+}
+
+function tooManyRequests(ip: string | null, now: number) {
+  if (!ip) return false
+  const times = (byIp.get(ip) ?? []).filter((t) => now - t < WINDOW)
+  times.push(now)
+  byIp.set(ip, times)
+  return times.length > MAX_PER_IP
+}
+
+function looksLikeSpam(...fields: string[]) {
+  const text = fields.join(' ')
+  const links = text.match(/https?:\/\/|www\.|\[url|<a\s/gi)?.length ?? 0
+  return links > 2
+}
+
+async function dnsHas(name: string, type: 'MX' | 'A' | 'AAAA') {
+  const res = await fetch(`https://cloudflare-dns.com/dns-query?name=${encodeURIComponent(name)}&type=${type}`, {
+    headers: { Accept: 'application/dns-json' },
+    signal: AbortSignal.timeout(1_000),
+  })
+  if (!res.ok) throw new Error('dns')
+  const data = (await res.json()) as { Status: number; Answer?: { type: number }[] }
+  if (data.Status === 3) return false
+  if (data.Status !== 0) throw new Error('dns')
+  const code = { MX: 15, A: 1, AAAA: 28 }[type]
+  return (data.Answer ?? []).some((a) => a.type === code)
+}
+
+async function canReceiveEmail(domain: string) {
+  try {
+    const answers = await Promise.all([dnsHas(domain, 'MX'), dnsHas(domain, 'A'), dnsHas(domain, 'AAAA')])
+    return answers.some(Boolean)
+  } catch {
+    return true
+  }
+}
+
+async function humanVerified(secret: string | undefined, token: unknown, ip: string | null) {
+  if (!secret) return true
+  if (typeof token !== 'string' || !token || token.length > 2048) return false
+  try {
+    const form = new FormData()
+    form.append('secret', secret)
+    form.append('response', token)
+    if (ip) form.append('remoteip', ip)
+    const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', { method: 'POST', body: form, signal: AbortSignal.timeout(1_500) })
+    const data = (await res.json()) as { success?: boolean }
+    return data.success === true
+  } catch {
+    return false
+  }
+}
+
 export async function onRequestPost(context: { request: Request; env: Env; waitUntil?: (promise: Promise<unknown>) => void }) {
   const { request, env } = context
   const origin = request.headers.get('Origin')
@@ -162,12 +226,18 @@ export async function onRequestPost(context: { request: Request; env: Env; waitU
   }
 
   if (body.botcheck) return json(200, { ok: true })
+  if (typeof body.elapsed !== 'number' || body.elapsed < MIN_FILL_TIME) return json(200, { ok: true })
+
+  const now = Date.now()
+  prune(now)
+  const ip = request.headers.get('CF-Connecting-IP')
+  if (!(await humanVerified(env.TURNSTILE_SECRET_KEY, body.turnstile, ip))) return json(403, { ok: false, error: 'captcha' })
 
   const L = CONTACT_LIMITS
   const lng = LANGS.includes(body.lang as Language) ? (body.lang as Language) : 'en'
   const r = {
     name: oneLine(body.name, L.name),
-    email: oneLine(body.email, L.email),
+    email: normalizeEmail(oneLine(body.email, L.email)),
     phone: oneLine(body.phone, L.phone),
     dates: oneLine(body.dates, L.dates),
     people: oneLine(body.people, L.people),
@@ -175,7 +245,11 @@ export async function onRequestPost(context: { request: Request; env: Env; waitU
     lesson: FORM_LESSONS.find(([id]) => id === body.lesson) ?? FORM_LESSONS[3],
     level: FORM_LEVELS.find(([id]) => id === body.level) ?? FORM_LEVELS[0],
   }
-  if (!r.name || !EMAIL.test(r.email)) return json(400, { ok: false, error: 'invalid' })
+  if (!r.name) return json(400, { ok: false, error: 'invalid' })
+  if (!isValidEmail(r.email) || isDisposableEmail(r.email)) return json(400, { ok: false, error: 'invalid-email' })
+  if (looksLikeSpam(r.name, r.dates, r.people, r.message)) return json(200, { ok: true })
+  if (!(await canReceiveEmail(emailDomain(r.email)))) return json(400, { ok: false, error: 'invalid-email' })
+  if (tooManyRequests(ip, now)) return json(429, { ok: false, error: 'rate-limited' })
 
   const site = SITE_URL.replace('https://', '')
   const label = (lang: Language, key: string) => tr(lang, key).replace(/\s*\(.*\)$/, '')
@@ -246,6 +320,8 @@ ${rowsHtml(recap.map(([k, v]) => [k, escape(v)]))}
     ),
     text: `${hello}\n\n${typo(c.intro, lng)}\n\n${c.recap}\n${rowsText(recap)}\n\n${typo(c.terms, lng)}\n${termsUrl}\n\n${typo(fill(c.questions, vars), lng)}\n\n${c.bye}\nValentina\n\n—\nValentina Bernardi · ${tr(lng, 'footer.role')} · ${site}\n${typo(fill(c.why, vars), lng)}`,
   }
+  if (now - (confirmedAt.get(r.email) ?? 0) < CONFIRM_EVERY) return json(200, { ok: true })
+  confirmedAt.set(r.email, now)
   const confirmationSend = send(env.RESEND_API_KEY, confirmation)
   if (context.waitUntil) context.waitUntil(confirmationSend)
   else await confirmationSend

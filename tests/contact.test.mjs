@@ -2,18 +2,39 @@ import assert from 'node:assert/strict'
 import { beforeEach, describe, test } from 'node:test'
 import { CONTACT, MAIL } from '../src/config.ts'
 import { onRequestPost } from '../functions/api/contact.ts'
+import { suggestEmail } from '../src/lib/email.ts'
 
 const SITE = 'https://www.vallyski.com'
 const KEY = 're_chiave_di_prova_123'
 
 let outbox
 let resendStatus
+let dnsDown
+let turnstileOk
+let clock = Date.now()
+Date.now = () => clock
 beforeEach(() => {
   outbox = []
   resendStatus = () => 200
+  dnsDown = false
+  turnstileOk = true
+  clock += 3 * 3_600_000
 })
+const DOMAINS = { 'example.com': 15, 'solo-a.example': 1 }
 globalThis.fetch = async (url, init) => {
-  assert.equal(url, 'https://api.resend.com/emails', 'la funzione parla solo con Resend')
+  if (String(url).startsWith('https://cloudflare-dns.com/dns-query')) {
+    if (dnsDown) throw new Error('dns down')
+    const q = new URL(url).searchParams
+    const code = { MX: 15, A: 1, AAAA: 28 }[q.get('type')]
+    const known = DOMAINS[q.get('name')]
+    if (known === undefined) return Response.json({ Status: 3 })
+    return Response.json({ Status: 0, Answer: known === code ? [{ type: code }] : [] })
+  }
+  if (url === 'https://challenges.cloudflare.com/turnstile/v0/siteverify') {
+    assert.equal(init.body.get('secret'), 'segreto-turnstile')
+    return Response.json({ success: turnstileOk && init.body.get('response') === 'token-valido' })
+  }
+  assert.equal(url, 'https://api.resend.com/emails', 'la funzione parla solo con Resend, il DNS e Turnstile')
   assert.equal(init.headers.Authorization, `Bearer ${KEY}`)
   const mail = JSON.parse(init.body)
   outbox.push(mail)
@@ -33,12 +54,13 @@ const valid = {
   people: '2 adulti, 1 bambino di 7 anni',
   message: 'Prima volta in Francia.',
   botcheck: '',
+  elapsed: 12_000,
 }
 
-async function post(body, { origin = SITE, url = SITE, contentType = 'application/json', env = { RESEND_API_KEY: KEY }, raw } = {}) {
+async function post(body, { origin = SITE, url = SITE, contentType = 'application/json', env = { RESEND_API_KEY: KEY }, raw, ip } = {}) {
   const request = new Request(`${url}/api/contact`, {
     method: 'POST',
-    headers: { 'Content-Type': contentType, ...(origin ? { Origin: origin } : {}) },
+    headers: { 'Content-Type': contentType, ...(origin ? { Origin: origin } : {}), ...(ip ? { 'CF-Connecting-IP': ip } : {}) },
     body: raw ?? JSON.stringify(body),
   })
   const res = await onRequestPost({ request, env })
@@ -257,5 +279,88 @@ describe('sicurezza', () => {
   test('la funzione risponde solo a POST (GET e altri metodi li rifiuta Cloudflare)', async () => {
     const mod = await import('../functions/api/contact.ts')
     assert.deepEqual(Object.keys(mod), ['onRequestPost'])
+  })
+})
+
+describe('antispam e controllo dell’email', () => {
+  test('modulo inviato troppo in fretta o senza tempo di compilazione → finto successo, nessuna email', async () => {
+    for (const elapsed of [800, undefined, '9000'])
+      assert.deepEqual((await post({ ...valid, elapsed })).body, { ok: true }, String(elapsed))
+    assert.equal(outbox.length, 0)
+  })
+
+  test('email maiuscole o con spazi → normalizzata', async () => {
+    await post({ ...valid, email: '  Mario@Example.COM ' })
+    assert.deepEqual(toClient().to, ['mario@example.com'])
+  })
+
+  test('email usa e getta o con formato sbagliato → errore specifico, nessuna email', async () => {
+    for (const email of ['test@mailinator.com', 'x@yopmail.fr', 'mario..rossi@example.com', 'mario@example.c0m', 'mario@-example.com']) {
+      const res = await post({ ...valid, email })
+      assert.equal(res.status, 400, email)
+      assert.equal(res.body.error, 'invalid-email', email)
+    }
+    assert.equal(outbox.length, 0)
+  })
+
+  test('dominio che non esiste → errore specifico; dominio senza MX ma con indirizzo → accettato', async () => {
+    const res = await post({ ...valid, email: 'mario@dominio-inesistente-xyz.com' })
+    assert.equal(res.body.error, 'invalid-email')
+    assert.equal(outbox.length, 0)
+    assert.equal((await post({ ...valid, email: 'mario@solo-a.example' })).status, 200)
+  })
+
+  test('DNS irraggiungibile → la richiesta passa comunque (nessun cliente perso)', async () => {
+    dnsDown = true
+    assert.equal((await post(valid)).status, 200)
+    assert.equal(outbox.length, 2)
+  })
+
+  test('troppi link nei campi liberi → finto successo, nessuna email', async () => {
+    const res = await post({ ...valid, message: 'https://a.example https://b.example www.c.example' })
+    assert.deepEqual(res.body, { ok: true })
+    assert.equal(outbox.length, 0)
+  })
+
+  test('stesso indirizzo IP: dopo 4 richieste valide in 10 minuti → bloccato', async () => {
+    for (let i = 0; i < 4; i++) assert.equal((await post({ ...valid, email: `utente${i}@example.com` }, { ip: '203.0.113.7' })).status, 200)
+    const res = await post({ ...valid, email: 'utente9@example.com' }, { ip: '203.0.113.7' })
+    assert.equal(res.status, 429)
+    assert.equal((await post(valid, { ip: '198.51.100.1' })).status, 200, 'altri visitatori non sono toccati')
+  })
+
+  test('stessa email più volte in un’ora → Valentina riceve tutto, la conferma parte una volta sola', async () => {
+    await post(valid)
+    await post(valid)
+    assert.equal(outbox.filter((m) => m.to[0] === CONTACT.email).length, 2)
+    assert.equal(outbox.filter((m) => m.to[0] === 'mario@example.com').length, 1)
+  })
+
+  test('con Turnstile attivo: senza verifica o con verifica fallita → rifiutato; verificato → inviato', async () => {
+    const env = { RESEND_API_KEY: KEY, TURNSTILE_SECRET_KEY: 'segreto-turnstile' }
+    assert.equal((await post(valid, { env })).body.error, 'captcha')
+    assert.equal((await post({ ...valid, turnstile: 'token-falso' }, { env })).status, 403)
+    assert.equal(outbox.length, 0)
+    assert.equal((await post({ ...valid, turnstile: 'token-valido' }, { env })).status, 200)
+    assert.equal(outbox.length, 2)
+  })
+})
+
+describe('suggerimento per errori di battitura nell’email', () => {
+  test('domini comuni scritti male → proposta corretta', () => {
+    for (const [typed, fixed] of [
+      ['mario@gmial.com', 'mario@gmail.com'],
+      ['mario@gmail.con', 'mario@gmail.com'],
+      ['Mario@hotmial.it', 'mario@hotmail.it'],
+      ['mario@yaho.fr', 'mario@yahoo.fr'],
+      ['mario@liber.it', 'mario@libero.it'],
+      ['mario@outlok.com', 'mario@outlook.com'],
+    ])
+      assert.equal(suggestEmail(typed), fixed, typed)
+  })
+
+  test('domini corretti o sconosciuti → nessuna proposta', () => {
+    for (const typed of ['mario@gmail.com', 'mario@tin.it', 'mario@studio-rossi.it', 'mario@example.com', 'mario', 'mario@'])
+      assert.equal(suggestEmail(typed), null, typed)
   })
 })

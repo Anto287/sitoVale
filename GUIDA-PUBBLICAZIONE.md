@@ -75,7 +75,9 @@ Non usare il caricamento "drag & drop": non compila la cartella `functions/` e i
 4. Resend → **API Keys** → Create, permesso **Sending access**, dominio `vallyski.com`. Copia la chiave (inizia con `re_`).
 5. Cloudflare → progetto Pages → **Settings → Variables and Secrets** → Add → tipo **Secret**, nome `RESEND_API_KEY`, ambiente **Production**, incolla la chiave. Salva e rifai un deploy (Deployments → ultimo → Retry).
    **La chiave non va mai nel codice, nel repository o in una variabile `VITE_*`.**
-6. Protezione antispam: Cloudflare → `vallyski.com` → **Security → WAF → Rate limiting rules** → regola su `URI Path equals /api/contact` e metodo `POST`, massimo 5 richieste ogni 10 minuti per IP, azione Block.
+6. Protezione antispam (le protezioni nel codice sono già attive; queste si fanno dal pannello di Cloudflare):
+   - **Turnstile** (verifica "non sono un robot" di Cloudflare, gratuita e quasi sempre invisibile): dashboard → **Turnstile** → Add widget → nome `vallyski`, hostname `www.vallyski.com`, modalità **Managed**. Copia la **Site Key** in `TURNSTILE_SITE_KEY` in `src/config.ts` (è pubblica, può stare nel codice), commit e push. Copia la **Secret Key** in Pages → Settings → Variables and Secrets come Secret `TURNSTILE_SECRET_KEY` (Production). Rifai il deploy. Da quel momento ogni invio senza verifica viene rifiutato.
+   - **Rate limiting di Cloudflare**: `vallyski.com` → **Security → WAF → Rate limiting rules** → regola su `URI Path equals /api/contact` e metodo `POST`, massimo 5 richieste ogni 10 minuti per IP, azione Block per 10 minuti.
 7. Prova: compila il modulo su `https://www.vallyski.com/it/` con il tuo indirizzo. Devono arrivare:
    - a `bernardivale46@gmail.com` la richiesta (mittente `prenotazioni@vallyski.com`, "Rispondi" scrive al cliente);
    - all'indirizzo inserito la conferma nella lingua del sito, con il link al PDF delle condizioni.

@@ -1,9 +1,10 @@
-import { useRef, useState, type FormEvent } from 'react'
+import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { useTranslation } from 'react-i18next'
-import { CONTACT } from '../config'
+import { CONTACT, TURNSTILE_SITE_KEY } from '../config'
 import type { Language } from '../i18n'
 import { track } from '../lib/analytics'
 import { EASE_OUT, gsap, prefersReducedMotion, revealOnScroll, useGSAP, withMotion } from '../lib/gsap'
+import { isValidEmail, normalizeEmail, suggestEmail } from '../lib/email'
 import { CONTACT_LIMITS, FORM_LESSONS as LESSONS, FORM_LEVELS as LEVELS, type ContactRequest } from '../lib/lessons'
 import { withBase } from '../site'
 import { SplitHeading } from './SplitHeading'
@@ -11,7 +12,32 @@ import { TermsLink } from './TermsLink'
 
 type Status = { kind: 'idle' } | { kind: 'sending' } | { kind: 'sent'; name: string } | { kind: 'mailto'; href: string }
 
-const SEND_TIMEOUT = 4500
+const SEND_TIMEOUT = 6000
+
+type Turnstile = {
+  render: (el: HTMLElement, options: Record<string, unknown>) => string
+  reset: (id: string) => void
+  remove: (id: string) => void
+}
+
+declare global {
+  interface Window {
+    turnstile?: Turnstile
+  }
+}
+
+let turnstileScript: Promise<Turnstile> | null = null
+function loadTurnstile() {
+  turnstileScript ??= new Promise((resolve, reject) => {
+    const script = document.createElement('script')
+    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
+    script.async = true
+    script.onload = () => (window.turnstile ? resolve(window.turnstile) : reject(new Error('turnstile')))
+    script.onerror = () => reject(new Error('turnstile'))
+    document.head.appendChild(script)
+  })
+  return turnstileScript
+}
 
 export function Contact() {
   const { t, i18n } = useTranslation()
@@ -20,6 +46,66 @@ export function Contact() {
   const shellRef = useRef<HTMLDivElement>(null)
   const [status, setStatus] = useState<Status>({ kind: 'idle' })
   const shellHeight = useRef(0)
+  const startedAt = useRef(0)
+  const [emailError, setEmailError] = useState('')
+  const [emailHint, setEmailHint] = useState<string | null>(null)
+  const captchaRef = useRef<HTMLDivElement>(null)
+  const captchaId = useRef<string | null>(null)
+  const captchaToken = useRef('')
+
+  useEffect(() => {
+    startedAt.current = Date.now()
+  }, [])
+
+  useEffect(() => {
+    if (!TURNSTILE_SITE_KEY || status.kind === 'sent') return
+    const el = captchaRef.current
+    if (!el) return
+    let cancelled = false
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return
+        io.disconnect()
+        loadTurnstile()
+          .then((ts) => {
+            if (cancelled || captchaId.current) return
+            captchaId.current = ts.render(el, {
+              sitekey: TURNSTILE_SITE_KEY,
+              appearance: 'interaction-only',
+              theme: 'dark',
+              language: i18n.resolvedLanguage,
+              callback: (token: string) => {
+                captchaToken.current = token
+              },
+              'expired-callback': () => {
+                captchaToken.current = ''
+              },
+            })
+          })
+          .catch(() => {})
+      },
+      { rootMargin: '400px 0px' },
+    )
+    io.observe(el)
+    return () => {
+      cancelled = true
+      io.disconnect()
+      if (captchaId.current) window.turnstile?.remove(captchaId.current)
+      captchaId.current = null
+      captchaToken.current = ''
+    }
+  }, [status.kind, i18n.resolvedLanguage])
+
+  const resetCaptcha = () => {
+    captchaToken.current = ''
+    if (captchaId.current) window.turnstile?.reset(captchaId.current)
+  }
+
+  const showEmailError = (message: string) => {
+    setEmailError(message)
+    const input = formRef.current?.querySelector<HTMLInputElement>('#f-mail')
+    input?.focus()
+  }
 
   useGSAP(
     () =>
@@ -84,7 +170,7 @@ export function Contact() {
     const request: ContactRequest = {
       lang: (i18n.resolvedLanguage ?? 'en') as Language,
       name: field('name'),
-      email: field('email'),
+      email: normalizeEmail(field('email')),
       phone: field('phone'),
       lesson: field('lesson') as ContactRequest['lesson'],
       level: field('level') as ContactRequest['level'],
@@ -92,7 +178,11 @@ export function Contact() {
       people: field('people'),
       message: field('message'),
       botcheck: field('botcheck'),
+      elapsed: Date.now() - startedAt.current,
+      turnstile: captchaToken.current,
     }
+
+    if (!isValidEmail(request.email)) return showEmailError(t('form.emailInvalid'))
 
     setStatus({ kind: 'sending' })
     const timer = new AbortController()
@@ -104,7 +194,12 @@ export function Contact() {
         body: JSON.stringify(request),
         signal: timer.signal,
       })
-      const data = (await res.json().catch(() => ({}))) as { ok?: boolean }
+      const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string }
+      if (data.error === 'invalid-email') {
+        resetCaptcha()
+        setStatus({ kind: 'idle' })
+        return showEmailError(t('form.emailNotFound'))
+      }
       if (!res.ok || !data.ok) throw new Error('contact')
       track('modulo-inviato')
       showSent(request.name.split(' ')[0])
@@ -115,6 +210,7 @@ export function Contact() {
       setStatus({ kind: 'mailto', href })
     } finally {
       window.clearTimeout(timeout)
+      resetCaptcha()
     }
   }
 
@@ -213,21 +309,70 @@ export function Contact() {
               <div className="row">
                 <label htmlFor="f-name">
                   <span>{t('form.name')} <span aria-hidden="true">*</span></span>
-                  <input id="f-name" name="name" type="text" autoComplete="name" maxLength={CONTACT_LIMITS.name} required />
+                  <span className="control">
+                    <input id="f-name" name="name" type="text" autoComplete="name" maxLength={CONTACT_LIMITS.name} required />
+                  </span>
                 </label>
                 <label htmlFor="f-mail">
                   <span>{t('form.email')} <span aria-hidden="true">*</span></span>
-                  <input id="f-mail" name="email" type="email" autoComplete="email" inputMode="email" maxLength={CONTACT_LIMITS.email} required />
+                  <span className="control">
+                    <input
+                      id="f-mail"
+                      name="email"
+                      type="email"
+                      autoComplete="email"
+                      inputMode="email"
+                      autoCapitalize="none"
+                      spellCheck={false}
+                      maxLength={CONTACT_LIMITS.email}
+                      required
+                      aria-invalid={emailError ? true : undefined}
+                      aria-describedby={emailError || emailHint ? 'f-mail-help' : undefined}
+                      onInput={() => {
+                        setEmailError('')
+                        setEmailHint(null)
+                      }}
+                      onBlur={(e) => setEmailHint(suggestEmail(e.currentTarget.value))}
+                      onInvalid={(e) => {
+                        e.preventDefault()
+                        showEmailError(t(e.currentTarget.validity.valueMissing ? 'form.emailMissing' : 'form.emailInvalid'))
+                      }}
+                    />
+                  </span>
+                  {(emailError || emailHint) && (
+                    <small className={`field-help${emailError ? ' is-error' : ''}`} id="f-mail-help" role={emailError ? 'alert' : undefined}>
+                      {emailError || (
+                        <>
+                          {t('form.emailSuggest')}{' '}
+                          <button
+                            type="button"
+                            onMouseDown={(e) => e.preventDefault()}
+                            onClick={() => {
+                              const input = formRef.current!.querySelector<HTMLInputElement>('#f-mail')!
+                              input.value = emailHint!
+                              setEmailHint(null)
+                              input.focus()
+                            }}
+                          >
+                            {emailHint}
+                          </button>
+                          ?
+                        </>
+                      )}
+                    </small>
+                  )}
                 </label>
               </div>
               <div className="row">
                 <label htmlFor="f-phone">
                   <span>{t('form.phone')}</span>
-                  <input id="f-phone" name="phone" type="tel" autoComplete="tel" inputMode="tel" maxLength={CONTACT_LIMITS.phone} placeholder={t('form.phPhone')} />
+                  <span className="control">
+                    <input id="f-phone" name="phone" type="tel" autoComplete="tel" inputMode="tel" maxLength={CONTACT_LIMITS.phone} placeholder={t('form.phPhone')} />
+                  </span>
                 </label>
                 <label htmlFor="f-lesson">
                   <span>{t('form.lesson')}</span>
-                  <span className="select">
+                  <span className="control select">
                     <select id="f-lesson" name="lesson" defaultValue="unsure">
                       {LESSONS.map(([id, key]) => (
                         <option key={id} value={id}>
@@ -241,7 +386,7 @@ export function Contact() {
               <div className="row">
                 <label htmlFor="f-level">
                   <span>{t('form.level')}</span>
-                  <span className="select">
+                  <span className="control select">
                     <select id="f-level" name="level">
                       {LEVELS.map(([id, key]) => (
                         <option key={id} value={id}>
@@ -253,18 +398,25 @@ export function Contact() {
                 </label>
                 <label htmlFor="f-dates">
                   <span>{t('form.dates')}</span>
-                  <input id="f-dates" name="dates" type="text" maxLength={CONTACT_LIMITS.dates} placeholder={t('form.phDates')} />
+                  <span className="control">
+                    <input id="f-dates" name="dates" type="text" maxLength={CONTACT_LIMITS.dates} placeholder={t('form.phDates')} />
+                  </span>
                 </label>
               </div>
               <label htmlFor="f-people">
                 <span>{t('form.people')}</span>
-                <input id="f-people" name="people" type="text" maxLength={CONTACT_LIMITS.people} placeholder={t('form.phPeople')} />
+                <span className="control">
+                  <input id="f-people" name="people" type="text" maxLength={CONTACT_LIMITS.people} placeholder={t('form.phPeople')} />
+                </span>
               </label>
               <label htmlFor="f-msg">
                 <span>{t('form.message')}</span>
-                <textarea id="f-msg" name="message" rows={3} maxLength={CONTACT_LIMITS.message} placeholder={t('form.phMessage')} />
+                <span className="control">
+                  <textarea id="f-msg" name="message" rows={3} maxLength={CONTACT_LIMITS.message} placeholder={t('form.phMessage')} />
+                </span>
               </label>
               <input className="form-trap" type="checkbox" name="botcheck" tabIndex={-1} autoComplete="off" aria-hidden="true" />
+              {TURNSTILE_SITE_KEY && <div ref={captchaRef} className="form-captcha" />}
               <div className="form-actions">
                 <button className="btn btn--accent" type="submit" disabled={sending}>
                   <span>{sending ? t('form.sending') : t('form.send')}</span>

@@ -31,6 +31,10 @@ export type ContactRequest = {
   people: string
   message: string
   botcheck: string
+  elapsed: number
+  turnstile: string
 }
+
+export const MIN_FILL_TIME = 2500
 
 export const CONTACT_LIMITS = { name: 80, email: 200, phone: 40, dates: 120, people: 120, message: 3000 } as const

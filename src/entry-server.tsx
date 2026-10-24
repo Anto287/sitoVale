@@ -4,7 +4,7 @@ import { renderToString } from 'react-dom/server'
 import App from './App'
 import i18n, { loadLanguage, type Language } from './i18n'
 
-export { GOATCOUNTER } from './config'
+export { GOATCOUNTER, TURNSTILE_SITE_KEY } from './config'
 export { IS_FINAL_URL, SITE_URL } from './site'
 export { LANGUAGES, langSegment, urlFor } from './i18n'
 

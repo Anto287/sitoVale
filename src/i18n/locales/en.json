@@ -155,7 +155,11 @@
     "sentText": "Thank you, {{name}}! I've received your request and will get back to you soon with availability and rates.",
     "sendAnother": "Send another request",
     "mailtoNote": "Your request could not be sent automatically. Use this link to send it from your email app:",
-    "requiredNote": "Name and email are required (*). The other fields help me plan your lesson."
+    "requiredNote": "Name and email are required (*). The other fields help me plan your lesson.",
+    "emailMissing": "Please enter your email so I can reply.",
+    "emailInvalid": "This email address doesn't look right.",
+    "emailNotFound": "This email address doesn't seem to exist: please check it.",
+    "emailSuggest": "Did you mean"
   },
   "footer": {
     "role": "Ski instructor in the Tarentaise",

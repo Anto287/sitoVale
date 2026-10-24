@@ -155,7 +155,11 @@
     "sentText": "Grazie {{name}}! Ho ricevuto la tua richiesta e ti risponderò al più presto con disponibilità e tariffa.",
     "sendAnother": "Invia un'altra richiesta",
     "mailtoNote": "L'invio automatico non è riuscito. Puoi inviare la richiesta dalla tua app di posta usando questo link:",
-    "requiredNote": "Nome ed email sono obbligatori (*). Gli altri campi mi aiutano a organizzare la lezione."
+    "requiredNote": "Nome ed email sono obbligatori (*). Gli altri campi mi aiutano a organizzare la lezione.",
+    "emailMissing": "Inserisci la tua email, così posso risponderti.",
+    "emailInvalid": "Questa email non sembra scritta correttamente.",
+    "emailNotFound": "Questo indirizzo email non sembra esistere: controlla che sia scritto bene.",
+    "emailSuggest": "Forse intendevi"
   },
   "footer": {
     "role": "Maestra di sci in Tarentaise",

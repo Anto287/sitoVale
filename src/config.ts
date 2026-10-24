@@ -24,6 +24,8 @@ export const MAIL = {
 
 export const GOATCOUNTER = ''
 
+export const TURNSTILE_SITE_KEY = ''
+
 export const LEGAL = {
   publisher: 'Valentina Bernardi',
   status: '',
