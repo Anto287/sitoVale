@@ -10,7 +10,6 @@ const LINKS = [
   ['#dove', 'nav.where'],
   ['#recensioni', 'nav.reviews'],
   ['#galleria', 'nav.gallery'],
-  ['#tariffe', 'nav.rates'],
   ['#contatti', 'nav.contact'],
 ] as const
 
@@ -123,7 +122,7 @@ export function Nav() {
           ))}
         </div>
         <LangSwitch data-intro="nav" />
-        <a className="btn btn--accent nav-cta" href="#contatti" data-intro="nav" data-magnetic>
+        <a className="btn btn--accent nav-cta" href="#contatti" data-intro="nav">
           {t('nav.book')}
         </a>
         <button
@@ -144,12 +143,9 @@ export function Nav() {
 
       <div ref={menuRef} className={`menu${open ? ' is-open' : ''}`} id="navmenu" role="navigation" aria-label={t('a11y.menu')} aria-hidden={!open} inert={!open} data-lenis-prevent>
         <ol className="menu-links">
-          {LINKS.map(([href, key], i) => (
+          {LINKS.map(([href, key]) => (
             <li key={href}>
               <a href={href} onClick={() => setOpen(false)}>
-                <span className="menu-num" aria-hidden="true">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
                 <span>{t(key)}</span>
               </a>
             </li>

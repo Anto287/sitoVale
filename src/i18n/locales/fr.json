@@ -18,7 +18,6 @@
     "role": "Monitrice de ski",
     "about": "À propos",
     "lessons": "Cours",
-    "rates": "Tarifs",
     "where": "Où",
     "gallery": "Galerie",
     "contact": "Contact",
@@ -27,20 +26,15 @@
   },
   "hero": {
     "eyebrow": "Monitrice de ski · Les Arcs · Val d'Isère · Tignes",
-    "lede": "Cours particuliers, enfants et familles en Tarentaise. Du premier virage à un ski sûr et fluide, à votre rythme, en français, anglais ou italien.",
+    "lede": "Cours de ski particuliers, enfants et familles aux Arcs, à Val d'Isère et à Tignes. En français, en anglais ou en italien.",
     "ctaBook": "Réserver un cours",
     "ctaLessons": "Voir les cours",
     "imgAlt": "Skieurs devant la mer de nuages sur la vallée de la Tarentaise",
     "scroll": "Défiler"
   },
-  "facts": {
-    "years": "ans d'expérience en Tarentaise",
-    "languages": "cours en trois langues",
-    "reviews": "avis clients"
-  },
   "about": {
     "eyebrow": "À propos",
-    "title": "Bien skier, c'est d'abord une question de confiance.",
+    "title": "Bonjour, moi c'est Valentina.",
     "p1": "J'ai commencé à skier à quatre ans dans les Apennins, en Italie. J'ai fait de la compétition jusqu'à dix-huit ans, puis j'ai obtenu mon diplôme de monitrice de ski. Depuis {{years}} ans, je travaille en Tarentaise, entre Les Arcs, Val d'Isère et Tignes.",
     "p2": "Je suis patiente et enthousiaste. J'enseigne à tous les niveaux et à tous les âges, avec un objectif qui passe avant tout : prendre du plaisir sur les pistes.",
     "cred1": "Diplôme de monitrice de ski",
@@ -51,39 +45,35 @@
     "imgPiste": "Valentina sur la piste avec ses bâtons roses"
   },
   "lessons": {
-    "eyebrow": "Les cours",
-    "title": "Trois formules, un seul objectif : mieux skier et se faire plaisir.",
+    "eyebrow": "Ce que je propose",
+    "title": "Les cours",
     "cta": "Demander les disponibilités",
     "private": {
       "title": "Cours particulier",
-      "text": "Vous, moi et la montagne. La façon la plus rapide de progresser : chaque minute est pour vous, et le cours suit votre niveau, vos objectifs et les conditions du jour.",
+      "text": "Un cours rien que pour vous. On part de votre niveau et de ce que vous voulez améliorer, et on adapte le programme à la neige du jour.",
       "imgAlt": "Virage coupé sur piste damée"
     },
     "children": {
       "title": "Enfants",
-      "text": "On commence par le jeu, en toute sécurité, jusqu'aux premiers vrais virages. Des pauses au bon moment, beaucoup de patience et des parents toujours informés.",
+      "text": "On commence en jouant, en toute sécurité, jusqu'aux premiers vrais virages. Beaucoup de patience, des pauses quand il faut et des parents toujours informés.",
       "imgAlt": "Cours avec une fillette à ses premiers virages"
     },
     "group": {
       "title": "Groupe et famille",
-      "text": "Pour les amis et les familles de niveau proche : on skie ensemble, mais chacun reçoit les conseils qui lui conviennent.",
+      "text": "Pour des amis ou des familles de niveau proche : on skie ensemble et chacun reçoit les conseils adaptés.",
       "imgAlt": "Cours collectif sur une piste large"
     }
   },
   "booking": {
-    "eyebrow": "Tarifs",
-    "title": "Contactez-moi pour réserver votre cours.",
-    "lede": "Envoyez-moi vos dates, le type de cours et votre niveau : je vous réponds avec mes disponibilités et le tarif.",
-    "cta": "Réserver un cours",
     "note": "Les tarifs ne comprennent ni le forfait ni la location du matériel."
   },
   "where": {
     "eyebrow": "Où j'enseigne",
-    "title": "Trois stations, une vallée : la Tarentaise.",
-    "p1": "J'enseigne en Tarentaise, en Savoie : la haute vallée de l'Isère, au pied du massif de la Vanoise. On y trouve deux des plus grands domaines skiables des Alpes, Paradiski et Tignes–Val d'Isère, et je travaille dans trois de leurs stations.",
-    "lesArcs": "Avec La Plagne, elle forme Paradiski : 425 km de pistes. Depuis l'Aiguille Rouge (3 226 m), une piste de 7 km descend de plus de 2 000 m, et par temps clair on voit le Mont Blanc. Depuis la gare de Bourg-Saint-Maurice, le funiculaire monte en 7 minutes.",
-    "valDisere": "Village de montagne à 1 850 m qui partage environ 300 km de pistes avec Tignes. C'est là que se trouve la Face de Bellevarde, piste de la descente olympique de 1992, et chaque décembre la station accueille la Coupe du monde du Critérium de la Première Neige.",
-    "tignes": "Le glacier de la Grande Motte culmine à 3 456 m : une neige fiable en début et en fin de saison, et des pistes d'altitude face au Parc national de la Vanoise.",
+    "title": "Les Arcs, Val d'Isère et Tignes",
+    "p1": "Je travaille en Tarentaise, en Savoie, dans trois stations que je connais bien.",
+    "lesArcs": "Elle fait partie de Paradiski avec La Plagne : 425 km de pistes et, par temps clair, le Mont Blanc juste en face.",
+    "valDisere": "Reliée à Tignes, avec environ 300 km de pistes. C'est ici que se trouve la Face de Bellevarde, la piste de la descente olympique de 1992.",
+    "tignes": "Grâce au glacier de la Grande Motte, la neige est bonne aussi en début et en fin de saison.",
     "imgForest": "Sapins chargés de neige au bord d'une piste",
     "imgChairlift": "Télésiège au-dessus de la forêt, sommets en arrière-plan",
     "imgMontBlanc": "Le Mont Blanc sous un ciel limpide",
@@ -100,7 +90,7 @@
   },
   "gallery": {
     "eyebrow": "Galerie",
-    "title": "Des journées de travail, vues d'en haut.",
+    "title": "Quelques photos des pistes",
     "smile": "Sourire au sommet, le domaine en arrière-plan",
     "ridge": "Valentina sur l'arête, skis sur l'épaule, au-dessus des nuages",
     "girl": "Descente côte à côte avec une fillette",
@@ -113,7 +103,7 @@
   },
   "reviews": {
     "eyebrow": "Avis",
-    "title": "Les mots de ceux qui ont skié avec moi.",
+    "title": "Ce qu'en disent mes élèves",
     "summary": "{{count}} avis sur Google et Maison Sport",
     "translated": "Traduit",
     "items": {
@@ -136,8 +126,8 @@
   },
   "contact": {
     "eyebrow": "Contact",
-    "title": "Écrivez-moi : organisons vos journées sur la neige.",
-    "lede": "Indiquez-moi vos dates, votre niveau et le nombre de participants : je vous répondrai avec mes disponibilités et une proposition.",
+    "title": "Écrivez-moi",
+    "lede": "Indiquez-moi vos dates, votre niveau et combien vous êtes. Je vous réponds avec mes disponibilités et le tarif.",
     "location": "Savoie, France"
   },
   "form": {

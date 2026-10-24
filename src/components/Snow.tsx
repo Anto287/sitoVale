@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { gsap, ScrollTrigger, useGSAP, withMotion } from '../lib/gsap'
+import { gsap, isTouch, ScrollTrigger, useGSAP, withMotion } from '../lib/gsap'
 
 type Flake = { x: number; y: number; r: number; s: number; d: number; o: number }
 
@@ -12,7 +12,8 @@ export function Snow() {
         const canvas = ref.current!
         const ctx = canvas.getContext('2d')
         if (!ctx) return
-        const dpr = Math.min(window.devicePixelRatio || 1, 1.5)
+        const touch = isTouch()
+        const dpr = touch ? 1 : Math.min(window.devicePixelRatio || 1, 1.5)
         let w = 0
         let h = 0
         let flakes: Flake[] = []
@@ -24,7 +25,7 @@ export function Snow() {
           canvas.width = w * dpr
           canvas.height = h * dpr
           ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-          flakes = Array.from({ length: Math.min(70, Math.round(w / (w < 700 ? 30 : 24))) }, () => ({
+          flakes = Array.from({ length: touch ? Math.min(22, Math.round(w / 18)) : Math.min(70, Math.round(w / 24)) }, () => ({
             x: Math.random() * w,
             y: Math.random() * h,
             r: Math.random() * 1.9 + 0.5,

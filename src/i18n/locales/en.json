@@ -18,7 +18,6 @@
     "role": "Ski instructor",
     "about": "About",
     "lessons": "Lessons",
-    "rates": "Rates",
     "where": "Where",
     "gallery": "Gallery",
     "contact": "Contact",
@@ -27,20 +26,15 @@
   },
   "hero": {
     "eyebrow": "Ski instructor · Les Arcs · Val d'Isère · Tignes",
-    "lede": "Private, children's and family lessons in the Tarentaise. From your very first turn to skiing with confidence and flow, at your own pace, in English, French or Italian.",
+    "lede": "Private, children's and family ski lessons in Les Arcs, Val d'Isère and Tignes. In English, French or Italian.",
     "ctaBook": "Book a lesson",
     "ctaLessons": "See the lessons",
     "imgAlt": "Skiers above a sea of clouds over the Tarentaise valley",
     "scroll": "Scroll"
   },
-  "facts": {
-    "years": "years of experience in the Tarentaise",
-    "languages": "lessons in three languages",
-    "reviews": "client reviews"
-  },
   "about": {
     "eyebrow": "About",
-    "title": "Skiing well is, above all, a matter of trust.",
+    "title": "Hi, I'm Valentina.",
     "p1": "I've been skiing since I was four, in the Apennines in Italy. I raced until I was eighteen, then qualified as a ski instructor, and for the past {{years}} years I've been working in the Tarentaise, between Les Arcs, Val d'Isère and Tignes.",
     "p2": "I'm patient and enthusiastic. I teach skiers of all ages and abilities, with one goal that comes before all others: having fun on the slopes.",
     "cred1": "Qualified ski instructor",
@@ -51,39 +45,35 @@
     "imgPiste": "Valentina on the piste with her pink poles"
   },
   "lessons": {
-    "eyebrow": "The lessons",
-    "title": "Three ways to learn, one goal: ski better and enjoy it.",
+    "eyebrow": "What I do",
+    "title": "Lessons",
     "cta": "Check availability",
     "private": {
       "title": "Private lesson",
-      "text": "Just you, me and the mountain. The fastest way to progress: every minute is yours, and the lesson follows your level, your goals and the day's conditions.",
+      "text": "A lesson just for you. We start from your level and what you want to improve, and adapt the plan to the snow on the day.",
       "imgAlt": "Carved turn on a groomed slope"
     },
     "children": {
       "title": "Children",
-      "text": "We start with games and safety, building up to those first turns. Breaks at the right moment, plenty of patience, and parents kept in the loop.",
+      "text": "We start with games, safely, until the first real turns. Lots of patience, breaks when needed and parents always kept in the loop.",
       "imgAlt": "Lesson with a little girl making her first turns"
     },
     "group": {
       "title": "Group & family",
-      "text": "For friends and families of a similar level: you ski together, but everyone gets advice that's right for them.",
+      "text": "For friends or families of a similar level: you ski together and everyone gets the right tips for them.",
       "imgAlt": "Group lesson on a wide slope"
     }
   },
   "booking": {
-    "eyebrow": "Rates",
-    "title": "Get in touch to book your lesson.",
-    "lede": "Send me your dates, the type of lesson and your level: I'll reply with availability and the rate.",
-    "cta": "Book a lesson",
     "note": "Rates do not include the lift pass or equipment rental."
   },
   "where": {
     "eyebrow": "Where I teach",
-    "title": "Three resorts, one valley: the Tarentaise.",
-    "p1": "I teach in the Tarentaise, in Savoie — the upper Isère valley, at the foot of the Vanoise massif. It is home to two of the largest ski areas in the Alps, Paradiski and Tignes–Val d'Isère, and I work in three of their resorts.",
-    "lesArcs": "Together with La Plagne it forms Paradiski: 425 km of pistes. From the Aiguille Rouge (3,226 m) a 7 km run drops more than 2,000 m, and on clear days you can see Mont Blanc. From Bourg-Saint-Maurice station the funicular takes you up in 7 minutes.",
-    "valDisere": "A mountain village at 1,850 m that shares around 300 km of pistes with Tignes. It is home to the Face de Bellevarde, the 1992 Olympic downhill run, and every December it hosts the Critérium de la Première Neige World Cup races.",
-    "tignes": "The Grande Motte glacier reaches 3,456 m: reliable snow at the start and end of the season, and high-altitude runs looking out over the Vanoise National Park.",
+    "title": "Les Arcs, Val d'Isère and Tignes",
+    "p1": "I work in the Tarentaise valley, in Savoie, in three resorts I know well.",
+    "lesArcs": "Part of Paradiski together with La Plagne: 425 km of runs and, on clear days, Mont Blanc right in front of you.",
+    "valDisere": "Linked to Tignes, with around 300 km of runs. Home of the Face de Bellevarde, the 1992 Olympic downhill run.",
+    "tignes": "Thanks to the Grande Motte glacier, the snow is good at the start and end of the season too.",
     "imgForest": "Snow-laden fir trees beside a piste",
     "imgChairlift": "Chairlift above the forest, peaks behind",
     "imgMontBlanc": "Mont Blanc under a clear sky",
@@ -100,7 +90,7 @@
   },
   "gallery": {
     "eyebrow": "Gallery",
-    "title": "Working days, seen from above.",
+    "title": "A few photos from the slopes",
     "smile": "A smile at the top, with the ski area behind",
     "ridge": "Valentina on the ridge, skis on her shoulder, above the clouds",
     "girl": "Skiing side by side with a little girl",
@@ -113,7 +103,7 @@
   },
   "reviews": {
     "eyebrow": "Reviews",
-    "title": "In the words of those who skied with me.",
+    "title": "What people say",
     "summary": "{{count}} reviews on Google and Maison Sport",
     "translated": "Translated",
     "items": {
@@ -136,8 +126,8 @@
   },
   "contact": {
     "eyebrow": "Contact",
-    "title": "Get in touch: let's plan your days on the snow.",
-    "lede": "Tell me your dates, your level and how many people are coming. I'll reply with availability and a suggestion for your lessons.",
+    "title": "Get in touch",
+    "lede": "Tell me your dates, your level and how many of you there are. I'll reply with availability and price.",
     "location": "Savoie, France"
   },
   "form": {

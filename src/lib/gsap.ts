@@ -18,9 +18,6 @@ export function startSmoothScroll() {
   const instance = new Lenis({
     lerp: 0.14,
     wheelMultiplier: 0.85,
-    syncTouch: true,
-    touchInertiaExponent: 1.4,
-    syncTouchLerp: 0.1,
     prevent: (node) => node.nodeName === 'DIALOG' || node.getAttribute('role') === 'dialog',
     virtualScroll: () => document.body.style.overflow !== 'hidden',
   })
@@ -46,12 +43,21 @@ export const EASE_OUT = 'expo.out'
 export const EASE_IN_OUT = 'power3.inOut'
 
 export const MOTION_OK = '(prefers-reduced-motion: no-preference)'
+export const RICH_MOTION = '(prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) and (min-width: 861px)'
+
+export const isTouch = () => typeof window !== 'undefined' && !window.matchMedia('(hover: hover) and (pointer: fine)').matches
 
 export const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 export function withMotion(setup: () => void | (() => void)) {
   const mm = gsap.matchMedia()
   mm.add(MOTION_OK, setup)
+  return () => mm.revert()
+}
+
+export function withRichMotion(setup: () => void | (() => void)) {
+  const mm = gsap.matchMedia()
+  mm.add(RICH_MOTION, setup)
   return () => mm.revert()
 }
 
@@ -81,6 +87,7 @@ export function revealOnScroll(targets: gsap.DOMTarget, vars: { y?: number; stag
 export function revealImages(frames: gsap.DOMTarget, vars: { stagger?: number; start?: string } = {}) {
   const els = gsap.utils.toArray<HTMLElement>(frames)
   if (!els.length) return
+  if (isTouch()) return revealOnScroll(els, { y: 24, stagger: vars.stagger, start: vars.start })
   const { stagger = 0.12, start = 'top 88%' } = vars
   els.forEach((frame) => {
     gsap.set(frame, { clipPath: 'inset(100% 0% 0% 0%)' })

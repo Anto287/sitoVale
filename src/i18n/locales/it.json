@@ -18,7 +18,6 @@
     "role": "Maestra di sci",
     "about": "Chi sono",
     "lessons": "Lezioni",
-    "rates": "Tariffe",
     "where": "Dove",
     "gallery": "Galleria",
     "contact": "Contatti",
@@ -27,20 +26,15 @@
   },
   "hero": {
     "eyebrow": "Maestra di sci · Les Arcs · Val d'Isère · Tignes",
-    "lede": "Lezioni private, per bambini e per famiglie in Tarentaise. Dalla prima curva a una sciata sicura e fluida, al tuo ritmo, in italiano, francese o inglese.",
+    "lede": "Lezioni di sci private, per bambini e per famiglie a Les Arcs, Val d'Isère e Tignes. In italiano, francese o inglese.",
     "ctaBook": "Prenota una lezione",
     "ctaLessons": "Scopri le lezioni",
     "imgAlt": "Sciatori davanti al mare di nuvole sulla valle della Tarentaise",
     "scroll": "Scorri"
   },
-  "facts": {
-    "years": "anni di esperienza in Tarentaise",
-    "languages": "lezioni in tre lingue",
-    "reviews": "recensioni di clienti"
-  },
   "about": {
     "eyebrow": "Chi sono",
-    "title": "Sciare bene è, prima di tutto, una questione di fiducia.",
+    "title": "Ciao, sono Valentina.",
     "p1": "Scio da quando avevo quattro anni, sull'Appennino, in Italia. Ho fatto gare fino ai diciotto anni, poi ho conseguito il diploma di maestra di sci; da {{years}} anni lavoro in Tarentaise, tra Les Arcs, Val d'Isère e Tignes.",
     "p2": "Sono paziente ed entusiasta. Insegno a tutti i livelli e a tutte le età, con un obiettivo che viene prima di ogni altro: divertirsi sulle piste.",
     "cred1": "Diploma di maestra di sci",
@@ -51,39 +45,35 @@
     "imgPiste": "Valentina sulla pista con i bastoncini rosa"
   },
   "lessons": {
-    "eyebrow": "Le lezioni",
-    "title": "Tre formule, un solo obiettivo: sciare meglio, divertendoti.",
+    "eyebrow": "Cosa faccio",
+    "title": "Le lezioni",
     "cta": "Chiedi disponibilità",
     "private": {
       "title": "Lezione privata",
-      "text": "Solo tu, io e la montagna. È il modo più rapido per progredire: ogni minuto è tuo e la lezione segue il tuo livello, i tuoi obiettivi e le condizioni del giorno.",
+      "text": "Una lezione solo per te. Partiamo dal tuo livello e da cosa vuoi migliorare, e adattiamo il programma alla neve del giorno.",
       "imgAlt": "Curva condotta su pista battuta"
     },
     "children": {
       "title": "Bambini",
-      "text": "Si comincia giocando, in sicurezza, fino alle prime vere curve. Pause al momento giusto, tanta pazienza e genitori sempre aggiornati.",
+      "text": "Si inizia giocando, in sicurezza, fino alle prime curve vere. Con tanta pazienza, le pause quando servono e i genitori sempre aggiornati.",
       "imgAlt": "Lezione a una bambina alle prime curve"
     },
     "group": {
       "title": "Gruppo e famiglia",
-      "text": "Per amici e famiglie di livello simile: si scia insieme, ma ognuno riceve i consigli giusti per sé.",
+      "text": "Per amici o famiglie di livello simile: si scia insieme e ognuno riceve i consigli giusti per sé.",
       "imgAlt": "Lezione di gruppo su pista larga"
     }
   },
   "booking": {
-    "eyebrow": "Tariffe",
-    "title": "Contattami per prenotare la tua lezione.",
-    "lede": "Scrivimi le date, il tipo di lezione e il tuo livello: ti rispondo con disponibilità e tariffa.",
-    "cta": "Prenota una lezione",
     "note": "Le tariffe non comprendono skipass e noleggio attrezzatura."
   },
   "where": {
     "eyebrow": "Dove insegno",
-    "title": "Tre stazioni, una valle: la Tarentaise.",
-    "p1": "Insegno in Tarentaise, in Savoia: l'alta valle dell'Isère, ai piedi del massiccio della Vanoise. Qui si trovano due dei comprensori sciistici più grandi delle Alpi, Paradiski e Tignes–Val d'Isère, e io lavoro in tre delle loro stazioni.",
-    "lesArcs": "Con La Plagne forma Paradiski: 425 km di piste. Dall'Aiguille Rouge (3.226 m) scende una pista di 7 km con oltre 2.000 m di dislivello, e nelle giornate limpide si vede il Monte Bianco. Dalla stazione di Bourg-Saint-Maurice si sale in 7 minuti di funicolare.",
-    "valDisere": "Villaggio di montagna a 1.850 m che con Tignes condivide circa 300 km di piste. È la casa della Face de Bellevarde, la pista della discesa olimpica del 1992, e ogni dicembre ospita la Coppa del Mondo del Critérium de la Première Neige.",
-    "tignes": "Il ghiacciaio della Grande Motte sale fino a 3.456 m: neve affidabile a inizio e a fine stagione e piste d'alta quota affacciate sul Parco Nazionale della Vanoise.",
+    "title": "Les Arcs, Val d'Isère e Tignes",
+    "p1": "Lavoro in Tarentaise, in Savoia, in tre stazioni che conosco bene.",
+    "lesArcs": "Fa parte di Paradiski, insieme a La Plagne: 425 km di piste e, nelle giornate limpide, il Monte Bianco davanti.",
+    "valDisere": "Collegata a Tignes, con circa 300 km di piste. Qui c'è la Face de Bellevarde, la pista della discesa olimpica del 1992.",
+    "tignes": "Grazie al ghiacciaio della Grande Motte la neve è buona anche a inizio e fine stagione.",
     "imgForest": "Abeti carichi di neve lungo una pista",
     "imgChairlift": "Seggiovia sopra il bosco, con le cime sullo sfondo",
     "imgMontBlanc": "Il Monte Bianco nel cielo limpido",
@@ -100,7 +90,7 @@
   },
   "gallery": {
     "eyebrow": "Galleria",
-    "title": "Giornate di lavoro, viste dall'alto.",
+    "title": "Qualche foto dalle piste",
     "smile": "Sorriso in cima, con il comprensorio alle spalle",
     "ridge": "Valentina sulla cresta con gli sci in spalla, sopra il mare di nuvole",
     "girl": "Discesa affiancata con una bambina",
@@ -113,7 +103,7 @@
   },
   "reviews": {
     "eyebrow": "Recensioni",
-    "title": "Le parole di chi ha sciato con me.",
+    "title": "Cosa dice chi ha sciato con me",
     "summary": "{{count}} recensioni su Google e Maison Sport",
     "translated": "Tradotta",
     "items": {
@@ -136,8 +126,8 @@
   },
   "contact": {
     "eyebrow": "Contatti",
-    "title": "Scrivimi: organizziamo le tue giornate sulla neve.",
-    "lede": "Indicami le date, il tuo livello e quante persone siete: ti rispondo con disponibilità e una proposta.",
+    "title": "Scrivimi",
+    "lede": "Dimmi le date, il tuo livello e quante persone siete. Ti rispondo con disponibilità e prezzo.",
     "location": "Savoia, Francia"
   },
   "form": {

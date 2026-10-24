@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { EASE_OUT, gsap, revealImages, revealOnScroll, useGSAP, withMotion } from '../lib/gsap'
+import { EASE_OUT, gsap, revealImages, revealOnScroll, useGSAP, withMotion, withRichMotion } from '../lib/gsap'
 import { RESORTS, type PlaceId } from '../data/places'
 import type { PhotoKey } from '../lib/photos'
 import { Photo } from './Photo'
@@ -34,7 +34,14 @@ export function Where() {
           .timeline({ scrollTrigger: { trigger: '.places', start: 'top 85%', once: true } })
           .from('.places .rule', { scaleX: 0, transformOrigin: '0% 50%', duration: 1.2, ease: 'power4.inOut', stagger: 0.15 })
           .from('.places li > :not(.rule)', { y: 18, autoAlpha: 0, duration: 0.9, ease: EASE_OUT, stagger: 0.08 }, 0.3)
+        revealImages('.strip figure', { stagger: 0.08, start: 'top 95%' })
+      }),
+    { scope: ref },
+  )
 
+  useGSAP(
+    () =>
+      withRichMotion(() => {
         const strip = ref.current!.querySelector<HTMLElement>('.strip')!
         const track = strip.querySelector<HTMLElement>('.strip-track')!
         strip.classList.add('is-driven')
@@ -47,7 +54,6 @@ export function Where() {
             scrollTrigger: { trigger: strip, start: 'top bottom', end: 'bottom top', scrub: 0.25, invalidateOnRefresh: true },
           },
         )
-        revealImages('.strip figure', { stagger: 0.08, start: 'top 95%' })
         return () => strip.classList.remove('is-driven')
       }),
     { scope: ref },

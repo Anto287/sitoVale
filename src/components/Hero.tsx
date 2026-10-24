@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { EASE_OUT, gsap, SplitText, useGSAP, withMotion } from '../lib/gsap'
+import { EASE_OUT, gsap, SplitText, useGSAP, withMotion, withRichMotion } from '../lib/gsap'
 import { Photo } from './Photo'
 import { Snow } from './Snow'
 
@@ -34,11 +34,18 @@ export function Hero() {
         const fallback = window.setTimeout(start, 1500)
         void img.decode().then(start, start).finally(() => window.clearTimeout(fallback))
 
+
+        return () => window.clearTimeout(fallback)
+      }),
+    { scope: ref },
+  )
+
+  useGSAP(
+    () =>
+      withRichMotion(() => {
         const out = { trigger: ref.current, start: 'top top', end: 'bottom top', scrub: true }
         gsap.to('.hero-media', { yPercent: 16, ease: 'none', scrollTrigger: out })
         gsap.to('.hero-inner', { yPercent: -18, autoAlpha: 0, ease: 'none', scrollTrigger: { ...out, end: 'bottom 25%' } })
-
-        return () => window.clearTimeout(fallback)
       }),
     { scope: ref },
   )
@@ -70,18 +77,14 @@ export function Hero() {
           {t('hero.lede')}
         </p>
         <div className="hero-actions" data-intro="hero">
-          <a className="btn btn--accent" href="#contatti" data-magnetic>
+          <a className="btn btn--accent" href="#contatti">
             <span>{t('hero.ctaBook')}</span>
           </a>
-          <a className="btn btn--outline-light" href="#lezioni" data-magnetic>
+          <a className="btn btn--outline-light" href="#lezioni">
             <span>{t('hero.ctaLessons')}</span>
           </a>
         </div>
       </div>
-      <a className="hero-scroll" href="#chi" data-intro="hero">
-        <span>{t('hero.scroll')}</span>
-        <i aria-hidden="true" />
-      </a>
     </header>
   )
 }

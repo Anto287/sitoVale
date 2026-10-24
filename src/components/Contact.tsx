@@ -7,6 +7,7 @@ import { EASE_OUT, gsap, prefersReducedMotion, revealOnScroll, useGSAP, withMoti
 import { CONTACT_LIMITS, FORM_LESSONS as LESSONS, FORM_LEVELS as LEVELS, type ContactRequest } from '../lib/lessons'
 import { withBase } from '../site'
 import { SplitHeading } from './SplitHeading'
+import { TermsLink } from './TermsLink'
 
 type Status = { kind: 'idle' } | { kind: 'sending' } | { kind: 'sent'; name: string } | { kind: 'mailto'; href: string }
 
@@ -192,6 +193,8 @@ export function Contact() {
               </a>
             </li>
           </ul>
+          <p className="contact-note">{t('booking.note')}</p>
+          <TermsLink className="terms-link" />
         </div>
 
         <div ref={shellRef} className="form-shell">
@@ -259,7 +262,7 @@ export function Contact() {
               </label>
               <input className="form-trap" type="checkbox" name="botcheck" tabIndex={-1} autoComplete="off" aria-hidden="true" />
               <div className="form-actions">
-                <button className="btn btn--accent" type="submit" data-magnetic disabled={sending}>
+                <button className="btn btn--accent" type="submit" disabled={sending}>
                   <span>{sending ? t('form.sending') : t('form.send')}</span>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
                     <path d="M5 12h13m-5-6 6 6-6 6" />

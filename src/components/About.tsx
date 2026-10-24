@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { seasonsTaught } from '../config'
-import { gsap, revealImages, revealOnScroll, useGSAP, withMotion } from '../lib/gsap'
+import { gsap, revealImages, revealOnScroll, useGSAP, withMotion, withRichMotion } from '../lib/gsap'
 import { Photo } from './Photo'
 import { SplitHeading } from './SplitHeading'
 
@@ -15,6 +15,13 @@ export function About() {
       withMotion(() => {
         revealImages('.frame', { stagger: 0.18 })
         revealOnScroll('.eyebrow')
+      }),
+    { scope: ref },
+  )
+
+  useGSAP(
+    () =>
+      withRichMotion(() => {
         gsap.to('.frame--sq', {
           yPercent: -14,
           ease: 'none',

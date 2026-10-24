@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { smoothPath, type Pt } from '../lib/curves'
-import { gsap, ScrollTrigger, useGSAP, withMotion } from '../lib/gsap'
+import { gsap, RICH_MOTION, ScrollTrigger, useGSAP, withRichMotion } from '../lib/gsap'
 
 function offset(el: HTMLElement | null) {
   let x = 0
@@ -19,8 +19,18 @@ export function SkiTrail() {
   const { i18n } = useTranslation()
   const ref = useRef<SVGSVGElement>(null)
   const [geo, setGeo] = useState<Geo | null>(null)
+  const [enabled, setEnabled] = useState(false)
 
   useEffect(() => {
+    const mq = window.matchMedia(RICH_MOTION)
+    const sync = () => setEnabled(mq.matches)
+    sync()
+    mq.addEventListener('change', sync)
+    return () => mq.removeEventListener('change', sync)
+  }, [])
+
+  useEffect(() => {
+    if (!enabled) return
     const main = ref.current!.parentElement!
     const measure = () => {
       const eyebrow = document.querySelector<HTMLElement>('#lezioni .eyebrow')
@@ -31,7 +41,7 @@ export function SkiTrail() {
       const edge = offset(wrap).x + parseFloat(getComputedStyle(wrap).paddingLeft)
       const top = offset(main).y
       const e = offset(eyebrow)
-      const end = { x: e.x + 34, y: e.y - top + eyebrow.offsetHeight / 2 }
+      const end = { x: e.x - 14, y: e.y - top + eyebrow.offsetHeight / 2 }
       const clearance = eyebrow.offsetHeight / 2 + 18
       const approach = { x: end.x + clearance, y: end.y - clearance }
       const gap = approach.y - (offset(above).y - top + above.offsetHeight)
@@ -74,12 +84,12 @@ export function SkiTrail() {
     const ro = new ResizeObserver(measure)
     ro.observe(main)
     return () => ro.disconnect()
-  }, [i18n.resolvedLanguage])
+  }, [i18n.resolvedLanguage, enabled])
 
   useGSAP(
     () => {
       if (!geo) return
-      return withMotion(() => {
+      return withRichMotion(() => {
         gsap.fromTo(
           'path',
           { drawSVG: '0%' },
@@ -100,6 +110,8 @@ export function SkiTrail() {
     },
     { scope: ref, dependencies: [geo], revertOnUpdate: true },
   )
+
+  if (!enabled) return null
 
   return (
     <svg ref={ref} className="ski-trail" aria-hidden="true" width={geo?.w} height={geo?.h} viewBox={geo ? `0 0 ${geo.w} ${geo.h}` : undefined}>

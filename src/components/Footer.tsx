@@ -9,7 +9,6 @@ const LINKS = [
   ['#dove', 'nav.where'],
   ['#recensioni', 'nav.reviews'],
   ['#galleria', 'nav.gallery'],
-  ['#tariffe', 'nav.rates'],
 ] as const
 
 export function Footer() {
