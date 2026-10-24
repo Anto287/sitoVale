@@ -487,7 +487,41 @@ input,select,textarea{
   padding:11px 0;border-radius:0;transition:border-color .3s var(--ease);
 }
 input::placeholder,textarea::placeholder{color:color-mix(in srgb, var(--band-fg) 58%, transparent)}
-input:focus,select:focus,textarea:focus{outline:2px solid var(--band-fg);outline-offset:5px;border-bottom-color:var(--band-fg)}
+form label{position:relative;transition:color .3s var(--ease)}
+form label::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:0 50%;transition:transform .5s var(--ease);pointer-events:none}
+form label:focus-within{color:var(--band-fg)}
+form label:focus-within::after{transform:scaleX(1)}
+form label:hover input,form label:hover select,form label:hover textarea{border-bottom-color:color-mix(in srgb, var(--band-fg) 55%, transparent)}
+input:focus,select:focus,textarea:focus,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:none;border-bottom-color:transparent}
+input:user-invalid,textarea:user-invalid{border-bottom-color:var(--accent)}
+.select{position:relative;display:block}
+.select::after{
+  content:"";position:absolute;right:4px;top:50%;width:8px;height:8px;margin-top:-6px;pointer-events:none;
+  border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg);
+  color:color-mix(in srgb, var(--band-fg) 70%, transparent);transition:transform .35s var(--ease),color .3s var(--ease);
+}
+.select:focus-within::after{color:var(--accent);transform:translateY(3px) rotate(225deg)}
+form select{-webkit-appearance:none;appearance:none;padding-right:28px;cursor:pointer;text-overflow:ellipsis}
+@supports (appearance:base-select){
+  form select,form select::picker(select){appearance:base-select}
+  form select{display:flex;align-items:center;min-height:0;background:transparent;color:var(--band-fg);border-radius:0}
+  form select::picker-icon{display:none}
+  form select::picker(select){
+    margin-top:10px;padding:6px;border:1px solid color-mix(in srgb, var(--band-fg) 16%, transparent);border-radius:14px;
+    background:color-mix(in srgb, var(--band-bg) 92%, white 8%);color:var(--band-fg);
+    box-shadow:0 18px 40px -12px rgba(0,0,0,.55);
+    opacity:1;transform:none;transition:opacity .2s var(--ease),transform .25s var(--ease),overlay .25s allow-discrete,display .25s allow-discrete;
+  }
+  @starting-style{form select:open::picker(select){opacity:0;transform:translateY(-6px)}}
+  form select option{
+    display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:9px;font-size:16px;
+    color:color-mix(in srgb, var(--band-fg) 86%, transparent);background:transparent;cursor:pointer;
+    transition:background-color .2s var(--ease),color .2s var(--ease);
+  }
+  form select option:hover,form select option:focus-visible{background:color-mix(in srgb, var(--band-fg) 9%, transparent);color:var(--band-fg);outline:none}
+  form select option:checked{color:var(--band-fg);font-weight:500}
+  form select option::checkmark{order:2;margin-left:auto;color:var(--accent);content:"●";font-size:9px}
+}
 input:-webkit-autofill,select:-webkit-autofill,textarea:-webkit-autofill{
   -webkit-text-fill-color:var(--band-fg);caret-color:var(--band-fg);
   -webkit-box-shadow:0 0 0 1000px var(--band-bg) inset;box-shadow:0 0 0 1000px var(--band-bg) inset;
@@ -498,7 +532,7 @@ input:autofill,select:autofill,textarea:autofill{
   box-shadow:0 0 0 1000px var(--band-bg) inset;
   transition:background-color 600000s 0s, color 600000s 0s, border-color .3s var(--ease);
 }
-select option{color:var(--ink);background:var(--surface)}
+@supports not (appearance:base-select){select option{color:var(--ink);background:var(--surface)}}
 textarea{resize:vertical;min-height:92px}
 .form-actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px 26px;margin-top:8px}
 .form-alt{
@@ -598,3 +632,6 @@ textarea{resize:vertical;min-height:92px}
 .contact-note{margin:28px 0 14px;font-size:14px;color:color-mix(in srgb, var(--band-fg) 72%, transparent)}
 .contact .terms-link{color:var(--band-fg);text-decoration-color:color-mix(in srgb, var(--band-fg) 40%, transparent)}
 .contact .terms-link:hover{text-decoration-color:var(--accent)}
+form label:has(select:open){color:var(--band-fg)}
+form label:has(select:open)::after{transform:scaleX(1)}
+.select:has(select:open)::after{color:var(--accent);transform:translateY(3px) rotate(225deg)}

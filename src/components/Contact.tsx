@@ -227,25 +227,29 @@ export function Contact() {
                 </label>
                 <label htmlFor="f-lesson">
                   <span>{t('form.lesson')}</span>
-                  <select id="f-lesson" name="lesson" defaultValue="unsure">
-                    {LESSONS.map(([id, key]) => (
-                      <option key={id} value={id}>
-                        {t(key)}
-                      </option>
-                    ))}
-                  </select>
+                  <span className="select">
+                    <select id="f-lesson" name="lesson" defaultValue="unsure">
+                      {LESSONS.map(([id, key]) => (
+                        <option key={id} value={id}>
+                          {t(key)}
+                        </option>
+                      ))}
+                    </select>
+                  </span>
                 </label>
               </div>
               <div className="row">
                 <label htmlFor="f-level">
                   <span>{t('form.level')}</span>
-                  <select id="f-level" name="level">
-                    {LEVELS.map(([id, key]) => (
-                      <option key={id} value={id}>
-                        {t(key)}
-                      </option>
-                    ))}
-                  </select>
+                  <span className="select">
+                    <select id="f-level" name="level">
+                      {LEVELS.map(([id, key]) => (
+                        <option key={id} value={id}>
+                          {t(key)}
+                        </option>
+                      ))}
+                    </select>
+                  </span>
                 </label>
                 <label htmlFor="f-dates">
                   <span>{t('form.dates')}</span>

@@ -182,11 +182,11 @@
     "ip": "Les photos et les textes appartiennent à Valentina Bernardi, à l'exception des avis, qui appartiennent à leurs auteurs. Toute réutilisation sans autorisation est interdite.",
     "privacyTitle": "Données personnelles et cookies",
     "close": "Fermer",
-    "privacyBase": "Ce site n'utilise ni cookies ni outils publicitaires. Seule la langue choisie est enregistrée dans votre navigateur, le temps de la visite (sessionStorage) ; elle ne permet d'identifier personne.",
-    "privacyNoStats": "Il n'utilise pas non plus d'outil de mesure d'audience.",
-    "privacyStats": "Pour savoir combien de personnes visitent le site, j'utilise GoatCounter, un outil de mesure d'audience sans cookies qui ne collecte aucune donnée personnelle et ne suit pas les visiteurs d'un site à l'autre.",
-    "privacyRights": "J'utilise vos informations uniquement pour vous répondre et organiser les cours. Pour y accéder, les rectifier ou les supprimer, écrivez-moi à l'adresse ci-dessus ; vous pouvez aussi saisir la CNIL (www.cnil.fr).",
-    "privacyForm": "Le formulaire de contact m'envoie votre demande par email via Resend, un service d'envoi d'emails (États-Unis), et vous adresse une confirmation à l'adresse indiquée ; si l'envoi échoue, votre messagerie s'ouvre avec le message prêt. Vous pouvez aussi envoyer votre demande par WhatsApp. Le site ne conserve aucune donnée."
+    "privacyBase": "Ce site n'utilise ni cookies ni outils publicitaires.",
+    "privacyNoStats": "Il ne collecte pas de statistiques de visite.",
+    "privacyStats": "Pour compter les visites, j'utilise GoatCounter, un outil de mesure d'audience sans cookies qui ne collecte aucune donnée personnelle.",
+    "privacyRights": "J'utilise vos informations uniquement pour vous répondre et organiser les cours, et je ne les conserve que le temps nécessaire. Pour y accéder, les corriger ou les supprimer, écrivez-moi à l'adresse ci-dessus ; vous pouvez aussi vous adresser à la CNIL (www.cnil.fr).",
+    "privacyForm": "Les demandes envoyées via le formulaire me parviennent par email grâce à Resend, un service d'envoi basé aux États-Unis, et vous recevez une confirmation à l'adresse indiquée."
   },
   "terms": {
     "link": "Conditions et annulation"

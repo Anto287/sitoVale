@@ -182,11 +182,11 @@
     "ip": "Fotografie e testi sono di Valentina Bernardi, salvo le recensioni, che appartengono ai rispettivi autori. Non è consentito riutilizzarli senza autorizzazione.",
     "privacyTitle": "Dati personali e cookie",
     "close": "Chiudi",
-    "privacyBase": "Il sito non usa cookie né strumenti di pubblicità. Nel browser viene salvata solo la lingua scelta, per la durata della visita (sessionStorage), e non identifica nessuno.",
-    "privacyNoStats": "Non usa nemmeno strumenti di statistica.",
-    "privacyStats": "Per sapere quante persone visitano il sito uso GoatCounter, un servizio di statistiche senza cookie che non raccoglie dati personali e non segue i visitatori da un sito all'altro.",
-    "privacyRights": "Uso i tuoi dati solo per risponderti e organizzare le lezioni. Per accesso, correzione o cancellazione scrivimi all’indirizzo qui sopra; puoi anche rivolgerti alla CNIL (www.cnil.fr).",
-    "privacyForm": "Il modulo di contatto mi invia la richiesta per email tramite Resend, un servizio di invio email (Stati Uniti), e ti manda una conferma all'indirizzo che hai indicato; se l'invio non riesce si apre la tua app di posta con il messaggio già scritto. In alternativa puoi mandare la richiesta su WhatsApp. Il sito non conserva i dati."
+    "privacyBase": "Il sito non usa cookie né strumenti di pubblicità.",
+    "privacyNoStats": "Non raccoglie statistiche sulle visite.",
+    "privacyStats": "Per contare le visite uso GoatCounter, un servizio di statistiche senza cookie che non raccoglie dati personali.",
+    "privacyRights": "Uso i tuoi dati solo per risponderti e organizzare le lezioni, e li conservo solo per il tempo necessario. Per consultarli, correggerli o cancellarli scrivimi all'indirizzo qui sopra; puoi anche rivolgerti alla CNIL (www.cnil.fr).",
+    "privacyForm": "Le richieste inviate dal modulo mi arrivano per email tramite Resend, un servizio di invio con sede negli Stati Uniti, e ricevi una conferma all'indirizzo che hai indicato."
   },
   "terms": {
     "link": "Condizioni e cancellazioni"

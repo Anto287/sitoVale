@@ -182,11 +182,11 @@
     "ip": "Photos and text belong to Valentina Bernardi, except the reviews, which belong to their authors. They may not be reused without permission.",
     "privacyTitle": "Personal data and cookies",
     "close": "Close",
-    "privacyBase": "This site uses no cookies and no advertising tools. Only your language choice is stored in your browser, for the length of your visit (sessionStorage), and it identifies no one.",
-    "privacyNoStats": "It uses no analytics tools either.",
-    "privacyStats": "To know how many people visit the site I use GoatCounter, a cookie-free analytics service that collects no personal data and does not track visitors across sites.",
-    "privacyRights": "I use your details solely to reply and arrange lessons. To access, correct or delete them, write to the address above; you can also contact the CNIL (www.cnil.fr).",
-    "privacyForm": "The contact form emails your request to me through Resend, an email delivery service (United States), and sends you a confirmation at the address you gave; if sending fails, your email app opens with the message ready. You can also send your request via WhatsApp. The site does not store any data."
+    "privacyBase": "This site uses no cookies and no advertising tools.",
+    "privacyNoStats": "It does not collect visitor statistics.",
+    "privacyStats": "To count visits I use GoatCounter, a cookie-free analytics service that collects no personal data.",
+    "privacyRights": "I use your details only to reply and arrange lessons, and keep them only as long as necessary. To access, correct or delete them, write to me at the address above; you can also contact the CNIL (www.cnil.fr).",
+    "privacyForm": "Requests sent through the form reach me by email via Resend, an email delivery service based in the United States, and you receive a confirmation at the address you entered."
   },
   "terms": {
     "link": "Terms & cancellation policy"
