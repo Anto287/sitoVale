@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { CONTACT, GOATCOUNTER, LEGAL } from '../config'
+import { CLOUDFLARE_WEB_ANALYTICS, CONTACT, GOATCOUNTER, LEGAL, TURNSTILE_SITE_KEY } from '../config'
 import { SITE_URL } from '../site'
 import { gsap, prefersReducedMotion } from '../lib/gsap'
 
@@ -65,8 +65,9 @@ export function LegalNotice() {
           <p>
             {[
               t('legal.privacyBase'),
-              t(GOATCOUNTER ? 'legal.privacyStats' : 'legal.privacyNoStats'),
+              t(GOATCOUNTER || CLOUDFLARE_WEB_ANALYTICS ? 'legal.privacyStats' : 'legal.privacyNoStats'),
               t('legal.privacyForm'),
+              ...(TURNSTILE_SITE_KEY ? [t('legal.privacyCaptcha')] : []),
               t('legal.privacyRights'),
             ].join(' ')}
           </p>

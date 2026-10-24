@@ -52,7 +52,7 @@ describe('intestazioni di sicurezza (_headers per Cloudflare)', () => {
   })
 
   test('il modulo può scrivere solo al sito stesso; nessun riquadro esterno; niente plugin', () => {
-    assert.deepEqual(csp['connect-src'].filter((s) => s !== "'self'" && !s.endsWith('.goatcounter.com')), [])
+    assert.deepEqual(csp['connect-src'].filter((s) => s !== "'self'" && !s.endsWith('.goatcounter.com') && s !== 'https://cloudflareinsights.com'), [])
     assert.deepEqual(csp['frame-ancestors'], ["'none'"])
     assert.deepEqual(csp['object-src'], ["'none'"])
     assert.deepEqual(csp['base-uri'], ["'self'"])

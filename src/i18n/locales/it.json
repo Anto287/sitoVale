@@ -188,9 +188,10 @@
     "close": "Chiudi",
     "privacyBase": "Il sito non usa cookie né strumenti di pubblicità.",
     "privacyNoStats": "Non raccoglie statistiche sulle visite.",
-    "privacyStats": "Per contare le visite uso GoatCounter, un servizio di statistiche senza cookie che non raccoglie dati personali.",
+    "privacyStats": "Per contare le visite uso un servizio di statistiche senza cookie che non raccoglie dati personali.",
     "privacyRights": "Uso i tuoi dati solo per risponderti e organizzare le lezioni, e li conservo solo per il tempo necessario. Per consultarli, correggerli o cancellarli scrivimi all'indirizzo qui sopra; puoi anche rivolgerti alla CNIL (www.cnil.fr).",
-    "privacyForm": "Le richieste inviate dal modulo mi arrivano per email tramite Resend, un servizio di invio con sede negli Stati Uniti, e ricevi una conferma all'indirizzo che hai indicato."
+    "privacyForm": "Le richieste inviate dal modulo mi arrivano per email tramite Resend, un servizio di invio con sede negli Stati Uniti, e ricevi una conferma all'indirizzo che hai indicato.",
+    "privacyCaptcha": "Per proteggere il modulo dallo spam uso Cloudflare Turnstile, che verifica che chi scrive non sia un programma automatico."
   },
   "terms": {
     "link": "Condizioni e cancellazioni"

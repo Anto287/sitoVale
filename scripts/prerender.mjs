@@ -6,7 +6,7 @@ const ROOT = path.resolve(import.meta.dirname, '..')
 const DIST = path.join(ROOT, 'dist')
 const SSR = path.join(ROOT, 'dist-ssr')
 
-const { render, LANGUAGES, langSegment, urlFor, SITE_URL, IS_FINAL_URL, GOATCOUNTER, TURNSTILE_SITE_KEY } = await import(path.join(SSR, 'entry-server.js'))
+const { render, LANGUAGES, langSegment, urlFor, SITE_URL, IS_FINAL_URL, GOATCOUNTER, TURNSTILE_SITE_KEY, CLOUDFLARE_WEB_ANALYTICS } = await import(path.join(SSR, 'entry-server.js'))
 const template = fs.readFileSync(path.join(DIST, 'index.html'), 'utf8')
 
 const OG_LOCALE = { en: 'en_GB', it: 'it_IT', fr: 'fr_FR' }
@@ -79,14 +79,15 @@ console.log('✓ sitemap.xml, robots.txt')
 
 const hashes = [...inlineScripts].map((code) => `'sha256-${crypto.createHash('sha256').update(code).digest('base64')}'`)
 const stats = GOATCOUNTER && IS_FINAL_URL
+const cfStats = CLOUDFLARE_WEB_ANALYTICS && IS_FINAL_URL
 const csp = [
   "default-src 'self'",
-  ['script-src', "'self'", ...hashes, stats && 'https://gc.zgo.at', TURNSTILE_SITE_KEY && 'https://challenges.cloudflare.com'].filter(Boolean).join(' '),
+  ['script-src', "'self'", ...hashes, stats && 'https://gc.zgo.at', cfStats && 'https://static.cloudflareinsights.com', TURNSTILE_SITE_KEY && 'https://challenges.cloudflare.com'].filter(Boolean).join(' '),
   TURNSTILE_SITE_KEY && 'frame-src https://challenges.cloudflare.com',
   "style-src 'self' 'unsafe-inline'",
   ['img-src', "'self'", 'data:', stats && `https://${GOATCOUNTER}.goatcounter.com`].filter(Boolean).join(' '),
   "font-src 'self'",
-  ['connect-src', "'self'", stats && `https://${GOATCOUNTER}.goatcounter.com`].filter(Boolean).join(' '),
+  ['connect-src', "'self'", stats && `https://${GOATCOUNTER}.goatcounter.com`, cfStats && 'https://cloudflareinsights.com'].filter(Boolean).join(' '),
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",

@@ -24,6 +24,8 @@ export const MAIL = {
 
 export const GOATCOUNTER = ''
 
+export const CLOUDFLARE_WEB_ANALYTICS = false
+
 export const TURNSTILE_SITE_KEY = ''
 
 export const LEGAL = {

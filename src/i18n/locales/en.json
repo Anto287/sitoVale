@@ -188,9 +188,10 @@
     "close": "Close",
     "privacyBase": "This site uses no cookies and no advertising tools.",
     "privacyNoStats": "It does not collect visitor statistics.",
-    "privacyStats": "To count visits I use GoatCounter, a cookie-free analytics service that collects no personal data.",
+    "privacyStats": "To count visits I use a cookie-free analytics service that collects no personal data.",
     "privacyRights": "I use your details only to reply and arrange lessons, and keep them only as long as necessary. To access, correct or delete them, write to me at the address above; you can also contact the CNIL (www.cnil.fr).",
-    "privacyForm": "Requests sent through the form reach me by email via Resend, an email delivery service based in the United States, and you receive a confirmation at the address you entered."
+    "privacyForm": "Requests sent through the form reach me by email via Resend, an email delivery service based in the United States, and you receive a confirmation at the address you entered.",
+    "privacyCaptcha": "To protect the form from spam I use Cloudflare Turnstile, which checks that the sender is not an automated program."
   },
   "terms": {
     "link": "Terms & cancellation policy"

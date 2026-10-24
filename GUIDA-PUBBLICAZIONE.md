@@ -1,6 +1,8 @@
 # Guida: mettere online www.vallyski.com e farlo conoscere
 
-Situazione al 24 ottobre 2026:
+Situazione al 24 ottobre 2026.
+
+Tutto ciò che si cambia nel codice sta in `src/config.ts` (dati, contatti, note legali, interruttori di statistiche e Turnstile) e in `src/i18n/locales/` (testi); tutto il resto si fa dai pannelli di Cloudflare, Resend e Google.
 
 - Dominio `vallyski.com` acquistato su **Cloudflare Registrar** (scade il 22/10/2027: attivare il rinnovo automatico). I DNS sono già su Cloudflare, ma non c'è ancora nessun record per `www` né per la posta.
 - Codice su GitHub: `Anto287/sitoVale` (repository **pubblico**). Ogni push su `main` esegue i controlli e pubblica l'anteprima su `https://anto287.github.io/sitoVale/` (non indicizzata da Google).
@@ -21,10 +23,11 @@ File: `src/config.ts`.
   - `siret`: 14 cifre **[Valentina]**
   - `vat`: n° TVA intracommunautaire, solo se esiste **[Valentina]**
   - `host`: `Cloudflare, Inc. — 101 Townsend St, San Francisco, CA 94107, USA` (verificare sul sito Cloudflare al momento del lancio)
-- [ ] Confermare WhatsApp, email, Instagram e `FIRST_SEASON = 2021` (gli "anni di esperienza" si calcolano da lì) **[Valentina]**
+- [ ] Confermare WhatsApp, email, Instagram e `FIRST_SEASON = 2021` (gli "anni di esperienza" del testo "Chi sono" si calcolano da lì) **[Valentina]**
 - [ ] Recensioni (`src/data/reviews.ts`): verificare testi, date e voti con le fonti originali (Google, Maison Sport). Togliere quelle che non si possono verificare **[Valentina]**
 - [ ] Condizioni di prenotazione/cancellazione (`scripts/terms-content.mjs` → PDF in `public/docs/`): farle approvare, poi `npm run terms` **[Valentina]**
-- [ ] Informativa privacy (testi `legal.*` in `src/i18n/locales/*.json`): deve citare Cloudflare (hosting), Resend (invio email) e Gmail (ricezione).
+- [ ] Contatti in `CONTACT` (WhatsApp, email, Instagram): l'email è anche quella che riceve le richieste del modulo e compare nelle note legali. `MAIL.from` (`prenotazioni@vallyski.com`) è solo il mittente delle email automatiche, non una casella vera.
+- [ ] Informativa privacy (testi `legal.*` in `src/i18n/locales/*.json`): è già ridotta all'essenziale e si adatta da sola (frase sulle statistiche e su Turnstile solo se attivati). Farla rileggere a Valentina; se si aggiungono altri servizi, aggiungerli lì in tutte e tre le lingue.
 
 Dopo ogni modifica: `npm test`, poi commit e push su `main`.
 
@@ -103,8 +106,8 @@ Non usare il caricamento "drag & drop": non compila la cartella `functions/` e i
 5. Bing Places (<https://www.bingplaces.com>) permette di importare la scheda da Google in un clic.
 
 ### Statistiche (facoltativo, senza cookie e senza banner)
-- **Cloudflare Web Analytics**: progetto Pages → Metrics → Enable. Nessun codice da aggiungere.
-- Oppure **GoatCounter**: crea un account, poi metti il codice in `GOATCOUNTER` in `src/config.ts` (conta anche i clic su WhatsApp/email/modulo).
+- **Cloudflare Web Analytics** (consigliato): progetto Pages → **Metrics** → Web Analytics → Enable. Poi in `src/config.ts` metti `CLOUDFLARE_WEB_ANALYTICS = true`, commit e push: senza questo passaggio la protezione di sicurezza del sito (CSP) blocca lo script delle statistiche. L'informativa privacy si aggiorna da sola.
+- Oppure **GoatCounter**: crea un account, poi metti il codice in `GOATCOUNTER` in `src/config.ts` (conta anche i clic su WhatsApp/email/modulo). Anche qui CSP e privacy si aggiornano da sole.
 - Google Analytics richiede un banner cookie e un aggiornamento della privacy: sconsigliato per un sito vetrina.
 
 ---
@@ -129,7 +132,7 @@ A pagamento (quando il sito è indicizzato e il modulo funziona):
 
 ## 7. Dopo il lancio
 
-- [ ] Rimuovere l'anteprima GitHub Pages: GitHub → Settings → Pages → Source **None** (e cancellare `.github/workflows/deploy.yml`, oppure lasciarlo solo per i controlli). Evita un doppione del sito.
+- [ ] Spegnere l'anteprima GitHub Pages (evita un doppione del sito): GitHub → Settings → Pages → **Unpublish site**, poi in `.github/workflows/deploy.yml` togliere il job `deploy` e i tre passaggi del job `build` che hanno `steps.pages` (lasciando lint e test). Altrimenti ogni push su `main` fallirebbe cercando di pubblicare su Pages.
 - [ ] Attivare MFA su GitHub, Cloudflare, Resend, Google.
 - [ ] GitHub → Settings → Code security → **Dependabot alerts** attivo.
 - [ ] Una volta all'anno: rinnovo dominio (automatico su Cloudflare), aggiornare foto e recensioni, `npm audit` e `npm test`.
@@ -141,7 +144,7 @@ A pagamento (quando il sito è indicizzato e il modulo funziona):
 ```bash
 npm ci          # installa le dipendenze
 npm run dev     # sito in locale
-npm test        # build completa + 42 test (nessuna email reale)
+npm test        # build completa + tutti i test (nessuna email reale)
 npm run images  # rigenera le foto dopo aver cambiato gli originali in photos/
 npm run terms   # rigenera i PDF delle condizioni
 ```
