@@ -417,6 +417,16 @@ export function Contact() {
               </label>
               <input className="form-trap" type="checkbox" name="botcheck" tabIndex={-1} autoComplete="off" aria-hidden="true" />
               {TURNSTILE_SITE_KEY && <div ref={captchaRef} className="form-captcha" />}
+              <p className="form-intro" style={{ marginTop: '1rem' }}>
+                {i18n.resolvedLanguage === 'fr'
+                  ? 'Vos informations sont utilisées pour répondre à votre demande de cours.'
+                  : i18n.resolvedLanguage === 'it'
+                    ? 'I tuoi dati saranno utilizzati per rispondere alla richiesta di lezione.'
+                    : 'Your details will be used to respond to your lesson enquiry.'}{' '}
+                <button type="button" className="terms-link" onClick={() => document.querySelector<HTMLButtonElement>('.footer-legal')?.click()}>
+                  {i18n.resolvedLanguage === 'fr' ? 'Confidentialité et mentions légales' : i18n.resolvedLanguage === 'it' ? 'Privacy e note legali' : 'Privacy and legal notice'}
+                </button>
+              </p>
               <div className="form-actions">
                 <button className="btn btn--accent" type="submit" disabled={sending}>
                   <span>{sending ? t('form.sending') : t('form.send')}</span>
