@@ -12,7 +12,7 @@ export function TermsLink({ className }: { className?: string }) {
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
         <path d="M12 4v11m-5-5 5 5 5-5M5 20h14" />
       </svg>
-      {t('terms.link')} <small>PDF</small>
+      {t('terms.link')}
     </a>
   )
 }
