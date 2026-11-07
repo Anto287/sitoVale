@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="google" content="notranslate">
 <script>
+  // A fresh visit or reload must start at the top, not at the browser's saved scroll position.
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual'
+  window.scrollTo(0, 0)
+  window.addEventListener('pageshow', function () {
+    window.scrollTo(0, 0)
+  })
+</script>
+<script>
   (function () {
     var d = document.documentElement
     var base = '%BASE_URL%'
