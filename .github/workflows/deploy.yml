@@ -1,25 +1,41 @@
-name: Verifica sito
+name: Sostituisci l’anteprima GitHub Pages
 
 on:
   push:
-  pull_request:
-  workflow_dispatch:
+    branches: [main]
+    paths: ['.github/workflows/deploy.yml']
 
 permissions:
   contents: read
 
 jobs:
-  check:
+  deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/configure-pages@v5
+      - name: Prepara la pagina di attesa
+        run: |
+          mkdir waiting
+          cat > waiting/index.html <<'EOF'
+          <!doctype html>
+          <html lang="it">
+          <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <meta name="robots" content="noindex">
+          <title>Sito in preparazione</title>
+          </head>
+          <body><main><h1>Sito in preparazione</h1></main></body>
+          </html>
+          EOF
+          cp waiting/index.html waiting/404.html
+      - uses: actions/upload-pages-artifact@v4
         with:
-          persist-credentials: false
-      - uses: actions/setup-node@v5
-        with:
-          node-version-file: .node-version
-          cache: npm
-      - run: npm ci
-      - run: npm run lint
-      - run: npm test
+          path: waiting
+      - uses: actions/deploy-pages@v4
