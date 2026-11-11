@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import { CONTACT, TURNSTILE_SITE_KEY } from '../config'
-import type { Language } from '../i18n'
+import { legalPath, type Language } from '../i18n'
 import { track } from '../lib/analytics'
 import { EASE_OUT, gsap, prefersReducedMotion, revealOnScroll, useGSAP, withMotion } from '../lib/gsap'
 import { isValidEmail, normalizeEmail, suggestEmail } from '../lib/email'
@@ -10,7 +10,7 @@ import { withBase } from '../site'
 import { SplitHeading } from './SplitHeading'
 import { TermsLink } from './TermsLink'
 
-type Status = { kind: 'idle' } | { kind: 'sending' } | { kind: 'sent'; name: string } | { kind: 'mailto'; href: string }
+type Status = { kind: 'idle' } | { kind: 'sending' } | { kind: 'sent'; name: string } | { kind: 'fallback'; href: string }
 
 const SEND_TIMEOUT = 6000
 
@@ -149,6 +149,12 @@ export function Contact() {
       .join('\n')
   }
 
+  const emailFallback = (form: HTMLFormElement): Status => {
+    const name = String(new FormData(form).get('name') ?? '').trim()
+    const subject = encodeURIComponent(`${t('form.mailSubject')} · ${name}`)
+    return { kind: 'fallback', href: `mailto:${CONTACT.email}?subject=${subject}&body=${encodeURIComponent(compose(form))}` }
+  }
+
   const showSent = (name: string) => {
     shellHeight.current = shellRef.current!.offsetHeight
     if (prefersReducedMotion()) return setStatus({ kind: 'sent', name })
@@ -204,10 +210,7 @@ export function Contact() {
       track('modulo-inviato')
       showSent(request.name.split(' ')[0])
     } catch {
-      const href = `mailto:${CONTACT.email}?subject=${encodeURIComponent(`${t('form.mailSubject')} · ${request.name}`)}&body=${encodeURIComponent(compose(form))}`
-      window.location.href = href
-      track('modulo-email')
-      setStatus({ kind: 'mailto', href })
+      setStatus(emailFallback(form))
     } finally {
       window.clearTimeout(timeout)
       resetCaptcha()
@@ -304,7 +307,13 @@ export function Contact() {
               </button>
             </div>
           ) : (
-            <form ref={formRef} onSubmit={onSubmit} aria-busy={sending} aria-describedby="form-required">
+            <form
+              ref={formRef}
+              onSubmit={onSubmit}
+              onChange={(e) => { if (status.kind === 'fallback') setStatus(emailFallback(e.currentTarget)) }}
+              aria-busy={sending}
+              aria-describedby="form-required"
+            >
               <p className="form-intro" id="form-required">{t('form.requiredNote')}</p>
               <div className="row">
                 <label htmlFor="f-name">
@@ -418,14 +427,10 @@ export function Contact() {
               <input className="form-trap" type="checkbox" name="botcheck" tabIndex={-1} autoComplete="off" aria-hidden="true" />
               {TURNSTILE_SITE_KEY && <div ref={captchaRef} className="form-captcha" />}
               <p className="form-intro" style={{ marginTop: '1rem' }}>
-                {i18n.resolvedLanguage === 'fr'
-                  ? 'Vos informations sont utilisées pour répondre à votre demande de cours.'
-                  : i18n.resolvedLanguage === 'it'
-                    ? 'I tuoi dati saranno utilizzati per rispondere alla richiesta di lezione.'
-                    : 'Your details will be used to respond to your lesson enquiry.'}{' '}
-                <button type="button" className="terms-link" onClick={() => document.querySelector<HTMLButtonElement>('.footer-legal')?.click()}>
-                  {i18n.resolvedLanguage === 'fr' ? 'Confidentialité et mentions légales' : i18n.resolvedLanguage === 'it' ? 'Privacy e note legali' : 'Privacy and legal notice'}
-                </button>
+                {t('legal.formInfo')}{' '}
+                <a className="terms-link" href={legalPath((i18n.resolvedLanguage ?? 'en') as Language) + '#privacy'}>
+                  {t('legal.privacyLink')}
+                </a>
               </p>
               <div className="form-actions">
                 <button className="btn btn--accent" type="submit" disabled={sending}>
@@ -434,16 +439,17 @@ export function Contact() {
                     <path d="M5 12h13m-5-6 6 6-6 6" />
                   </svg>
                 </button>
+                {status.kind === 'fallback' && (
+                  <a className="form-alt" href={status.href} onClick={() => track('modulo-email')}>
+                    {t('form.sendByEmail')} <span aria-hidden="true">→</span>
+                  </a>
+                )}
                 <button className="form-alt" type="button" onClick={onWhatsapp} disabled={sending}>
-                  {t('form.orWhatsapp')} <span aria-hidden="true">→</span>
+                  {t(status.kind === 'fallback' ? 'form.sendByWhatsapp' : 'form.orWhatsapp')} <span aria-hidden="true">→</span>
                 </button>
               </div>
-              <p className={`form-note${status.kind === 'mailto' ? ' is-error' : ''}`} role="status" aria-live="polite">
-                {status.kind === 'mailto' && (
-                  <>
-                    {t('form.mailtoNote')} <a href={status.href}>{CONTACT.email}</a>
-                  </>
-                )}
+              <p className={`form-note${status.kind === 'fallback' ? ' is-error' : ''}`} role="status">
+                {status.kind === 'fallback' && t('form.mailtoNote')}
               </p>
             </form>
           )}

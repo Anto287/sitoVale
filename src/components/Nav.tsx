@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { CONTACT } from '../config'
-import { chooseLanguage, LANGUAGES, pathFor } from '../i18n'
+import { LANGUAGES, pathFor } from '../i18n'
 import { EASE_OUT, gsap, ScrollTrigger, useGSAP, withMotion } from '../lib/gsap'
 
 const LINKS = [
@@ -179,10 +179,6 @@ function LangSwitch({ className, ...rest }: { className?: string; 'data-intro'?:
           hrefLang={code}
           lang={code}
           aria-current={i18n.resolvedLanguage === code ? 'true' : undefined}
-          onClick={(e) => {
-            e.preventDefault()
-            chooseLanguage(code)
-          }}
         >
           <span>{code.toUpperCase()}</span>
         </a>

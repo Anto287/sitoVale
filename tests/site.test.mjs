@@ -115,6 +115,21 @@ describe('pagine', () => {
     assert.match(read('404.html'), /<meta name="robots" content="noindex">/)
   })
 
+  test('le note legali sono pagine statiche collegate anche dalla privacy del modulo', () => {
+    for (const [lang, segment] of [['en', ''], ['it', 'it/'], ['fr', 'fr/']]) {
+      const home = read(`${segment}index.html`)
+      assert.ok(home.includes(`href="/${segment}legal/"`))
+      assert.ok(home.includes(`href="/${segment}legal/#privacy"`))
+      const legal = read(`${segment}legal/index.html`)
+      assert.ok(legal.includes(`<html lang="${lang}">`))
+      assert.ok(legal.includes('id="privacy"'))
+      assert.ok(!legal.includes('<script'))
+    }
+    const notFound = read('404.html')
+    assert.match(notFound, /<h1>Page not found<\/h1>/)
+    for (const url of ['/', '/it/', '/fr/']) assert.ok(notFound.includes(`href="${url}"`))
+  })
+
   test('asset e pagine locali referenziati dall’HTML esistono nel risultato della build', () => {
     for (const page of PAGES)
       for (const [, href] of read(page).matchAll(/(?:href|src)="(\/[^"#?]*)[^"]*"/g)) {

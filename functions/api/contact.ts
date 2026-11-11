@@ -128,22 +128,31 @@ function rowsHtml(rows: Row[]) {
 
 const rowsText = (rows: [string, string][]) => rows.map(([k, v]) => `${k}: ${v}`).join('\n')
 
-async function send(key: string, mail: Record<string, unknown>, timeout = 8_000) {
-  try {
-    const res = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify(mail),
-      signal: AbortSignal.timeout(timeout),
-    })
-    if (!res.ok) console.error('Contact email delivery failed', res.status)
-    return res.ok
-  } catch {
-    console.error('Contact email delivery unavailable')
-    return false
+async function send(key: string, mail: Record<string, unknown>, timeout: number, idempotencyKey?: string) {
+  const payload = JSON.stringify(mail)
+  const attempts = idempotencyKey ? 2 : 1
+  for (let attempt = 0; attempt < attempts; attempt++) {
+    try {
+      const res = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${key}`,
+          'Content-Type': 'application/json',
+          ...(idempotencyKey ? { 'Idempotency-Key': idempotencyKey } : {}),
+        },
+        body: payload,
+        signal: AbortSignal.timeout(timeout),
+      })
+      if (res.ok) return true
+      console.error(idempotencyKey ? 'Contact confirmation rejected' : 'Contact notification rejected', res.status)
+      if (res.status < 500) return false
+    } catch {
+      console.error(idempotencyKey ? 'Contact confirmation unavailable' : 'Contact notification unavailable')
+    }
+    if (attempt + 1 < attempts) await new Promise((resolve) => setTimeout(resolve, 300))
   }
+  return false
 }
-
 
 const WINDOW = 10 * 60_000
 const MAX_PER_IP = 4
@@ -277,7 +286,7 @@ export async function onRequestPost(context: { request: Request; env: Env; waitU
       `<p style="margin:0 0 12px">Nuova richiesta di lezione dal sito.</p>${rowsHtml(all)}${
         r.message ? `<p style="margin:0 0 6px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#625B60">${escape(label('it', 'form.message'))}</p><p style="margin:0 0 18px;white-space:pre-wrap">${escape(r.message)}</p>` : ''
       }<p style="margin:0;color:#625B60">Rispondi a questa email per scrivere direttamente a ${escape(r.name)}.</p>`,
-      `Inviata dal modulo contatti di ${escape(site)}. A ${escape(r.name)} viene inviata anche una conferma automatica.`,
+      `Inviata dal modulo contatti di ${escape(site)}. Il sito tenta di inviare una conferma automatica anche a ${escape(r.name)}.`,
     ),
     text: `Nuova richiesta di lezione dal sito.\n\n${rowsText([
       [label('it', 'form.name'), r.name],
@@ -322,7 +331,9 @@ ${rowsHtml(recap.map(([k, v]) => [k, escape(v)]))}
   }
   if (now - (confirmedAt.get(r.email) ?? 0) < CONFIRM_EVERY) return json(200, { ok: true })
   confirmedAt.set(r.email, now)
-  const confirmationSend = send(env.RESEND_API_KEY, confirmation)
+  const confirmationSend = send(env.RESEND_API_KEY, confirmation, 4_000, `contact-confirmation/${crypto.randomUUID()}`).then((accepted) => {
+    if (!accepted && confirmedAt.get(r.email) === now) confirmedAt.delete(r.email)
+  })
   if (context.waitUntil) context.waitUntil(confirmationSend)
   else await confirmationSend
 

@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
+import { legalPath, type Language } from '../i18n'
 import { CONTACT } from '../config'
-import { LegalNotice } from './LegalNotice'
 import { TermsLink } from './TermsLink'
 
 const LINKS = [
@@ -12,7 +12,7 @@ const LINKS = [
 ] as const
 
 export function Footer() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   return (
     <footer className="footer">
       <div className="wrap footer-grid">
@@ -55,7 +55,7 @@ export function Footer() {
       <div className="wrap footer-bottom">
         <span suppressHydrationWarning>© {new Date().getFullYear()} Valentina Bernardi</span>
         <span className="footer-bottom-links">
-          <LegalNotice />
+          <a href={legalPath((i18n.resolvedLanguage ?? 'en') as Language)}>{t('legal.legal')}</a>
           <TermsLink className="footer-terms" />
           <a href="#top">{t('footer.top')}</a>
         </span>

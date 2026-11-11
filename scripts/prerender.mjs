@@ -6,7 +6,7 @@ const ROOT = path.resolve(import.meta.dirname, '..')
 const DIST = path.join(ROOT, 'dist')
 const SSR = path.join(ROOT, 'dist-ssr')
 
-const { render, LANGUAGES, langSegment, urlFor, SITE_URL, IS_FINAL_URL, GOATCOUNTER, TURNSTILE_SITE_KEY, CLOUDFLARE_WEB_ANALYTICS } = await import(path.join(SSR, 'entry-server.js'))
+const { render, BASE, LANGUAGES, langSegment, urlFor, SITE_URL, IS_FINAL_URL, GOATCOUNTER, TURNSTILE_SITE_KEY, CLOUDFLARE_WEB_ANALYTICS } = await import(path.join(SSR, 'entry-server.js'))
 const template = fs.readFileSync(path.join(DIST, 'index.html'), 'utf8')
 
 const OG_LOCALE = { en: 'en_GB', it: 'it_IT', fr: 'fr_FR' }
@@ -21,10 +21,27 @@ const alternates = [
   `<link rel="alternate" hreflang="x-default" href="${url('en')}">`,
 ].join('\n')
 
+const stylesheet = template.match(/<link rel="stylesheet"[^>]+>/g)?.join('\n') ?? ''
+
+function standalonePage(lng, title, body, robots = []) {
+  return `<!doctype html>
+<html lang="${lng}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${escape(title)}</title>
+${robots.join('\n')}
+${stylesheet}
+</head>
+<body>${body}</body>
+</html>
+`
+}
+
 const inlineScripts = new Set()
 
 for (const lng of LANGUAGES) {
-  const { html, title, description, translation } = await render(lng)
+  const { html, title, description, translation, legal, legalTitle } = await render(lng)
   const head = [
     `<title>${escape(title)}</title>`,
     `<meta name="description" content="${escape(description)}">`,
@@ -49,14 +66,23 @@ for (const lng of LANGUAGES) {
   const out = path.join(DIST, langSegment(lng), 'index.html')
   fs.mkdirSync(path.dirname(out), { recursive: true })
   fs.writeFileSync(out, page)
+  const legalDir = path.join(path.dirname(out), 'legal')
+  fs.mkdirSync(legalDir, { recursive: true })
+  fs.writeFileSync(path.join(legalDir, 'index.html'), standalonePage(lng, `${legalTitle} — Vally Ski`, legal, noindex))
   console.log(`✓ ${path.relative(ROOT, out).padEnd(20)} ${Math.round(page.length / 1024)} KB — ${title}`)
 }
 
-const notFound = fs
-  .readFileSync(path.join(DIST, 'index.html'), 'utf8')
-  .replace(/<meta name="robots" content="noindex">\n?/, '')
-  .replace(/<title>[\s\S]*?<\/title>/, '<title>Page not found — Vally Ski</title>')
-  .replace('<meta name="description"', '<meta name="robots" content="noindex">\n<meta name="description"')
+const notFound = standalonePage(
+  'en',
+  'Page not found — Vally Ski',
+  `<main class="wrap not-found"><h1>Page not found</h1>
+<ul>
+  <li><a href="${escape(BASE)}" lang="en">Home in English</a></li>
+  <li><a href="${escape(BASE)}it/" lang="it">Torna al sito</a></li>
+  <li><a href="${escape(BASE)}fr/" lang="fr">Retour au site</a></li>
+</ul></main>`,
+  ['<meta name="robots" content="noindex">'],
+)
 fs.writeFileSync(path.join(DIST, '404.html'), notFound)
 console.log('✓ 404.html')
 
@@ -73,7 +99,7 @@ ${[...LANGUAGES.map((l) => `    <xhtml:link rel="alternate" hreflang="${l}" href
 fs.writeFileSync(path.join(DIST, 'sitemap.xml'), sitemap)
 fs.writeFileSync(
   path.join(DIST, 'robots.txt'),
-  IS_FINAL_URL ? `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n` : 'User-agent: *\nDisallow: /\n',
+  IS_FINAL_URL ? `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n` : 'User-agent: *\nAllow: /\n',
 )
 console.log('✓ sitemap.xml, robots.txt')
 

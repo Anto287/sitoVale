@@ -5,29 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="google" content="notranslate">
 <script>
-  // A fresh visit or reload must start at the top, not at the browser's saved scroll position.
-  if ('scrollRestoration' in history) history.scrollRestoration = 'manual'
-  window.scrollTo(0, 0)
-  window.addEventListener('pageshow', function () {
-    window.scrollTo(0, 0)
-  })
-</script>
-<script>
   (function () {
     var d = document.documentElement
-    var base = '%BASE_URL%'
-    var path = location.pathname.replace(/index\.html$/, '')
-    if (path === base || path + '/' === base) {
-      var saved = null
-      try {
-        saved = sessionStorage.getItem('vb-lang')
-        localStorage.removeItem('vb-lang')
-      } catch (e) {}
-      var prefs = (navigator.languages || [navigator.language || 'en']).map(function (l) { return String(l).slice(0, 2).toLowerCase() })
-      var lng = /^(en|it|fr)$/.test(saved || '') ? saved : prefs.filter(function (l) { return l === 'en' || l === 'it' || l === 'fr' })[0] || 'en'
-      if (lng !== 'en') { location.replace(base + lng + '/' + location.search + location.hash); return }
-    }
-    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (!location.hash && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
       d.classList.add('intro-pending')
       setTimeout(function () { d.classList.remove('intro-pending') }, 4000)
     }

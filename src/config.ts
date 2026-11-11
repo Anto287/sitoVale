@@ -35,4 +35,5 @@ export const LEGAL = {
   siret: '',
   vat: '',
   host: '',
+  mediator: '',
 } as const

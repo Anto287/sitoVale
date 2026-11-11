@@ -574,30 +574,22 @@ textarea{resize:vertical;min-height:92px}
 .footer-bottom::before{content:"";position:absolute;top:0;left:var(--gut);right:var(--gut);height:1px;background:color-mix(in srgb, var(--band-fg) 10%, transparent)}
 .footer-bottom a{padding-block:12px}
 .footer-bottom-links{display:flex;gap:24px;align-items:center}
-.footer-legal{background:none;border:0;padding:12px 0;font:inherit;color:inherit;cursor:pointer;transition:color .3s var(--ease)}
-.footer-legal:hover{color:var(--band-fg)}
-
-.legal{
-  width:min(640px,calc(100vw - 32px));max-height:min(86vh,900px);padding:0;border:0;border-radius:4px;
-  background:var(--surface);color:var(--ink);box-shadow:var(--shadow-lift);
-}
-.legal::backdrop{background:rgba(var(--shade),.6);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
-.legal-body{position:relative;padding:clamp(28px,5vw,48px)}
-.legal h2{font-size:clamp(28px,4vw,38px);padding-right:48px}
+.footer-bottom-links{flex-wrap:wrap}
+.legal{max-width:760px;margin-inline:auto;padding-block:clamp(28px,6vw,72px)}
+.legal h1{font-size:clamp(32px,6vw,56px);margin-block:16px 8px}
+.legal > a,.not-found a{color:var(--accent-text);text-decoration:underline;text-underline-offset:3px}
+.legal dd{overflow-wrap:anywhere}
+.not-found{max-width:760px;margin-inline:auto;padding-block:clamp(28px,8vw,100px)}
+.not-found ul{padding-inline-start:1.25em}
 .legal-site{margin:6px 0 24px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
 .legal dl{margin:0 0 8px;display:grid;gap:0;border-top:1px solid var(--line)}
 .legal dl div{display:grid;grid-template-columns:minmax(120px,.8fr) 2fr;gap:4px 18px;padding:12px 0;border-bottom:1px solid var(--line);font-size:15px}
 .legal dt{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);padding-top:3px}
 .legal dd{margin:0}
 .legal dd a{color:var(--accent-text);text-decoration:underline;text-underline-offset:3px}
-.legal h3{font-size:20px;margin:28px 0 8px}
+.legal h2{font-size:20px;margin:28px 0 8px}
 .legal p{font-size:15px;color:var(--ink-soft)}
 .legal-todo{font-style:normal;color:var(--accent-text)}
-.legal-close{
-  position:absolute;top:18px;right:18px;width:44px;height:44px;border-radius:999px;border:1px solid var(--line);
-  background:none;color:var(--ink);font-size:22px;line-height:1;cursor:pointer;
-}
-.legal-close:hover{border-color:var(--ink)}
 @media (max-width:520px){.legal dl div{grid-template-columns:1fr}}
 
 .mobile-cta{display:none}

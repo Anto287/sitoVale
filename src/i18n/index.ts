@@ -6,10 +6,9 @@ import type en from './locales/en.json'
 export const LANGUAGES = ['en', 'it', 'fr'] as const
 export type Language = (typeof LANGUAGES)[number]
 
-export const STORAGE_KEY = 'vb-lang'
-
 export const langSegment = (lng: Language) => (lng === 'en' ? '' : `${lng}/`)
 export const pathFor = (lng: Language) => BASE + langSegment(lng)
+export const legalPath = (lng: Language) => pathFor(lng) + 'legal/'
 export const urlFor = (lng: Language) => `${SITE_URL}/${langSegment(lng)}`
 export const langFromPath = (pathname: string): Language =>
   (pathname.slice(BASE.length - 1).match(/^\/(it|fr)(\/|$)/)?.[1] as Language) ?? 'en'
@@ -60,14 +59,5 @@ function syncDocument() {
   document.querySelector('link[rel="canonical"]')?.setAttribute('href', urlFor(lng))
 }
 if (isBrowser) i18n.on('languageChanged', syncDocument)
-
-export function chooseLanguage(lng: Language) {
-  try {
-    sessionStorage.setItem(STORAGE_KEY, lng)
-  } catch {
-  }
-  history.replaceState(null, '', pathFor(lng) + location.hash)
-  void loadLanguage(lng).then(() => i18n.changeLanguage(lng))
-}
 
 export default i18n

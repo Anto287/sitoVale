@@ -7,6 +7,7 @@ import { suggestEmail } from '../src/lib/email.ts'
 const SITE = 'https://www.vallyski.com'
 const KEY = 're_chiave_di_prova_123'
 
+let idempotencyKeys
 let outbox
 let resendStatus
 let dnsDown
@@ -15,6 +16,7 @@ let clock = Date.now()
 Date.now = () => clock
 beforeEach(() => {
   outbox = []
+  idempotencyKeys = []
   resendStatus = () => 200
   dnsDown = false
   turnstileOk = true
@@ -38,6 +40,7 @@ globalThis.fetch = async (url, init) => {
   assert.equal(init.headers.Authorization, `Bearer ${KEY}`)
   const mail = JSON.parse(init.body)
   outbox.push(mail)
+  idempotencyKeys.push(init.headers['Idempotency-Key'])
   const status = await resendStatus(mail)
   return new Response(status === 200 ? '{"id":"test"}' : '{"error":"test"}', { status })
 }
@@ -119,7 +122,7 @@ describe('funzionamento', () => {
   })
 })
 
-describe('ripiego (il sito apre l’app di posta del visitatore)', () => {
+describe('ripiego (il sito offre email e WhatsApp)', () => {
   test('servizio non configurato (manca RESEND_API_KEY) → errore, nessuna email', async () => {
     const res = await post(valid, { env: {} })
     assert.equal(res.status, 503)
@@ -127,7 +130,7 @@ describe('ripiego (il sito apre l’app di posta del visitatore)', () => {
     assert.equal(outbox.length, 0)
   })
 
-  test('Resend non accetta l’email per Valentina → errore (il visitatore usa la sua posta)', async () => {
+  test('Resend non accetta l’email per Valentina → errore (il visitatore può scegliere un’alternativa)', async () => {
     resendStatus = () => 500
     const res = await post(valid)
     assert.equal(res.status, 502)
@@ -139,6 +142,16 @@ describe('ripiego (il sito apre l’app di posta del visitatore)', () => {
     const res = await post(valid)
     assert.equal(res.status, 200)
     assert.equal(res.body.ok, true)
+  })
+
+  test('un errore temporaneo ritenta solo la conferma con la stessa chiave Resend', async () => {
+    let confirmationAttempts = 0
+    resendStatus = (mail) => mail.to[0] === CONTACT.email || ++confirmationAttempts === 2 ? 200 : 503
+    assert.equal((await post(valid)).status, 200)
+    assert.deepEqual(outbox.map((mail) => mail.to[0]), [CONTACT.email, valid.email, valid.email])
+    assert.ok(idempotencyKeys[1])
+    assert.equal(idempotencyKeys[1], idempotencyKeys[2])
+    assert.deepEqual(outbox[1], outbox[2])
   })
 
   test('errore di rete o timeout del primo invio → errore JSON per il ripiego', async () => {

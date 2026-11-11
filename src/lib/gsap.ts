@@ -121,7 +121,8 @@ export function scrollToHash(hash: string) {
       ease: 'power2.inOut',
       overwrite: true,
     })
-  history.replaceState(null, '', hash === '#top' ? location.pathname + location.search : hash)
+  const url = hash === '#top' ? location.pathname + location.search : hash
+  if (location.hash !== (hash === '#top' ? '' : hash)) history.pushState(null, '', url)
   if (target instanceof HTMLElement) {
     if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1')
     target.focus({ preventScroll: true })
