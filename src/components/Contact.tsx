@@ -48,6 +48,7 @@ export function Contact() {
   const shellHeight = useRef(0)
   const startedAt = useRef(0)
   const requestId = useRef<string | null>(null)
+  const requestContent = useRef('')
   const [emailError, setEmailError] = useState('')
   const [emailHint, setEmailHint] = useState<string | null>(null)
   const captchaRef = useRef<HTMLDivElement>(null)
@@ -174,6 +175,12 @@ export function Contact() {
     const form = e.currentTarget
     const f = new FormData(form)
     const field = (key: keyof typeof CONTACT_LIMITS | 'lesson' | 'level' | 'botcheck') => String(f.get(key) ?? '').trim()
+    // Stesso contenuto → stesso id (un nuovo tentativo non duplica le email); contenuto modificato → nuovo id.
+    const content = JSON.stringify([i18n.resolvedLanguage, ...f.entries()])
+    if (content !== requestContent.current) {
+      requestContent.current = content
+      requestId.current = null
+    }
     const request: ContactRequest = {
       lang: (i18n.resolvedLanguage ?? 'en') as Language,
       name: field('name'),

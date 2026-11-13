@@ -4,6 +4,8 @@ import { EASE_OUT, gsap, SplitText, useGSAP, withMotion, withRichMotion } from '
 import { Photo } from './Photo'
 import { Snow } from './Snow'
 
+let introPending: boolean | null = null
+
 export function Hero() {
   const { t } = useTranslation()
   const ref = useRef<HTMLElement>(null)
@@ -11,6 +13,11 @@ export function Hero() {
   useGSAP(
     () =>
       withMotion(() => {
+        // Se lo script arriva dopo che l'HTML ha già mostrato i testi (rete lenta) o la pagina si apre
+        // su un'ancora, l'intro li farebbe sparire e riapparire: si salta.
+        introPending ??= document.documentElement.classList.contains('intro-pending')
+        if (!introPending) return
+
         const chars = SplitText.create('h1 .ln i', { type: 'chars', charsClass: 'ch' }).chars
 
         const img = ref.current!.querySelector<HTMLImageElement>('.hero-media img')!

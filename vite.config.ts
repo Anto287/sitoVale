@@ -2,13 +2,16 @@ import react from '@vitejs/plugin-react'
 import { defineConfig, type Plugin } from 'vite'
 import { CONTACT, GOATCOUNTER, SITE_URL as FINAL_SITE_URL } from './src/config.ts'
 import images from './src/data/images.json' with { type: 'json' }
+import { capSizes } from './src/lib/sizes.ts'
 
 const SITE_URL = (process.env.VITE_SITE_URL || FINAL_SITE_URL).replace(/\/$/, '')
 const BASE = process.env.BASE_PATH ? `${process.env.BASE_PATH.replace(/\/$/, '')}/` : '/'
 
+const CRITICAL_FONTS = /\/(bodoni-moda-latin-opsz-(normal|italic)|jost-latin-wght-normal)-[^/]+\.woff2$/
+
 function siteHtml(): Plugin {
   const hero = images['lezioni/mare-di-nuvole'].files as [number, string][]
-  const preload = `<link rel="preload" as="image" type="image/webp" fetchpriority="high" imagesizes="100vw" imagesrcset="${hero.map(([w, url]) => `${BASE}${url.slice(1)} ${w}w`).join(', ')}">`
+  const preload = `<link rel="preload" as="image" type="image/webp" fetchpriority="high" imagesizes="${capSizes('100vw')}" imagesrcset="${hero.map(([w, url]) => `${BASE}${url.slice(1)} ${w}w`).join(', ')}">`
   const jsonLd = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -45,11 +48,18 @@ function siteHtml(): Plugin {
       : ''
   return {
     name: 'site-html',
-    transformIndexHtml: (html) =>
-      html
+    transformIndexHtml: (html, ctx) => {
+      // I caratteri della prima schermata partono insieme all'HTML, senza aspettare il CSS (solo in build: in dev non c'è il bundle).
+      const fonts = Object.keys(ctx.bundle ?? {})
+        .filter((file) => CRITICAL_FONTS.test(file))
+        .sort()
+        .map((file) => `<link rel="preload" as="font" type="font/woff2" crossorigin href="${BASE}${file}">`)
+        .join('\n')
+      return html
         .replaceAll('%SITE_URL%', SITE_URL)
-        .replace('<!--hero-preload-->', preload)
-        .replace('<!--json-ld-->', `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>${stats}`),
+        .replace('<!--hero-preload-->', [preload, fonts].filter(Boolean).join('\n'))
+        .replace('<!--json-ld-->', `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>${stats}`)
+    },
   }
 }
 

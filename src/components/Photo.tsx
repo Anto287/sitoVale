@@ -1,5 +1,6 @@
 import type { CSSProperties, ImgHTMLAttributes } from 'react'
 import { images, photoSrcSet, photoUrl, type PhotoKey } from '../lib/photos'
+import { capSizes } from '../lib/sizes'
 
 type Props = Omit<ImgHTMLAttributes<HTMLImageElement>, 'src' | 'srcSet' | 'width' | 'height'> & {
   photo: PhotoKey
@@ -7,16 +8,6 @@ type Props = Omit<ImgHTMLAttributes<HTMLImageElement>, 'src' | 'srcSet' | 'width
   sizes: string
   priority?: boolean
   focus?: string
-}
-
-function capSizes(sizes: string) {
-  const entries = sizes.split(',').map((e) => e.trim())
-  const capped = entries.map((entry) => {
-    const m = entry.match(/^(.*?)(\S+)$/)!
-    const cond = m[1].trim()
-    return `${cond ? `${cond} and ` : ''}(min-resolution: 2.5dppx) calc(${m[2]} * 0.667)`
-  })
-  return [...capped, ...entries].join(', ')
 }
 
 export function Photo({ photo, alt, sizes, priority, focus, style, ...rest }: Props) {

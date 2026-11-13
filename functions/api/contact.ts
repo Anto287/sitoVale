@@ -130,7 +130,8 @@ const rowsText = (rows: [string, string][]) => rows.map(([k, v]) => `${k}: ${v}`
 
 async function send(key: string, mail: Record<string, unknown>, timeout: number, idempotencyKey?: string) {
   const payload = JSON.stringify(mail)
-  const attempts = idempotencyKey?.startsWith('contact-confirmation/') ? 2 : 1
+  const confirmation = idempotencyKey?.startsWith('contact-confirmation/') ?? false
+  const attempts = confirmation ? 2 : 1
   for (let attempt = 0; attempt < attempts; attempt++) {
     try {
       const res = await fetch('https://api.resend.com/emails', {
@@ -144,10 +145,10 @@ async function send(key: string, mail: Record<string, unknown>, timeout: number,
         signal: AbortSignal.timeout(timeout),
       })
       if (res.ok) return true
-      console.error(idempotencyKey ? 'Contact confirmation rejected' : 'Contact notification rejected', res.status)
+      console.error(confirmation ? 'Contact confirmation rejected' : 'Contact notification rejected', res.status)
       if (res.status < 500) return false
     } catch {
-      console.error(idempotencyKey ? 'Contact confirmation unavailable' : 'Contact notification unavailable')
+      console.error(confirmation ? 'Contact confirmation unavailable' : 'Contact notification unavailable')
     }
     if (attempt + 1 < attempts) await new Promise((resolve) => setTimeout(resolve, 300))
   }
