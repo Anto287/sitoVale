@@ -12,7 +12,7 @@ import { TermsLink } from './TermsLink'
 
 type Status = { kind: 'idle' } | { kind: 'sending' } | { kind: 'sent'; name: string } | { kind: 'fallback'; href: string }
 
-const SEND_TIMEOUT = 6000
+const SEND_TIMEOUT = 12000
 
 type Turnstile = {
   render: (el: HTMLElement, options: Record<string, unknown>) => string
