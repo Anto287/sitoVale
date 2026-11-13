@@ -235,7 +235,7 @@ export async function onRequestPost(context: { request: Request; env: Env; waitU
   }
 
   if (body.botcheck) return json(200, { ok: true })
-  if (typeof body.elapsed !== 'number' || body.elapsed < MIN_FILL_TIME) return json(200, { ok: true })
+  if (typeof body.elapsed !== 'number' || body.elapsed < MIN_FILL_TIME) return json(400, { ok: false, error: 'too-fast' })
 
   const now = Date.now()
   prune(now)
@@ -256,7 +256,7 @@ export async function onRequestPost(context: { request: Request; env: Env; waitU
   }
   if (!r.name) return json(400, { ok: false, error: 'invalid' })
   if (!isValidEmail(r.email) || isDisposableEmail(r.email)) return json(400, { ok: false, error: 'invalid-email' })
-  if (looksLikeSpam(r.name, r.dates, r.people, r.message)) return json(200, { ok: true })
+  if (looksLikeSpam(r.name, r.dates, r.people, r.message)) return json(422, { ok: false, error: 'spam-filter' })
   if (!(await canReceiveEmail(emailDomain(r.email)))) return json(400, { ok: false, error: 'invalid-email' })
   if (tooManyRequests(ip, now)) return json(429, { ok: false, error: 'rate-limited' })
 
