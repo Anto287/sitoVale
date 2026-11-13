@@ -58,6 +58,7 @@ const valid = {
   message: 'Prima volta in Francia.',
   botcheck: '',
   elapsed: 12_000,
+  requestId: '11111111-1111-4111-8111-111111111111',
 }
 
 async function post(body, { origin = SITE, url = SITE, contentType = 'application/json', env = { RESEND_API_KEY: KEY }, raw, ip } = {}) {
