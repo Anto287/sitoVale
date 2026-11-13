@@ -298,7 +298,7 @@ describe('sicurezza', () => {
 describe('antispam e controllo dell’email', () => {
   test('modulo inviato troppo in fretta o senza tempo di compilazione → finto successo, nessuna email', async () => {
     for (const elapsed of [800, undefined, '9000'])
-      assert.deepEqual((await post({ ...valid, elapsed })).body, { ok: true }, String(elapsed))
+      assert.deepEqual((await post({ ...valid, elapsed })).body, { ok: false, error: 'too-fast' }, String(elapsed))
     assert.equal(outbox.length, 0)
   })
 
@@ -331,7 +331,7 @@ describe('antispam e controllo dell’email', () => {
 
   test('troppi link nei campi liberi → finto successo, nessuna email', async () => {
     const res = await post({ ...valid, message: 'https://a.example https://b.example www.c.example' })
-    assert.deepEqual(res.body, { ok: true })
+    assert.deepEqual(res.body, { ok: false, error: 'spam-filter' })
     assert.equal(outbox.length, 0)
   })
 
