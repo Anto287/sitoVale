@@ -33,6 +33,7 @@ export type ContactRequest = {
   botcheck: string
   elapsed: number
   turnstile: string
+  requestId: string
 }
 
 export const MIN_FILL_TIME = 2500

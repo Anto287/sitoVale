@@ -130,7 +130,7 @@ const rowsText = (rows: [string, string][]) => rows.map(([k, v]) => `${k}: ${v}`
 
 async function send(key: string, mail: Record<string, unknown>, timeout: number, idempotencyKey?: string) {
   const payload = JSON.stringify(mail)
-  const attempts = idempotencyKey ? 2 : 1
+  const attempts = idempotencyKey?.startsWith('contact-confirmation/') ? 2 : 1
   for (let attempt = 0; attempt < attempts; attempt++) {
     try {
       const res = await fetch('https://api.resend.com/emails', {
@@ -235,7 +235,7 @@ export async function onRequestPost(context: { request: Request; env: Env; waitU
   }
 
   if (body.botcheck) return json(200, { ok: true })
-  if (typeof body.elapsed !== 'number' || body.elapsed < MIN_FILL_TIME) return json(200, { ok: true })
+  if (typeof body.elapsed !== 'number' || body.elapsed < MIN_FILL_TIME) return json(400, { ok: false, error: 'too-fast' })
 
   const now = Date.now()
   prune(now)
@@ -254,9 +254,10 @@ export async function onRequestPost(context: { request: Request; env: Env; waitU
     lesson: FORM_LESSONS.find(([id]) => id === body.lesson) ?? FORM_LESSONS[3],
     level: FORM_LEVELS.find(([id]) => id === body.level) ?? FORM_LEVELS[0],
   }
+  if (typeof body.requestId !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(body.requestId)) return json(400, { ok: false, error: 'invalid-request-id' })
   if (!r.name) return json(400, { ok: false, error: 'invalid' })
   if (!isValidEmail(r.email) || isDisposableEmail(r.email)) return json(400, { ok: false, error: 'invalid-email' })
-  if (looksLikeSpam(r.name, r.dates, r.people, r.message)) return json(200, { ok: true })
+  if (looksLikeSpam(r.name, r.dates, r.people, r.message)) return json(422, { ok: false, error: 'spam-filter' })
   if (!(await canReceiveEmail(emailDomain(r.email)))) return json(400, { ok: false, error: 'invalid-email' })
   if (tooManyRequests(ip, now)) return json(429, { ok: false, error: 'rate-limited' })
 
@@ -299,7 +300,7 @@ export async function onRequestPost(context: { request: Request; env: Env; waitU
       ['Lingua del sito', LANGUAGE_NAMES[lng]],
     ])}${r.message ? `\n\n${r.message}` : ''}\n\nRispondi a questa email per scrivere direttamente a ${r.name}.`,
   }
-  if (!(await send(env.RESEND_API_KEY, toValentina, 3_000))) return json(502, { ok: false })
+  if (!(await send(env.RESEND_API_KEY, toValentina, 3_000, `contact-notification/${body.requestId}`))) return json(502, { ok: false })
 
   const c = CONFIRM[lng]
   const first = r.name.split(' ')[0]
@@ -331,7 +332,7 @@ ${rowsHtml(recap.map(([k, v]) => [k, escape(v)]))}
   }
   if (now - (confirmedAt.get(r.email) ?? 0) < CONFIRM_EVERY) return json(200, { ok: true })
   confirmedAt.set(r.email, now)
-  const confirmationSend = send(env.RESEND_API_KEY, confirmation, 4_000, `contact-confirmation/${crypto.randomUUID()}`).then((accepted) => {
+  const confirmationSend = send(env.RESEND_API_KEY, confirmation, 4_000, `contact-confirmation/${body.requestId}`).then((accepted) => {
     if (!accepted && confirmedAt.get(r.email) === now) confirmedAt.delete(r.email)
   })
   if (context.waitUntil) context.waitUntil(confirmationSend)
