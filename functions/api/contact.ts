@@ -130,7 +130,7 @@ const rowsText = (rows: [string, string][]) => rows.map(([k, v]) => `${k}: ${v}`
 
 async function send(key: string, mail: Record<string, unknown>, timeout: number, idempotencyKey?: string) {
   const payload = JSON.stringify(mail)
-  const attempts = idempotencyKey ? 2 : 1
+  const attempts = idempotencyKey?.startsWith('contact-confirmation/') ? 2 : 1
   for (let attempt = 0; attempt < attempts; attempt++) {
     try {
       const res = await fetch('https://api.resend.com/emails', {
