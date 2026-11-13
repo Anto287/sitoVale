@@ -12,7 +12,7 @@ import { TermsLink } from './TermsLink'
 
 type Status = { kind: 'idle' } | { kind: 'sending' } | { kind: 'sent'; name: string } | { kind: 'fallback'; href: string }
 
-const SEND_TIMEOUT = 12000
+const SEND_TIMEOUT = 30000
 
 type Turnstile = {
   render: (el: HTMLElement, options: Record<string, unknown>) => string
@@ -47,6 +47,7 @@ export function Contact() {
   const [status, setStatus] = useState<Status>({ kind: 'idle' })
   const shellHeight = useRef(0)
   const startedAt = useRef(0)
+  const requestId = useRef<string | null>(null)
   const [emailError, setEmailError] = useState('')
   const [emailHint, setEmailHint] = useState<string | null>(null)
   const captchaRef = useRef<HTMLDivElement>(null)
@@ -186,6 +187,7 @@ export function Contact() {
       botcheck: field('botcheck'),
       elapsed: Date.now() - startedAt.current,
       turnstile: captchaToken.current,
+      requestId: requestId.current ??= crypto.randomUUID(),
     }
 
     if (!isValidEmail(request.email)) return showEmailError(t('form.emailInvalid'))
@@ -225,6 +227,7 @@ export function Contact() {
   }
 
   const reset = () => {
+    requestId.current = null
     shellHeight.current = shellRef.current!.offsetHeight
     setStatus({ kind: 'idle' })
   }
