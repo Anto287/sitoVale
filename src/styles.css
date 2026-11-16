@@ -535,6 +535,18 @@ input:autofill,select:autofill,textarea:autofill{
 }
 @supports not (appearance:base-select){select option{color:var(--ink);background:var(--surface)}}
 textarea{resize:vertical;min-height:92px}
+.contact input[aria-invalid="true"]{border-bottom-color:var(--accent)}
+.contact .field-validation{
+  position:relative;display:block;justify-self:start;max-width:100%;margin:4px 0 0;
+  padding:7px 11px;border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:6px;
+  background:var(--surface);color:var(--ink);box-shadow:var(--shadow);
+  font-family:var(--sans);font-size:14px;font-weight:450;line-height:1.4;
+  letter-spacing:normal;text-transform:none;overflow-wrap:anywhere;
+}
+.contact .field-validation::before{
+  content:"";position:absolute;top:-5px;left:12px;width:8px;height:8px;
+  background:var(--surface);border:solid var(--line);border-width:1px 0 0 1px;transform:rotate(45deg);
+}
 .form-actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px 26px;margin-top:8px}
 .form-alt{
   background:none;border:0;padding:10px 0;cursor:pointer;font:inherit;font-size:14px;color:color-mix(in srgb, var(--band-fg) 80%, transparent);
@@ -637,7 +649,5 @@ form label:has(select:open){color:var(--band-fg)}
 .control:has(select:open)::after{transform:scaleX(1)}
 .select:has(select:open)::before{color:var(--accent);transform:translateY(3px) rotate(225deg)}
 .field-help{display:block;margin-top:2px;font-size:13px;line-height:1.45;letter-spacing:normal;text-transform:none;color:color-mix(in srgb, var(--band-fg) 78%, transparent)}
-.field-help.is-error{color:color-mix(in srgb, var(--accent) 55%, var(--band-fg))}
 .field-help button{padding:0;border:0;background:none;font:inherit;color:var(--band-fg);text-decoration:underline;text-decoration-color:var(--accent);text-underline-offset:3px;cursor:pointer}
-form label:has(.field-help.is-error) input{border-bottom-color:var(--accent)}
 .form-captcha:empty{display:none}

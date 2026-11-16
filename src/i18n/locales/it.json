@@ -131,6 +131,7 @@
     "location": "Savoia, Francia"
   },
   "form": {
+    "nameMissing": "Inserisci il tuo nome.",
     "name": "Nome",
     "email": "Email",
     "dates": "Date",
