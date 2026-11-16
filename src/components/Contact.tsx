@@ -43,6 +43,7 @@ export function Contact() {
   const { t, i18n } = useTranslation()
   const ref = useRef<HTMLElement>(null)
   const formRef = useRef<HTMLFormElement>(null)
+  const [nameMissing, setNameMissing] = useState(false)
   const shellRef = useRef<HTMLDivElement>(null)
   const [status, setStatus] = useState<Status>({ kind: 'idle' })
   const shellHeight = useRef(0)
@@ -169,8 +170,27 @@ export function Contact() {
     })
   }
 
+  const validateForm = (form: HTMLFormElement) => {
+    const name = form.querySelector<HTMLInputElement>('#f-name')!
+    const email = form.querySelector<HTMLInputElement>('#f-mail')!
+
+    if (!name.value.trim()) {
+      setNameMissing(true)
+      name.focus()
+      return false
+    }
+
+    if (!email.validity.valid) {
+      showEmailError(t(email.validity.valueMissing ? 'form.emailMissing' : 'form.emailInvalid'))
+      return false
+    }
+
+    return true
+  }
+
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    if (!validateForm(e.currentTarget)) return
     const form = e.currentTarget
     const f = new FormData(form)
     const field = (key: keyof typeof CONTACT_LIMITS | 'lesson' | 'level' | 'botcheck') => String(f.get(key) ?? '').trim()
@@ -221,7 +241,7 @@ export function Contact() {
 
   const onWhatsapp = () => {
     const form = formRef.current!
-    if (!form.reportValidity()) return
+    if (!validateForm(form)) return
     track('modulo-whatsapp')
     window.open(`https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(compose(form))}`, '_blank', 'noopener')
   }
@@ -310,7 +330,7 @@ export function Contact() {
               </button>
             </div>
           ) : (
-            <form
+            <form noValidate
               ref={formRef}
               onSubmit={onSubmit}
               onChange={(e) => { if (status.kind === 'fallback') setStatus(emailFallback(e.currentTarget)) }}
@@ -322,8 +342,13 @@ export function Contact() {
                 <label htmlFor="f-name">
                   <span>{t('form.name')} <span aria-hidden="true">*</span></span>
                   <span className="control">
-                    <input id="f-name" name="name" type="text" autoComplete="name" maxLength={CONTACT_LIMITS.name} required />
+                    <input id="f-name" name="name" type="text" autoComplete="name" maxLength={CONTACT_LIMITS.name} required
+                      aria-invalid={nameMissing || undefined}
+                      aria-describedby={nameMissing ? 'f-name-help' : undefined}
+                      onInput={(e) => { if (e.currentTarget.value.trim()) setNameMissing(false) }}
+                    />
                   </span>
+                  {nameMissing && <small className="field-validation" id="f-name-help" role="alert">{t('form.nameMissing')}</small>}
                 </label>
                 <label htmlFor="f-mail">
                   <span>{t('form.email')} <span aria-hidden="true">*</span></span>
@@ -345,14 +370,10 @@ export function Contact() {
                         setEmailHint(null)
                       }}
                       onBlur={(e) => setEmailHint(suggestEmail(e.currentTarget.value))}
-                      onInvalid={(e) => {
-                        e.preventDefault()
-                        showEmailError(t(e.currentTarget.validity.valueMissing ? 'form.emailMissing' : 'form.emailInvalid'))
-                      }}
                     />
                   </span>
                   {(emailError || emailHint) && (
-                    <small className={`field-help${emailError ? ' is-error' : ''}`} id="f-mail-help" role={emailError ? 'alert' : undefined}>
+                    <small className={emailError ? 'field-validation' : 'field-help'} id="f-mail-help" role={emailError ? 'alert' : undefined}>
                       {emailError || (
                         <>
                           {t('form.emailSuggest')}{' '}
