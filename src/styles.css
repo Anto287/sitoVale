@@ -422,6 +422,18 @@ input::placeholder,textarea::placeholder{color:color-mix(in srgb, var(--band-fg)
 input:focus,select:focus,textarea:focus{outline:none;border-bottom-color:var(--band-fg)}
 select option{color:#26262A;background:#fff}
 textarea{resize:vertical;min-height:92px}
+.contact input[aria-invalid="true"]{border-bottom-color:var(--accent)}
+.contact .field-validation{
+  position:relative;display:block;justify-self:start;max-width:100%;margin:4px 0 0;
+  padding:7px 11px;border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:6px;
+  background:var(--surface);color:var(--ink);box-shadow:var(--shadow);
+  font-family:var(--sans);font-size:14px;font-weight:450;line-height:1.4;
+  letter-spacing:normal;text-transform:none;overflow-wrap:anywhere;
+}
+.contact .field-validation::before{
+  content:"";position:absolute;top:-5px;left:12px;width:8px;height:8px;
+  background:var(--surface);border:solid var(--line);border-width:1px 0 0 1px;transform:rotate(45deg);
+}
 .form-actions{display:flex;flex-wrap:wrap;align-items:center;gap:14px 26px;margin-top:8px}
 .form-alt{
   background:none;border:0;padding:10px 0;cursor:pointer;font:inherit;font-size:14px;color:color-mix(in srgb, var(--band-fg) 80%, transparent);

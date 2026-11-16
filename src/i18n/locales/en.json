@@ -135,6 +135,9 @@
     "location": "Savoie, France"
   },
   "form": {
+    "nameMissing": "Please enter your name.",
+    "emailMissing": "Please enter your email so I can reply.",
+    "emailInvalid": "This email address doesn't look right.",
     "name": "Name",
     "email": "Email",
     "dates": "Dates",

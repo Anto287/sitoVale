@@ -11,6 +11,8 @@ export function Contact() {
   const { t } = useTranslation()
   const ref = useRef<HTMLElement>(null)
   const formRef = useRef<HTMLFormElement>(null)
+  const [nameMissing, setNameMissing] = useState(false)
+  const [emailError, setEmailError] = useState<'missing' | 'invalid' | null>(null)
   const [sent, setSent] = useState(false)
 
   useGSAP(
@@ -41,16 +43,36 @@ export function Contact() {
   }
 
   // Sito statico: il form apre il programma di posta con il messaggio già compilato.
+  const validateForm = (form: HTMLFormElement) => {
+    const name = form.querySelector<HTMLInputElement>('#f-name')!
+    const email = form.querySelector<HTMLInputElement>('#f-mail')!
+
+    if (!name.value.trim()) {
+      setNameMissing(true)
+      name.focus()
+      return false
+    }
+
+    if (!email.validity.valid) {
+      setEmailError(email.validity.valueMissing ? 'missing' : 'invalid')
+      email.focus()
+      return false
+    }
+
+    return true
+  }
+
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    if (!validateForm(e.currentTarget)) return
     window.location.href = `mailto:${CONTACT.email}?subject=${encodeURIComponent(t('form.mailSubject'))}&body=${encodeURIComponent(compose(e.currentTarget))}`
     setSent(true)
   }
 
-  // Stessa richiesta su WhatsApp. Il browser controlla prima i campi obbligatori.
+  // Stessa richiesta su WhatsApp.
   const onWhatsapp = () => {
     const form = formRef.current!
-    if (!form.reportValidity()) return
+    if (!validateForm(form)) return
     window.open(`https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(compose(form))}`, '_blank', 'noopener')
   }
 
@@ -104,15 +126,29 @@ export function Contact() {
             </li>
           </ul>
         </div>
-        <form ref={formRef} onSubmit={onSubmit}>
+        <form noValidate ref={formRef} onSubmit={onSubmit}>
           <div className="row">
             <label htmlFor="f-name">
               <span>{t('form.name')}</span>
-              <input id="f-name" name="name" type="text" autoComplete="name" required />
+              <input id="f-name" name="name" type="text" autoComplete="name" required
+                aria-invalid={nameMissing || undefined}
+                aria-describedby={nameMissing ? 'f-name-help' : undefined}
+                onInput={(e) => { if (e.currentTarget.value.trim()) setNameMissing(false) }}
+              />
+              {nameMissing && <small className="field-validation" id="f-name-help" role="alert">{t('form.nameMissing')}</small>}
             </label>
             <label htmlFor="f-mail">
               <span>{t('form.email')}</span>
-              <input id="f-mail" name="email" type="email" autoComplete="email" inputMode="email" required />
+              <input id="f-mail" name="email" type="email" autoComplete="email" inputMode="email" required
+                aria-invalid={emailError !== null || undefined}
+                aria-describedby={emailError ? 'f-mail-help' : undefined}
+                onInput={() => setEmailError(null)}
+              />
+              {emailError && (
+                <small className="field-validation" id="f-mail-help" role="alert">
+                  {t(emailError === 'missing' ? 'form.emailMissing' : 'form.emailInvalid')}
+                </small>
+              )}
             </label>
           </div>
           <div className="row">
